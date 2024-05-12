@@ -13,7 +13,7 @@ import (
 	"github.com/stainless-sdks/terminal-go/option"
 )
 
-func TestProductList(t *testing.T) {
+func TestProductGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -23,8 +23,9 @@ func TestProductList(t *testing.T) {
 	}
 	client := terminal.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Product.List(context.TODO())
+	_, err := client.Product.Get(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

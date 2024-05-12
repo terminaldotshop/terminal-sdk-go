@@ -23,6 +23,7 @@ func TestUserGet(t *testing.T) {
 	}
 	client := terminal.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.User.Get(context.TODO(), "string")
 	if err != nil {

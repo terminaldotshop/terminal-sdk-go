@@ -22,10 +22,11 @@ func TestUsage(t *testing.T) {
 	}
 	client := terminal.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
 	)
-	userGetResponse, err := client.User.Get(context.TODO(), "REPLACE_ME")
+	productGetResponse, err := client.Product.Get(context.TODO())
 	if err != nil {
 		t.Error(err)
 	}
-	t.Logf("%+v\n", userGetResponse.Result)
+	t.Logf("%+v\n", productGetResponse.Result)
 }
