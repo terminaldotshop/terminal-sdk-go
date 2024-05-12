@@ -37,15 +37,18 @@ import (
 	"fmt"
 
 	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func main() {
-	client := terminal.NewClient()
-	userGetResponse, err := client.User.Get(context.TODO(), "REPLACE_ME")
+	client := terminal.NewClient(
+		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
+	)
+	productGetResponse, err := client.Product.Get(context.TODO())
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", userGetResponse.Result)
+	fmt.Printf("%+v\n", productGetResponse.Result)
 }
 
 ```
@@ -134,7 +137,7 @@ client := terminal.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.User.Get(context.TODO(), ...,
+client.Product.Get(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -163,14 +166,14 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.User.Get(context.TODO(), "REPLACE_ME")
+_, err := client.Product.Get(context.TODO())
 if err != nil {
 	var apierr *terminal.Error
 	if errors.As(err, &apierr) {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/user/{id}": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/product": 400 Bad Request { ... }
 }
 ```
 
@@ -188,9 +191,8 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.User.Get(
+client.Product.Get(
 	ctx,
-	"REPLACE_ME",
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
 )
@@ -224,11 +226,7 @@ client := terminal.NewClient(
 )
 
 // Override per-request:
-client.User.Get(
-	context.TODO(),
-	"REPLACE_ME",
-	option.WithMaxRetries(5),
-)
+client.Product.Get(context.TODO(), option.WithMaxRetries(5))
 ```
 
 ### Making custom/undocumented requests
