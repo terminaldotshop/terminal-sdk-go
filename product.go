@@ -86,11 +86,10 @@ func (r productGetResponseResultJSON) RawJSON() string {
 }
 
 type ProductGetResponseResultVariant struct {
-	ID        string                              `json:"id,required"`
-	Name      string                              `json:"name,required"`
-	Price     int64                               `json:"price,required"`
-	ProductID string                              `json:"productID,required"`
-	JSON      productGetResponseResultVariantJSON `json:"-"`
+	ID    string                              `json:"id,required"`
+	Name  string                              `json:"name,required"`
+	Price string                              `json:"price,required"`
+	JSON  productGetResponseResultVariantJSON `json:"-"`
 }
 
 // productGetResponseResultVariantJSON contains the JSON metadata for the struct
@@ -99,7 +98,6 @@ type productGetResponseResultVariantJSON struct {
 	ID          apijson.Field
 	Name        apijson.Field
 	Price       apijson.Field
-	ProductID   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
