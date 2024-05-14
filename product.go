@@ -30,45 +30,45 @@ func NewProductService(opts ...option.RequestOption) (r *ProductService) {
 	return
 }
 
-func (r *ProductService) Get(ctx context.Context, opts ...option.RequestOption) (res *ProductGetResponse, err error) {
+func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption) (res *ProductListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "product"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
-type ProductGetResponse struct {
-	Result []ProductGetResponseResult `json:"result,required"`
-	JSON   productGetResponseJSON     `json:"-"`
+type ProductListResponse struct {
+	Result []ProductListResponseResult `json:"result,required"`
+	JSON   productListResponseJSON     `json:"-"`
 }
 
-// productGetResponseJSON contains the JSON metadata for the struct
-// [ProductGetResponse]
-type productGetResponseJSON struct {
+// productListResponseJSON contains the JSON metadata for the struct
+// [ProductListResponse]
+type productListResponseJSON struct {
 	Result      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ProductGetResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ProductListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r productGetResponseJSON) RawJSON() string {
+func (r productListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type ProductGetResponseResult struct {
-	ID          string                            `json:"id,required"`
-	Description string                            `json:"description,required"`
-	Name        string                            `json:"name,required"`
-	Variants    []ProductGetResponseResultVariant `json:"variants,required"`
-	JSON        productGetResponseResultJSON      `json:"-"`
+type ProductListResponseResult struct {
+	ID          string                             `json:"id,required"`
+	Description string                             `json:"description,required"`
+	Name        string                             `json:"name,required"`
+	Variants    []ProductListResponseResultVariant `json:"variants,required"`
+	JSON        productListResponseResultJSON      `json:"-"`
 }
 
-// productGetResponseResultJSON contains the JSON metadata for the struct
-// [ProductGetResponseResult]
-type productGetResponseResultJSON struct {
+// productListResponseResultJSON contains the JSON metadata for the struct
+// [ProductListResponseResult]
+type productListResponseResultJSON struct {
 	ID          apijson.Field
 	Description apijson.Field
 	Name        apijson.Field
@@ -77,24 +77,24 @@ type productGetResponseResultJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ProductGetResponseResult) UnmarshalJSON(data []byte) (err error) {
+func (r *ProductListResponseResult) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r productGetResponseResultJSON) RawJSON() string {
+func (r productListResponseResultJSON) RawJSON() string {
 	return r.raw
 }
 
-type ProductGetResponseResultVariant struct {
-	ID    string                              `json:"id,required"`
-	Name  string                              `json:"name,required"`
-	Price string                              `json:"price,required"`
-	JSON  productGetResponseResultVariantJSON `json:"-"`
+type ProductListResponseResultVariant struct {
+	ID    string                               `json:"id,required"`
+	Name  string                               `json:"name,required"`
+	Price string                               `json:"price,required"`
+	JSON  productListResponseResultVariantJSON `json:"-"`
 }
 
-// productGetResponseResultVariantJSON contains the JSON metadata for the struct
-// [ProductGetResponseResultVariant]
-type productGetResponseResultVariantJSON struct {
+// productListResponseResultVariantJSON contains the JSON metadata for the struct
+// [ProductListResponseResultVariant]
+type productListResponseResultVariantJSON struct {
 	ID          apijson.Field
 	Name        apijson.Field
 	Price       apijson.Field
@@ -102,10 +102,10 @@ type productGetResponseResultVariantJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ProductGetResponseResultVariant) UnmarshalJSON(data []byte) (err error) {
+func (r *ProductListResponseResultVariant) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r productGetResponseResultVariantJSON) RawJSON() string {
+func (r productListResponseResultVariantJSON) RawJSON() string {
 	return r.raw
 }
