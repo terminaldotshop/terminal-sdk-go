@@ -6,9 +6,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/stainless-sdks/terminal-go/internal/apijson"
-	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
-	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
+	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
 // ProductService contains methods and other services that help with interacting

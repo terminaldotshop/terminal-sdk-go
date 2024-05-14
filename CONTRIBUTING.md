@@ -34,7 +34,7 @@ To use a local version of this library from source in another project, edit the 
 directive. This can be done through the CLI with the following:
 
 ```bash
-go mod edit -replace github.com/stainless-sdks/terminal-go=/path/to/terminal-go
+go mod edit -replace github.com/terminaldotshop/terminal-sdk-go=/path/to/terminal-sdk-go
 ```
 
 ## Running tests
