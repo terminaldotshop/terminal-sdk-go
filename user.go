@@ -3,6 +3,11 @@
 package terminal
 
 import (
+	"context"
+	"net/http"
+
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
@@ -23,4 +28,55 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	r = &UserService{}
 	r.Options = opts
 	return
+}
+
+func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "user/me"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+type User struct {
+	ID          string   `json:"id,required"`
+	Email       string   `json:"email,required,nullable"`
+	Fingerprint string   `json:"fingerprint,required,nullable"`
+	JSON        userJSON `json:"-"`
+}
+
+// userJSON contains the JSON metadata for the struct [User]
+type userJSON struct {
+	ID          apijson.Field
+	Email       apijson.Field
+	Fingerprint apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *User) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userJSON) RawJSON() string {
+	return r.raw
+}
+
+type UserMeResponse struct {
+	Result User               `json:"result,required"`
+	JSON   userMeResponseJSON `json:"-"`
+}
+
+// userMeResponseJSON contains the JSON metadata for the struct [UserMeResponse]
+type userMeResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *UserMeResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userMeResponseJSON) RawJSON() string {
+	return r.raw
 }
