@@ -43,6 +43,7 @@ import (
 func main() {
 	client := terminal.NewClient(
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
+		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
 	productGetResponse, err := client.Product.Get(context.TODO())
 	if err != nil {
