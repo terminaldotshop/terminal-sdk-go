@@ -53,11 +53,11 @@ func main() {
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
 		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
-	productGetResponse, err := client.Product.Get(context.TODO())
+	productListResponse, err := client.Product.List(context.TODO())
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", productGetResponse.Result)
+	fmt.Printf("%+v\n", productListResponse.Result)
 }
 
 ```
@@ -146,7 +146,7 @@ client := terminal.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.Product.Get(context.TODO(), ...,
+client.Product.List(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -175,7 +175,7 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Product.Get(context.TODO())
+_, err := client.Product.List(context.TODO())
 if err != nil {
 	var apierr *terminal.Error
 	if errors.As(err, &apierr) {
@@ -200,7 +200,7 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.Product.Get(
+client.Product.List(
 	ctx,
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -235,7 +235,7 @@ client := terminal.NewClient(
 )
 
 // Override per-request:
-client.Product.Get(context.TODO(), option.WithMaxRetries(5))
+client.Product.List(context.TODO(), option.WithMaxRetries(5))
 ```
 
 ### Making custom/undocumented requests

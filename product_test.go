@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestProductGet(t *testing.T) {
+func TestProductList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +25,7 @@ func TestProductGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Product.Get(context.TODO())
+	_, err := client.Product.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
