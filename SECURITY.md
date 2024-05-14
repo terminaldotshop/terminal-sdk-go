@@ -20,7 +20,7 @@ or products provided by Terminal please follow the respective company's security
 
 ### Terminal Terms and Policies
 
-Please contact dev-feedback@terminal.com for any questions or concerns regarding security of our services.
+Please contact dev@terminal.com for any questions or concerns regarding security of our services.
 
 ---
 

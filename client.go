@@ -18,6 +18,7 @@ type Client struct {
 	Options []option.RequestOption
 	Product *ProductService
 	User    *UserService
+	Cart    *CartService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -35,6 +36,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r.Product = NewProductService(opts...)
 	r.User = NewUserService(opts...)
+	r.Cart = NewCartService(opts...)
 
 	return
 }
