@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/terminal-go"
-	"github.com/stainless-sdks/terminal-go/internal"
-	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go"
+	"github.com/terminaldotshop/terminal-sdk-go/internal"
+	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
 type closureTransport struct {

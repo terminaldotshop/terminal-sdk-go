@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
 type Struct struct {
