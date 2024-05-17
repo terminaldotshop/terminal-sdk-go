@@ -88,7 +88,7 @@ func (r productListResponseResultJSON) RawJSON() string {
 type ProductListResponseResultVariant struct {
 	ID    string                               `json:"id,required"`
 	Name  string                               `json:"name,required"`
-	Price string                               `json:"price,required"`
+	Price int64                                `json:"price,required"`
 	JSON  productListResponseResultVariantJSON `json:"-"`
 }
 
