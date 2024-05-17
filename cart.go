@@ -46,8 +46,8 @@ func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts 
 }
 
 type CartListResponse struct {
-	Result []CartListResponseResult `json:"result,required"`
-	JSON   cartListResponseJSON     `json:"-"`
+	Result CartListResponseResult `json:"result,required"`
+	JSON   cartListResponseJSON   `json:"-"`
 }
 
 // cartListResponseJSON contains the JSON metadata for the struct
@@ -67,16 +67,41 @@ func (r cartListResponseJSON) RawJSON() string {
 }
 
 type CartListResponseResult struct {
-	ID               string                     `json:"id,required"`
-	ProductVariantID string                     `json:"productVariantID,required"`
-	Quantity         int64                      `json:"quantity,required"`
-	Subtotal         float64                    `json:"subtotal,required"`
-	JSON             cartListResponseResultJSON `json:"-"`
+	Items      []CartListResponseResultItem `json:"items,required"`
+	Subtotal   int64                        `json:"subtotal,required"`
+	ShippingID string                       `json:"shippingID"`
+	JSON       cartListResponseResultJSON   `json:"-"`
 }
 
 // cartListResponseResultJSON contains the JSON metadata for the struct
 // [CartListResponseResult]
 type cartListResponseResultJSON struct {
+	Items       apijson.Field
+	Subtotal    apijson.Field
+	ShippingID  apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartListResponseResult) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartListResponseResultJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartListResponseResultItem struct {
+	ID               string                         `json:"id,required"`
+	ProductVariantID string                         `json:"productVariantID,required"`
+	Quantity         int64                          `json:"quantity,required"`
+	Subtotal         float64                        `json:"subtotal,required"`
+	JSON             cartListResponseResultItemJSON `json:"-"`
+}
+
+// cartListResponseResultItemJSON contains the JSON metadata for the struct
+// [CartListResponseResultItem]
+type cartListResponseResultItemJSON struct {
 	ID               apijson.Field
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
@@ -85,11 +110,11 @@ type cartListResponseResultJSON struct {
 	ExtraFields      map[string]apijson.Field
 }
 
-func (r *CartListResponseResult) UnmarshalJSON(data []byte) (err error) {
+func (r *CartListResponseResultItem) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r cartListResponseResultJSON) RawJSON() string {
+func (r cartListResponseResultItemJSON) RawJSON() string {
 	return r.raw
 }
 
