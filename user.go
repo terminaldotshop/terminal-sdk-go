@@ -18,7 +18,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewUserService] method instead.
 type UserService struct {
-	Options []option.RequestOption
+	Options  []option.RequestOption
+	Shipping *UserShippingService
 }
 
 // NewUserService generates a new service that applies the given options to each
@@ -27,6 +28,7 @@ type UserService struct {
 func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	r = &UserService{}
 	r.Options = opts
+	r.Shipping = NewUserShippingService(opts...)
 	return
 }
 
