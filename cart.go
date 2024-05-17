@@ -70,7 +70,7 @@ type CartListResponseResult struct {
 	ID               string                     `json:"id,required"`
 	ProductVariantID string                     `json:"productVariantID,required"`
 	Quantity         int64                      `json:"quantity,required"`
-	Subtotal         string                     `json:"subtotal,required"`
+	Subtotal         float64                    `json:"subtotal,required"`
 	JSON             cartListResponseResultJSON `json:"-"`
 }
 
@@ -118,7 +118,7 @@ type CartSetItemResponseResult struct {
 	ID               string                        `json:"id,required"`
 	ProductVariantID string                        `json:"productVariantID,required"`
 	Quantity         int64                         `json:"quantity,required"`
-	Subtotal         string                        `json:"subtotal,required"`
+	Subtotal         float64                       `json:"subtotal,required"`
 	JSON             cartSetItemResponseResultJSON `json:"-"`
 }
 
