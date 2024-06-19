@@ -4,6 +4,7 @@ package terminal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -48,6 +49,10 @@ func (r *UserShippingService) List(ctx context.Context, opts ...option.RequestOp
 
 func (r *UserShippingService) Delete(ctx context.Context, id string, body UserShippingDeleteParams, opts ...option.RequestOption) (res *UserShippingDeleteResponse, err error) {
 	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
 	path := fmt.Sprintf("user/shipping/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
