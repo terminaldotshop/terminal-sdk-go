@@ -69,6 +69,7 @@ func (r cartListResponseJSON) RawJSON() string {
 type CartListResponseResult struct {
 	Items      []CartListResponseResultItem `json:"items,required"`
 	Subtotal   int64                        `json:"subtotal,required"`
+	CardID     string                       `json:"cardID"`
 	ShippingID string                       `json:"shippingID"`
 	JSON       cartListResponseResultJSON   `json:"-"`
 }
@@ -78,6 +79,7 @@ type CartListResponseResult struct {
 type cartListResponseResultJSON struct {
 	Items       apijson.Field
 	Subtotal    apijson.Field
+	CardID      apijson.Field
 	ShippingID  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
