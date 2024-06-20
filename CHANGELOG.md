@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2024-06-20)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#35](https://github.com/terminaldotshop/terminal-sdk-go/issues/35)) ([b0df3b7](https://github.com/terminaldotshop/terminal-sdk-go/commit/b0df3b7afaa9cd58274c4a0d64fbdf9d91b6349d))
+* **api:** OpenAPI spec update via Stainless API ([#37](https://github.com/terminaldotshop/terminal-sdk-go/issues/37)) ([027c7be](https://github.com/terminaldotshop/terminal-sdk-go/commit/027c7be77b5140d660f09e14c29e5c0f251ad5f3))
+
 ## 0.1.0-alpha.9 (2024-06-19)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
