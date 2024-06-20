@@ -9,9 +9,9 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // UserShippingService contains methods and other services that help with
@@ -80,9 +80,9 @@ func (r userShippingNewResponseJSON) RawJSON() string {
 }
 
 type UserShippingNewResponseResult struct {
-	ID      string                               `json:"id,required"`
-	Address UserShippingNewResponseResultAddress `json:"address,required"`
-	JSON    userShippingNewResponseResultJSON    `json:"-"`
+	ID      string                            `json:"id,required"`
+	Address shared.Address                    `json:"address,required"`
+	JSON    userShippingNewResponseResultJSON `json:"-"`
 }
 
 // userShippingNewResponseResultJSON contains the JSON metadata for the struct
@@ -99,39 +99,6 @@ func (r *UserShippingNewResponseResult) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userShippingNewResponseResultJSON) RawJSON() string {
-	return r.raw
-}
-
-type UserShippingNewResponseResultAddress struct {
-	City     string                                   `json:"city,required"`
-	Country  string                                   `json:"country,required"`
-	Name     string                                   `json:"name,required"`
-	Province string                                   `json:"province,required"`
-	Street1  string                                   `json:"street1,required"`
-	Zip      string                                   `json:"zip,required"`
-	Street2  string                                   `json:"street2"`
-	JSON     userShippingNewResponseResultAddressJSON `json:"-"`
-}
-
-// userShippingNewResponseResultAddressJSON contains the JSON metadata for the
-// struct [UserShippingNewResponseResultAddress]
-type userShippingNewResponseResultAddressJSON struct {
-	City        apijson.Field
-	Country     apijson.Field
-	Name        apijson.Field
-	Province    apijson.Field
-	Street1     apijson.Field
-	Zip         apijson.Field
-	Street2     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingNewResponseResultAddress) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingNewResponseResultAddressJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -157,9 +124,9 @@ func (r userShippingListResponseJSON) RawJSON() string {
 }
 
 type UserShippingListResponseResult struct {
-	ID      string                                `json:"id,required"`
-	Address UserShippingListResponseResultAddress `json:"address,required"`
-	JSON    userShippingListResponseResultJSON    `json:"-"`
+	ID      string                             `json:"id,required"`
+	Address shared.Address                     `json:"address,required"`
+	JSON    userShippingListResponseResultJSON `json:"-"`
 }
 
 // userShippingListResponseResultJSON contains the JSON metadata for the struct
@@ -176,39 +143,6 @@ func (r *UserShippingListResponseResult) UnmarshalJSON(data []byte) (err error) 
 }
 
 func (r userShippingListResponseResultJSON) RawJSON() string {
-	return r.raw
-}
-
-type UserShippingListResponseResultAddress struct {
-	City     string                                    `json:"city,required"`
-	Country  string                                    `json:"country,required"`
-	Name     string                                    `json:"name,required"`
-	Province string                                    `json:"province,required"`
-	Street1  string                                    `json:"street1,required"`
-	Zip      string                                    `json:"zip,required"`
-	Street2  string                                    `json:"street2"`
-	JSON     userShippingListResponseResultAddressJSON `json:"-"`
-}
-
-// userShippingListResponseResultAddressJSON contains the JSON metadata for the
-// struct [UserShippingListResponseResultAddress]
-type userShippingListResponseResultAddressJSON struct {
-	City        apijson.Field
-	Country     apijson.Field
-	Name        apijson.Field
-	Province    apijson.Field
-	Street1     apijson.Field
-	Zip         apijson.Field
-	Street2     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingListResponseResultAddress) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingListResponseResultAddressJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -234,9 +168,9 @@ func (r userShippingDeleteResponseJSON) RawJSON() string {
 }
 
 type UserShippingDeleteResponseResult struct {
-	ID      string                                  `json:"id,required"`
-	Address UserShippingDeleteResponseResultAddress `json:"address,required"`
-	JSON    userShippingDeleteResponseResultJSON    `json:"-"`
+	ID      string                               `json:"id,required"`
+	Address shared.Address                       `json:"address,required"`
+	JSON    userShippingDeleteResponseResultJSON `json:"-"`
 }
 
 // userShippingDeleteResponseResultJSON contains the JSON metadata for the struct
@@ -256,49 +190,10 @@ func (r userShippingDeleteResponseResultJSON) RawJSON() string {
 	return r.raw
 }
 
-type UserShippingDeleteResponseResultAddress struct {
-	City     string                                      `json:"city,required"`
-	Country  string                                      `json:"country,required"`
-	Name     string                                      `json:"name,required"`
-	Province string                                      `json:"province,required"`
-	Street1  string                                      `json:"street1,required"`
-	Zip      string                                      `json:"zip,required"`
-	Street2  string                                      `json:"street2"`
-	JSON     userShippingDeleteResponseResultAddressJSON `json:"-"`
-}
-
-// userShippingDeleteResponseResultAddressJSON contains the JSON metadata for the
-// struct [UserShippingDeleteResponseResultAddress]
-type userShippingDeleteResponseResultAddressJSON struct {
-	City        apijson.Field
-	Country     apijson.Field
-	Name        apijson.Field
-	Province    apijson.Field
-	Street1     apijson.Field
-	Zip         apijson.Field
-	Street2     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingDeleteResponseResultAddress) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingDeleteResponseResultAddressJSON) RawJSON() string {
-	return r.raw
-}
-
 type UserShippingNewParams struct {
-	City     param.Field[string] `json:"city,required"`
-	Country  param.Field[string] `json:"country,required"`
-	Name     param.Field[string] `json:"name,required"`
-	Province param.Field[string] `json:"province,required"`
-	Street1  param.Field[string] `json:"street1,required"`
-	Zip      param.Field[string] `json:"zip,required"`
-	Street2  param.Field[string] `json:"street2"`
+	Address shared.AddressParam `json:"address,required"`
 }
 
 func (r UserShippingNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	return apijson.MarshalRoot(r.Address)
 }
