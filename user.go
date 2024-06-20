@@ -39,9 +39,35 @@ func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res
 	return
 }
 
+type User struct {
+	ID               string   `json:"id,required"`
+	Email            string   `json:"email,required,nullable"`
+	Fingerprint      string   `json:"fingerprint,required,nullable"`
+	StripeCustomerID string   `json:"stripeCustomerID,required"`
+	JSON             userJSON `json:"-"`
+}
+
+// userJSON contains the JSON metadata for the struct [User]
+type userJSON struct {
+	ID               apijson.Field
+	Email            apijson.Field
+	Fingerprint      apijson.Field
+	StripeCustomerID apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *User) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userJSON) RawJSON() string {
+	return r.raw
+}
+
 type UserMeResponse struct {
-	Result UserMeResponseResult `json:"result,required"`
-	JSON   userMeResponseJSON   `json:"-"`
+	Result User               `json:"result,required"`
+	JSON   userMeResponseJSON `json:"-"`
 }
 
 // userMeResponseJSON contains the JSON metadata for the struct [UserMeResponse]
@@ -56,32 +82,5 @@ func (r *UserMeResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userMeResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type UserMeResponseResult struct {
-	ID               string                   `json:"id,required"`
-	Email            string                   `json:"email,required,nullable"`
-	Fingerprint      string                   `json:"fingerprint,required,nullable"`
-	StripeCustomerID string                   `json:"stripeCustomerID,required"`
-	JSON             userMeResponseResultJSON `json:"-"`
-}
-
-// userMeResponseResultJSON contains the JSON metadata for the struct
-// [UserMeResponseResult]
-type userMeResponseResultJSON struct {
-	ID               apijson.Field
-	Email            apijson.Field
-	Fingerprint      apijson.Field
-	StripeCustomerID apijson.Field
-	raw              string
-	ExtraFields      map[string]apijson.Field
-}
-
-func (r *UserMeResponseResult) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userMeResponseResultJSON) RawJSON() string {
 	return r.raw
 }
