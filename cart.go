@@ -38,16 +38,82 @@ func (r *CartService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
-func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts ...option.RequestOption) (res *CartSetItemResponse, err error) {
+func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts ...option.RequestOption) (res *CartSetCardResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "cart"
+	path := "cart/card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
 
+func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts ...option.RequestOption) (res *CartSetItemResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/item"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
+func (r *CartService) SetShipping(ctx context.Context, body CartSetShippingParams, opts ...option.RequestOption) (res *CartSetShippingResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/shipping"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
+type Cart struct {
+	Items      []CartItem `json:"items,required"`
+	Subtotal   int64      `json:"subtotal,required"`
+	CardID     string     `json:"cardID"`
+	ShippingID string     `json:"shippingID"`
+	JSON       cartJSON   `json:"-"`
+}
+
+// cartJSON contains the JSON metadata for the struct [Cart]
+type cartJSON struct {
+	Items       apijson.Field
+	Subtotal    apijson.Field
+	CardID      apijson.Field
+	ShippingID  apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Cart) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartItem struct {
+	ID               string       `json:"id,required"`
+	ProductVariantID string       `json:"productVariantID,required"`
+	Quantity         int64        `json:"quantity,required"`
+	Subtotal         float64      `json:"subtotal,required"`
+	JSON             cartItemJSON `json:"-"`
+}
+
+// cartItemJSON contains the JSON metadata for the struct [CartItem]
+type cartItemJSON struct {
+	ID               apijson.Field
+	ProductVariantID apijson.Field
+	Quantity         apijson.Field
+	Subtotal         apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *CartItem) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartItemJSON) RawJSON() string {
+	return r.raw
+}
+
 type CartListResponse struct {
-	Result CartListResponseResult `json:"result,required"`
-	JSON   cartListResponseJSON   `json:"-"`
+	Result Cart                 `json:"result,required"`
+	JSON   cartListResponseJSON `json:"-"`
 }
 
 // cartListResponseJSON contains the JSON metadata for the struct
@@ -66,58 +132,39 @@ func (r cartListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartListResponseResult struct {
-	Items      []CartListResponseResultItem `json:"items,required"`
-	Subtotal   int64                        `json:"subtotal,required"`
-	CardID     string                       `json:"cardID"`
-	ShippingID string                       `json:"shippingID"`
-	JSON       cartListResponseResultJSON   `json:"-"`
+type CartSetCardResponse struct {
+	Result CartSetCardResponseResult `json:"result,required"`
+	JSON   cartSetCardResponseJSON   `json:"-"`
 }
 
-// cartListResponseResultJSON contains the JSON metadata for the struct
-// [CartListResponseResult]
-type cartListResponseResultJSON struct {
-	Items       apijson.Field
-	Subtotal    apijson.Field
-	CardID      apijson.Field
-	ShippingID  apijson.Field
+// cartSetCardResponseJSON contains the JSON metadata for the struct
+// [CartSetCardResponse]
+type cartSetCardResponseJSON struct {
+	Result      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *CartListResponseResult) UnmarshalJSON(data []byte) (err error) {
+func (r *CartSetCardResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r cartListResponseResultJSON) RawJSON() string {
+func (r cartSetCardResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartListResponseResultItem struct {
-	ID               string                         `json:"id,required"`
-	ProductVariantID string                         `json:"productVariantID,required"`
-	Quantity         int64                          `json:"quantity,required"`
-	Subtotal         float64                        `json:"subtotal,required"`
-	JSON             cartListResponseResultItemJSON `json:"-"`
-}
+type CartSetCardResponseResult string
 
-// cartListResponseResultItemJSON contains the JSON metadata for the struct
-// [CartListResponseResultItem]
-type cartListResponseResultItemJSON struct {
-	ID               apijson.Field
-	ProductVariantID apijson.Field
-	Quantity         apijson.Field
-	Subtotal         apijson.Field
-	raw              string
-	ExtraFields      map[string]apijson.Field
-}
+const (
+	CartSetCardResponseResultOk CartSetCardResponseResult = "ok"
+)
 
-func (r *CartListResponseResultItem) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cartListResponseResultItemJSON) RawJSON() string {
-	return r.raw
+func (r CartSetCardResponseResult) IsKnown() bool {
+	switch r {
+	case CartSetCardResponseResultOk:
+		return true
+	}
+	return false
 }
 
 type CartSetItemResponse struct {
@@ -168,11 +215,62 @@ func (r cartSetItemResponseResultJSON) RawJSON() string {
 	return r.raw
 }
 
+type CartSetShippingResponse struct {
+	Result CartSetShippingResponseResult `json:"result,required"`
+	JSON   cartSetShippingResponseJSON   `json:"-"`
+}
+
+// cartSetShippingResponseJSON contains the JSON metadata for the struct
+// [CartSetShippingResponse]
+type cartSetShippingResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartSetShippingResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartSetShippingResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartSetShippingResponseResult string
+
+const (
+	CartSetShippingResponseResultOk CartSetShippingResponseResult = "ok"
+)
+
+func (r CartSetShippingResponseResult) IsKnown() bool {
+	switch r {
+	case CartSetShippingResponseResultOk:
+		return true
+	}
+	return false
+}
+
+type CartSetCardParams struct {
+	CardID param.Field[string] `json:"cardID,required"`
+}
+
+func (r CartSetCardParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
 type CartSetItemParams struct {
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	Quantity         param.Field[int64]  `json:"quantity,required"`
 }
 
 func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type CartSetShippingParams struct {
+	ShippingID param.Field[string] `json:"shippingID,required"`
+}
+
+func (r CartSetShippingParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
