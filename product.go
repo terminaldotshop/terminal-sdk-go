@@ -9,6 +9,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // ProductService contains methods and other services that help with interacting
@@ -38,8 +39,8 @@ func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption)
 }
 
 type ProductListResponse struct {
-	Result []ProductListResponseResult `json:"result,required"`
-	JSON   productListResponseJSON     `json:"-"`
+	Result []shared.Product        `json:"result,required"`
+	JSON   productListResponseJSON `json:"-"`
 }
 
 // productListResponseJSON contains the JSON metadata for the struct
@@ -55,57 +56,5 @@ func (r *ProductListResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r productListResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type ProductListResponseResult struct {
-	ID          string                             `json:"id,required"`
-	Description string                             `json:"description,required"`
-	Name        string                             `json:"name,required"`
-	Variants    []ProductListResponseResultVariant `json:"variants,required"`
-	JSON        productListResponseResultJSON      `json:"-"`
-}
-
-// productListResponseResultJSON contains the JSON metadata for the struct
-// [ProductListResponseResult]
-type productListResponseResultJSON struct {
-	ID          apijson.Field
-	Description apijson.Field
-	Name        apijson.Field
-	Variants    apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ProductListResponseResult) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r productListResponseResultJSON) RawJSON() string {
-	return r.raw
-}
-
-type ProductListResponseResultVariant struct {
-	ID    string                               `json:"id,required"`
-	Name  string                               `json:"name,required"`
-	Price int64                                `json:"price,required"`
-	JSON  productListResponseResultVariantJSON `json:"-"`
-}
-
-// productListResponseResultVariantJSON contains the JSON metadata for the struct
-// [ProductListResponseResultVariant]
-type productListResponseResultVariantJSON struct {
-	ID          apijson.Field
-	Name        apijson.Field
-	Price       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ProductListResponseResultVariant) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r productListResponseResultVariantJSON) RawJSON() string {
 	return r.raw
 }

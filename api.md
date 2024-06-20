@@ -5,6 +5,11 @@
 # Shared Response Types
 
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Address">Address</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Card">Card</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Cart">Cart</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Product">Product</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#ProductVariant">ProductVariant</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#User">User</a>
 
 # Product
 
@@ -20,7 +25,6 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#User">User</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserMeResponse">UserMeResponse</a>
 
 Methods:
@@ -45,7 +49,6 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#Card">Card</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CardListResponse">CardListResponse</a>
 
 Methods:
@@ -56,7 +59,6 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#Cart">Cart</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartListResponse">CartListResponse</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartSetCardResponse">CartSetCardResponse</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartSetItemResponse">CartSetItemResponse</a>
