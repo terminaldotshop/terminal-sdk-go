@@ -9,6 +9,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // CardService contains methods and other services that help with interacting with
@@ -37,56 +38,8 @@ func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
-type Card struct {
-	ID         string         `json:"id,required"`
-	Brand      string         `json:"brand,required"`
-	Expiration CardExpiration `json:"expiration,required"`
-	Last4      string         `json:"last4,required"`
-	JSON       cardJSON       `json:"-"`
-}
-
-// cardJSON contains the JSON metadata for the struct [Card]
-type cardJSON struct {
-	ID          apijson.Field
-	Brand       apijson.Field
-	Expiration  apijson.Field
-	Last4       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Card) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cardJSON) RawJSON() string {
-	return r.raw
-}
-
-type CardExpiration struct {
-	Month float64            `json:"month,required"`
-	Year  float64            `json:"year,required"`
-	JSON  cardExpirationJSON `json:"-"`
-}
-
-// cardExpirationJSON contains the JSON metadata for the struct [CardExpiration]
-type cardExpirationJSON struct {
-	Month       apijson.Field
-	Year        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *CardExpiration) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cardExpirationJSON) RawJSON() string {
-	return r.raw
-}
-
 type CardListResponse struct {
-	Result []Card               `json:"result,required"`
+	Result []shared.Card        `json:"result,required"`
 	JSON   cardListResponseJSON `json:"-"`
 }
 

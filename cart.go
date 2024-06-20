@@ -10,6 +10,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // CartService contains methods and other services that help with interacting with
@@ -59,60 +60,8 @@ func (r *CartService) SetShipping(ctx context.Context, body CartSetShippingParam
 	return
 }
 
-type Cart struct {
-	Items      []CartItem `json:"items,required"`
-	Subtotal   int64      `json:"subtotal,required"`
-	CardID     string     `json:"cardID"`
-	ShippingID string     `json:"shippingID"`
-	JSON       cartJSON   `json:"-"`
-}
-
-// cartJSON contains the JSON metadata for the struct [Cart]
-type cartJSON struct {
-	Items       apijson.Field
-	Subtotal    apijson.Field
-	CardID      apijson.Field
-	ShippingID  apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Cart) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cartJSON) RawJSON() string {
-	return r.raw
-}
-
-type CartItem struct {
-	ID               string       `json:"id,required"`
-	ProductVariantID string       `json:"productVariantID,required"`
-	Quantity         int64        `json:"quantity,required"`
-	Subtotal         float64      `json:"subtotal,required"`
-	JSON             cartItemJSON `json:"-"`
-}
-
-// cartItemJSON contains the JSON metadata for the struct [CartItem]
-type cartItemJSON struct {
-	ID               apijson.Field
-	ProductVariantID apijson.Field
-	Quantity         apijson.Field
-	Subtotal         apijson.Field
-	raw              string
-	ExtraFields      map[string]apijson.Field
-}
-
-func (r *CartItem) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cartItemJSON) RawJSON() string {
-	return r.raw
-}
-
 type CartListResponse struct {
-	Result Cart                 `json:"result,required"`
+	Result shared.Cart          `json:"result,required"`
 	JSON   cartListResponseJSON `json:"-"`
 }
 
