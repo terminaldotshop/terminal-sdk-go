@@ -65,7 +65,7 @@ func TestUserShippingList(t *testing.T) {
 	}
 }
 
-func TestUserShippingDeleteWithOptionalParams(t *testing.T) {
+func TestUserShippingDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -77,19 +77,7 @@ func TestUserShippingDeleteWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.Delete(
-		context.TODO(),
-		"string",
-		terminal.UserShippingDeleteParams{
-			City:     terminal.F("string"),
-			Country:  terminal.F("string"),
-			Name:     terminal.F("string"),
-			Province: terminal.F("string"),
-			Street1:  terminal.F("string"),
-			Zip:      terminal.F("string"),
-			Street2:  terminal.F("string"),
-		},
-	)
+	_, err := client.User.Shipping.Delete(context.TODO(), "string")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

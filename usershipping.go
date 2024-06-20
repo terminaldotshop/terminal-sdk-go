@@ -47,14 +47,14 @@ func (r *UserShippingService) List(ctx context.Context, opts ...option.RequestOp
 	return
 }
 
-func (r *UserShippingService) Delete(ctx context.Context, id string, body UserShippingDeleteParams, opts ...option.RequestOption) (res *UserShippingDeleteResponse, err error) {
+func (r *UserShippingService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *UserShippingDeleteResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
 	}
 	path := fmt.Sprintf("user/shipping/%s", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -300,19 +300,5 @@ type UserShippingNewParams struct {
 }
 
 func (r UserShippingNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type UserShippingDeleteParams struct {
-	City     param.Field[string] `json:"city,required"`
-	Country  param.Field[string] `json:"country,required"`
-	Name     param.Field[string] `json:"name,required"`
-	Province param.Field[string] `json:"province,required"`
-	Street1  param.Field[string] `json:"street1,required"`
-	Zip      param.Field[string] `json:"zip,required"`
-	Street2  param.Field[string] `json:"street2"`
-}
-
-func (r UserShippingDeleteParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
