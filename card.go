@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 	"github.com/terminaldotshop/terminal-sdk-go/shared"
@@ -31,11 +32,38 @@ func NewCardService(opts ...option.RequestOption) (r *CardService) {
 	return
 }
 
+func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...option.RequestOption) (res *CardNewResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "card"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
 func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (res *CardListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
+}
+
+type CardNewResponse struct {
+	Result string              `json:"result,required"`
+	JSON   cardNewResponseJSON `json:"-"`
+}
+
+// cardNewResponseJSON contains the JSON metadata for the struct [CardNewResponse]
+type cardNewResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CardNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardNewResponseJSON) RawJSON() string {
+	return r.raw
 }
 
 type CardListResponse struct {
@@ -57,4 +85,12 @@ func (r *CardListResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r cardListResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type CardNewParams struct {
+	Token param.Field[string] `json:"token,required"`
+}
+
+func (r CardNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }
