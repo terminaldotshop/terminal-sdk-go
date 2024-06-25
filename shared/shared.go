@@ -80,8 +80,8 @@ func (r cardJSON) RawJSON() string {
 }
 
 type CardExpiration struct {
-	Month int64              `json:"month,required"`
-	Year  int64              `json:"year,required"`
+	Month float64            `json:"month,required"`
+	Year  float64            `json:"year,required"`
 	JSON  cardExpirationJSON `json:"-"`
 }
 
