@@ -25,6 +25,9 @@ type CardExpiration = shared.CardExpiration
 type Cart = shared.Cart
 
 // This is an alias to an internal type.
+type CartAmount = shared.CartAmount
+
+// This is an alias to an internal type.
 type CartItem = shared.CartItem
 
 // This is an alias to an internal type.
