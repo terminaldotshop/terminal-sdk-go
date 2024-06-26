@@ -102,6 +102,7 @@ func (r cardExpirationJSON) RawJSON() string {
 }
 
 type Cart struct {
+	Amount     CartAmount `json:"amount,required"`
 	Items      []CartItem `json:"items,required"`
 	Subtotal   int64      `json:"subtotal,required"`
 	CardID     string     `json:"cardID"`
@@ -111,6 +112,7 @@ type Cart struct {
 
 // cartJSON contains the JSON metadata for the struct [Cart]
 type cartJSON struct {
+	Amount      apijson.Field
 	Items       apijson.Field
 	Subtotal    apijson.Field
 	CardID      apijson.Field
@@ -127,11 +129,33 @@ func (r cartJSON) RawJSON() string {
 	return r.raw
 }
 
+type CartAmount struct {
+	Shipping int64          `json:"shipping,required"`
+	Subtotal int64          `json:"subtotal,required"`
+	JSON     cartAmountJSON `json:"-"`
+}
+
+// cartAmountJSON contains the JSON metadata for the struct [CartAmount]
+type cartAmountJSON struct {
+	Shipping    apijson.Field
+	Subtotal    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartAmount) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartAmountJSON) RawJSON() string {
+	return r.raw
+}
+
 type CartItem struct {
 	ID               string       `json:"id,required"`
 	ProductVariantID string       `json:"productVariantID,required"`
 	Quantity         int64        `json:"quantity,required"`
-	Subtotal         float64      `json:"subtotal,required"`
+	Subtotal         int64        `json:"subtotal,required"`
 	JSON             cartItemJSON `json:"-"`
 }
 
