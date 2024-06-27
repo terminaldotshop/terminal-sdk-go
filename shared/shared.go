@@ -227,6 +227,28 @@ func (r productVariantJSON) RawJSON() string {
 	return r.raw
 }
 
+type Shipping struct {
+	ID      string       `json:"id,required"`
+	Address Address      `json:"address,required"`
+	JSON    shippingJSON `json:"-"`
+}
+
+// shippingJSON contains the JSON metadata for the struct [Shipping]
+type shippingJSON struct {
+	ID          apijson.Field
+	Address     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Shipping) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r shippingJSON) RawJSON() string {
+	return r.raw
+}
+
 type User struct {
 	ID               string   `json:"id,required"`
 	Email            string   `json:"email,required,nullable"`
