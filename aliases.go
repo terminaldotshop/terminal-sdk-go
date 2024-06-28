@@ -37,4 +37,7 @@ type Product = shared.Product
 type ProductVariant = shared.ProductVariant
 
 // This is an alias to an internal type.
+type Shipping = shared.Shipping
+
+// This is an alias to an internal type.
 type User = shared.User
