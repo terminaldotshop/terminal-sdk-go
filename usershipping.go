@@ -59,8 +59,8 @@ func (r *UserShippingService) Delete(ctx context.Context, id string, opts ...opt
 }
 
 type UserShippingNewResponse struct {
-	Result []UserShippingNewResponseResult `json:"result,required"`
-	JSON   userShippingNewResponseJSON     `json:"-"`
+	Result []shared.Shipping           `json:"result,required"`
+	JSON   userShippingNewResponseJSON `json:"-"`
 }
 
 // userShippingNewResponseJSON contains the JSON metadata for the struct
@@ -79,32 +79,9 @@ func (r userShippingNewResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type UserShippingNewResponseResult struct {
-	ID      string                            `json:"id,required"`
-	Address shared.Address                    `json:"address,required"`
-	JSON    userShippingNewResponseResultJSON `json:"-"`
-}
-
-// userShippingNewResponseResultJSON contains the JSON metadata for the struct
-// [UserShippingNewResponseResult]
-type userShippingNewResponseResultJSON struct {
-	ID          apijson.Field
-	Address     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingNewResponseResult) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingNewResponseResultJSON) RawJSON() string {
-	return r.raw
-}
-
 type UserShippingListResponse struct {
-	Result []UserShippingListResponseResult `json:"result,required"`
-	JSON   userShippingListResponseJSON     `json:"-"`
+	Result []shared.Shipping            `json:"result,required"`
+	JSON   userShippingListResponseJSON `json:"-"`
 }
 
 // userShippingListResponseJSON contains the JSON metadata for the struct
@@ -123,32 +100,9 @@ func (r userShippingListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type UserShippingListResponseResult struct {
-	ID      string                             `json:"id,required"`
-	Address shared.Address                     `json:"address,required"`
-	JSON    userShippingListResponseResultJSON `json:"-"`
-}
-
-// userShippingListResponseResultJSON contains the JSON metadata for the struct
-// [UserShippingListResponseResult]
-type userShippingListResponseResultJSON struct {
-	ID          apijson.Field
-	Address     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingListResponseResult) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingListResponseResultJSON) RawJSON() string {
-	return r.raw
-}
-
 type UserShippingDeleteResponse struct {
-	Result []UserShippingDeleteResponseResult `json:"result,required"`
-	JSON   userShippingDeleteResponseJSON     `json:"-"`
+	Result []shared.Shipping              `json:"result,required"`
+	JSON   userShippingDeleteResponseJSON `json:"-"`
 }
 
 // userShippingDeleteResponseJSON contains the JSON metadata for the struct
@@ -164,29 +118,6 @@ func (r *UserShippingDeleteResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userShippingDeleteResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type UserShippingDeleteResponseResult struct {
-	ID      string                               `json:"id,required"`
-	Address shared.Address                       `json:"address,required"`
-	JSON    userShippingDeleteResponseResultJSON `json:"-"`
-}
-
-// userShippingDeleteResponseResultJSON contains the JSON metadata for the struct
-// [UserShippingDeleteResponseResult]
-type userShippingDeleteResponseResultJSON struct {
-	ID          apijson.Field
-	Address     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserShippingDeleteResponseResult) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userShippingDeleteResponseResultJSON) RawJSON() string {
 	return r.raw
 }
 
