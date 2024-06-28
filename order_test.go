@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestUserUpdateWithOptionalParams(t *testing.T) {
+func TestOrderNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,11 +25,7 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Update(context.TODO(), terminal.UserUpdateParams{
-		ID:    terminal.F("string"),
-		Email: terminal.F("string"),
-		Name:  terminal.F("string"),
-	})
+	_, err := client.Order.New(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -39,7 +35,7 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestUserMe(t *testing.T) {
+func TestOrderGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -51,7 +47,7 @@ func TestUserMe(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Me(context.TODO())
+	_, err := client.Order.Get(context.TODO(), "string")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
