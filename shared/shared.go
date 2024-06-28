@@ -253,7 +253,6 @@ type User struct {
 	ID               string   `json:"id,required"`
 	Email            string   `json:"email,required,nullable"`
 	Fingerprint      string   `json:"fingerprint,required,nullable"`
-	Name             string   `json:"name,required,nullable"`
 	StripeCustomerID string   `json:"stripeCustomerID,required"`
 	JSON             userJSON `json:"-"`
 }
@@ -263,7 +262,6 @@ type userJSON struct {
 	ID               apijson.Field
 	Email            apijson.Field
 	Fingerprint      apijson.Field
-	Name             apijson.Field
 	StripeCustomerID apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
