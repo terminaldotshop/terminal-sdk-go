@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 	"github.com/terminaldotshop/terminal-sdk-go/shared"
@@ -34,39 +33,11 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	return
 }
 
-func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ...option.RequestOption) (res *UserUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "user/me"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
-}
-
 func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/me"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
-}
-
-type UserUpdateResponse struct {
-	Result shared.User            `json:"result,required"`
-	JSON   userUpdateResponseJSON `json:"-"`
-}
-
-// userUpdateResponseJSON contains the JSON metadata for the struct
-// [UserUpdateResponse]
-type userUpdateResponseJSON struct {
-	Result      apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserUpdateResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userUpdateResponseJSON) RawJSON() string {
-	return r.raw
 }
 
 type UserMeResponse struct {
@@ -87,14 +58,4 @@ func (r *UserMeResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r userMeResponseJSON) RawJSON() string {
 	return r.raw
-}
-
-type UserUpdateParams struct {
-	ID    param.Field[string] `json:"id,required"`
-	Email param.Field[string] `json:"email"`
-	Name  param.Field[string] `json:"name"`
-}
-
-func (r UserUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
 }
