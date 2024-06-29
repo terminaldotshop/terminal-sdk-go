@@ -59,7 +59,7 @@ func (r *UserShippingService) Delete(ctx context.Context, id string, opts ...opt
 }
 
 type UserShippingNewResponse struct {
-	Result []shared.Shipping           `json:"result,required"`
+	Result string                      `json:"result,required"`
 	JSON   userShippingNewResponseJSON `json:"-"`
 }
 
