@@ -101,8 +101,8 @@ func (r userShippingListResponseJSON) RawJSON() string {
 }
 
 type UserShippingDeleteResponse struct {
-	Result UserShippingDeleteResponseResult `json:"result,required"`
-	JSON   userShippingDeleteResponseJSON   `json:"-"`
+	Result []shared.Shipping              `json:"result,required"`
+	JSON   userShippingDeleteResponseJSON `json:"-"`
 }
 
 // userShippingDeleteResponseJSON contains the JSON metadata for the struct
@@ -119,20 +119,6 @@ func (r *UserShippingDeleteResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r userShippingDeleteResponseJSON) RawJSON() string {
 	return r.raw
-}
-
-type UserShippingDeleteResponseResult string
-
-const (
-	UserShippingDeleteResponseResultOk UserShippingDeleteResponseResult = "ok"
-)
-
-func (r UserShippingDeleteResponseResult) IsKnown() bool {
-	switch r {
-	case UserShippingDeleteResponseResultOk:
-		return true
-	}
-	return false
 }
 
 type UserShippingNewParams struct {
