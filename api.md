@@ -7,6 +7,7 @@
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Address">Address</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Card">Card</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Cart">Cart</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Order">Order</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Product">Product</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#ProductVariant">ProductVariant</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/shared#Shipping">Shipping</a>
@@ -26,10 +27,12 @@ Methods:
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserUpdateResponse">UserUpdateResponse</a>
 - <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserMeResponse">UserMeResponse</a>
 
 Methods:
 
+- <code title="put /user/me">client.User.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserUpdateParams">UserUpdateParams</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserUpdateResponse">UserUpdateResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /user/me">client.User.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserService.Me">Me</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#UserMeResponse">UserMeResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ## Shipping
@@ -75,3 +78,13 @@ Methods:
 - <code title="put /cart/shipping">client.Cart.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartService.SetShipping">SetShipping</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartSetShippingParams">CartSetShippingParams</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#CartSetShippingResponse">CartSetShippingResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Order
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderNewResponse">OrderNewResponse</a>
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderGetResponse">OrderGetResponse</a>
+
+Methods:
+
+- <code title="post /order">client.Order.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderNewResponse">OrderNewResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /order/{id}">client.Order.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, id <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#OrderGetResponse">OrderGetResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
