@@ -314,6 +314,7 @@ type Product struct {
 	Description string           `json:"description,required"`
 	Name        string           `json:"name,required"`
 	Variants    []ProductVariant `json:"variants,required"`
+	Order       int64            `json:"order"`
 	JSON        productJSON      `json:"-"`
 }
 
@@ -323,6 +324,7 @@ type productJSON struct {
 	Description apijson.Field
 	Name        apijson.Field
 	Variants    apijson.Field
+	Order       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
