@@ -31,9 +31,6 @@ type CartAmount = shared.CartAmount
 type CartItem = shared.CartItem
 
 // This is an alias to an internal type.
-type CartShipping = shared.CartShipping
-
-// This is an alias to an internal type.
 type Order = shared.Order
 
 // This is an alias to an internal type.
