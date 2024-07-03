@@ -14,7 +14,6 @@ type Address struct {
 	Province string      `json:"province,required"`
 	Street1  string      `json:"street1,required"`
 	Zip      string      `json:"zip,required"`
-	Phone    string      `json:"phone"`
 	Street2  string      `json:"street2"`
 	JSON     addressJSON `json:"-"`
 }
@@ -27,7 +26,6 @@ type addressJSON struct {
 	Province    apijson.Field
 	Street1     apijson.Field
 	Zip         apijson.Field
-	Phone       apijson.Field
 	Street2     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -48,7 +46,6 @@ type AddressParam struct {
 	Province param.Field[string] `json:"province,required"`
 	Street1  param.Field[string] `json:"street1,required"`
 	Zip      param.Field[string] `json:"zip,required"`
-	Phone    param.Field[string] `json:"phone"`
 	Street2  param.Field[string] `json:"street2"`
 }
 
@@ -133,15 +130,15 @@ func (r cartJSON) RawJSON() string {
 }
 
 type CartAmount struct {
+	Shipping int64          `json:"shipping,required"`
 	Subtotal int64          `json:"subtotal,required"`
-	Shipping int64          `json:"shipping"`
 	JSON     cartAmountJSON `json:"-"`
 }
 
 // cartAmountJSON contains the JSON metadata for the struct [CartAmount]
 type cartAmountJSON struct {
-	Subtotal    apijson.Field
 	Shipping    apijson.Field
+	Subtotal    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -265,7 +262,6 @@ type OrderShipping struct {
 	Province string            `json:"province,required"`
 	Street1  string            `json:"street1,required"`
 	Zip      string            `json:"zip,required"`
-	Phone    string            `json:"phone"`
 	Street2  string            `json:"street2"`
 	JSON     orderShippingJSON `json:"-"`
 }
@@ -278,7 +274,6 @@ type orderShippingJSON struct {
 	Province    apijson.Field
 	Street1     apijson.Field
 	Zip         apijson.Field
-	Phone       apijson.Field
 	Street2     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
