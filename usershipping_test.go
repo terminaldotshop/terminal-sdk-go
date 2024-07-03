@@ -35,7 +35,6 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 			Province: terminal.F("string"),
 			Country:  terminal.F("xx"),
 			Zip:      terminal.F("string"),
-			Phone:    terminal.F("string"),
 		},
 	})
 	if err != nil {
