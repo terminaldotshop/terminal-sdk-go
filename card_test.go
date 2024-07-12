@@ -26,7 +26,7 @@ func TestCardNew(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.New(context.TODO(), terminal.CardNewParams{
-		Token: terminal.F("string"),
+		Token: terminal.F("token"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

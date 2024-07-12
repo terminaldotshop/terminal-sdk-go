@@ -48,7 +48,7 @@ func TestCartSetCard(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetCard(context.TODO(), terminal.CartSetCardParams{
-		CardID: terminal.F("string"),
+		CardID: terminal.F("cardID"),
 	})
 	if err != nil {
 		var apierr *terminal.Error
@@ -72,7 +72,7 @@ func TestCartSetItem(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetItem(context.TODO(), terminal.CartSetItemParams{
-		ProductVariantID: terminal.F("string"),
+		ProductVariantID: terminal.F("productVariantID"),
 		Quantity:         terminal.F(int64(0)),
 	})
 	if err != nil {
@@ -97,7 +97,7 @@ func TestCartSetShipping(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetShipping(context.TODO(), terminal.CartSetShippingParams{
-		ShippingID: terminal.F("string"),
+		ShippingID: terminal.F("shippingID"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

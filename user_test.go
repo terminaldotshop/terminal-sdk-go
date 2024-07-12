@@ -26,9 +26,9 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.User.Update(context.TODO(), terminal.UserUpdateParams{
-		ID:    terminal.F("string"),
-		Email: terminal.F("string"),
-		Name:  terminal.F("string"),
+		ID:    terminal.F("id"),
+		Email: terminal.F("email"),
+		Name:  terminal.F("name"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

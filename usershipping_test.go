@@ -28,14 +28,14 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.User.Shipping.New(context.TODO(), terminal.UserShippingNewParams{
 		Address: shared.AddressParam{
-			Name:     terminal.F("string"),
-			Street1:  terminal.F("string"),
-			Street2:  terminal.F("string"),
-			City:     terminal.F("string"),
-			Province: terminal.F("string"),
-			Country:  terminal.F("xx"),
-			Zip:      terminal.F("string"),
-			Phone:    terminal.F("string"),
+			Name:     terminal.F("name"),
+			Street1:  terminal.F("street1"),
+			Street2:  terminal.F("street2"),
+			City:     terminal.F("city"),
+			Province: terminal.F("province"),
+			Country:  terminal.F("country"),
+			Zip:      terminal.F("zip"),
+			Phone:    terminal.F("phone"),
 		},
 	})
 	if err != nil {
@@ -81,7 +81,7 @@ func TestUserShippingDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.Delete(context.TODO(), "string")
+	_, err := client.User.Shipping.Delete(context.TODO(), "id")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
