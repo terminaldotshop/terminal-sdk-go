@@ -4,7 +4,6 @@ package shared
 
 import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
 type Address struct {
@@ -39,21 +38,6 @@ func (r *Address) UnmarshalJSON(data []byte) (err error) {
 
 func (r addressJSON) RawJSON() string {
 	return r.raw
-}
-
-type AddressParam struct {
-	City     param.Field[string] `json:"city,required"`
-	Country  param.Field[string] `json:"country,required"`
-	Name     param.Field[string] `json:"name,required"`
-	Street1  param.Field[string] `json:"street1,required"`
-	Zip      param.Field[string] `json:"zip,required"`
-	Phone    param.Field[string] `json:"phone"`
-	Province param.Field[string] `json:"province"`
-	Street2  param.Field[string] `json:"street2"`
-}
-
-func (r AddressParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
 }
 
 type Card struct {

@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 	"github.com/terminaldotshop/terminal-sdk-go/shared"
@@ -136,9 +137,16 @@ func (r UserShippingDeleteResponseResult) IsKnown() bool {
 }
 
 type UserShippingNewParams struct {
-	Address shared.AddressParam `json:"address,required"`
+	City     param.Field[string] `json:"city,required"`
+	Country  param.Field[string] `json:"country,required"`
+	Name     param.Field[string] `json:"name,required"`
+	Street1  param.Field[string] `json:"street1,required"`
+	Zip      param.Field[string] `json:"zip,required"`
+	Phone    param.Field[string] `json:"phone"`
+	Province param.Field[string] `json:"province"`
+	Street2  param.Field[string] `json:"street2"`
 }
 
 func (r UserShippingNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r.Address)
+	return apijson.MarshalRoot(r)
 }
