@@ -11,7 +11,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 func TestUserShippingNewWithOptionalParams(t *testing.T) {
@@ -27,16 +26,14 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.User.Shipping.New(context.TODO(), terminal.UserShippingNewParams{
-		Address: shared.AddressParam{
-			Name:     terminal.F("name"),
-			Street1:  terminal.F("street1"),
-			Street2:  terminal.F("street2"),
-			City:     terminal.F("city"),
-			Province: terminal.F("province"),
-			Country:  terminal.F("country"),
-			Zip:      terminal.F("zip"),
-			Phone:    terminal.F("phone"),
-		},
+		City:     terminal.F("city"),
+		Country:  terminal.F("country"),
+		Name:     terminal.F("name"),
+		Street1:  terminal.F("street1"),
+		Zip:      terminal.F("zip"),
+		Phone:    terminal.F("phone"),
+		Province: terminal.F("province"),
+		Street2:  terminal.F("street2"),
 	})
 	if err != nil {
 		var apierr *terminal.Error
