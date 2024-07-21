@@ -13,9 +13,6 @@ type Error = apierror.Error
 type Address = shared.Address
 
 // This is an alias to an internal type.
-type AddressParam = shared.AddressParam
-
-// This is an alias to an internal type.
 type Card = shared.Card
 
 // This is an alias to an internal type.

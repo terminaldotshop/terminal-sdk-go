@@ -4,17 +4,16 @@ package shared
 
 import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
 type Address struct {
 	City     string      `json:"city,required"`
 	Country  string      `json:"country,required"`
 	Name     string      `json:"name,required"`
-	Province string      `json:"province,required"`
 	Street1  string      `json:"street1,required"`
 	Zip      string      `json:"zip,required"`
 	Phone    string      `json:"phone"`
+	Province string      `json:"province"`
 	Street2  string      `json:"street2"`
 	JSON     addressJSON `json:"-"`
 }
@@ -24,10 +23,10 @@ type addressJSON struct {
 	City        apijson.Field
 	Country     apijson.Field
 	Name        apijson.Field
-	Province    apijson.Field
 	Street1     apijson.Field
 	Zip         apijson.Field
 	Phone       apijson.Field
+	Province    apijson.Field
 	Street2     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -39,21 +38,6 @@ func (r *Address) UnmarshalJSON(data []byte) (err error) {
 
 func (r addressJSON) RawJSON() string {
 	return r.raw
-}
-
-type AddressParam struct {
-	City     param.Field[string] `json:"city,required"`
-	Country  param.Field[string] `json:"country,required"`
-	Name     param.Field[string] `json:"name,required"`
-	Province param.Field[string] `json:"province,required"`
-	Street1  param.Field[string] `json:"street1,required"`
-	Zip      param.Field[string] `json:"zip,required"`
-	Phone    param.Field[string] `json:"phone"`
-	Street2  param.Field[string] `json:"street2"`
-}
-
-func (r AddressParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
 }
 
 type Card struct {
@@ -286,10 +270,10 @@ type OrderShipping struct {
 	City     string            `json:"city,required"`
 	Country  string            `json:"country,required"`
 	Name     string            `json:"name,required"`
-	Province string            `json:"province,required"`
 	Street1  string            `json:"street1,required"`
 	Zip      string            `json:"zip,required"`
 	Phone    string            `json:"phone"`
+	Province string            `json:"province"`
 	Street2  string            `json:"street2"`
 	JSON     orderShippingJSON `json:"-"`
 }
@@ -299,10 +283,10 @@ type orderShippingJSON struct {
 	City        apijson.Field
 	Country     apijson.Field
 	Name        apijson.Field
-	Province    apijson.Field
 	Street1     apijson.Field
 	Zip         apijson.Field
 	Phone       apijson.Field
+	Province    apijson.Field
 	Street2     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field

@@ -47,7 +47,7 @@ func TestOrderGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Order.Get(context.TODO(), "string")
+	_, err := client.Order.Get(context.TODO(), "id")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
