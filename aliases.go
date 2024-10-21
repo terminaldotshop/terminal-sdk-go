@@ -49,15 +49,6 @@ type OrderTracking = shared.OrderTracking
 type Product = shared.Product
 
 // This is an alias to an internal type.
-type ProductSubscription = shared.ProductSubscription
-
-// This is an alias to an internal value.
-const ProductSubscriptionAllowed = shared.ProductSubscriptionAllowed
-
-// This is an alias to an internal value.
-const ProductSubscriptionRequired = shared.ProductSubscriptionRequired
-
-// This is an alias to an internal type.
 type ProductVariant = shared.ProductVariant
 
 // This is an alias to an internal type.
