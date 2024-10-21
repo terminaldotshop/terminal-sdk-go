@@ -323,25 +323,23 @@ func (r orderTrackingJSON) RawJSON() string {
 }
 
 type Product struct {
-	ID           string              `json:"id,required"`
-	Description  string              `json:"description,required"`
-	Name         string              `json:"name,required"`
-	Variants     []ProductVariant    `json:"variants,required"`
-	Order        int64               `json:"order"`
-	Subscription ProductSubscription `json:"subscription"`
-	JSON         productJSON         `json:"-"`
+	ID          string           `json:"id,required"`
+	Description string           `json:"description,required"`
+	Name        string           `json:"name,required"`
+	Variants    []ProductVariant `json:"variants,required"`
+	Order       int64            `json:"order"`
+	JSON        productJSON      `json:"-"`
 }
 
 // productJSON contains the JSON metadata for the struct [Product]
 type productJSON struct {
-	ID           apijson.Field
-	Description  apijson.Field
-	Name         apijson.Field
-	Variants     apijson.Field
-	Order        apijson.Field
-	Subscription apijson.Field
-	raw          string
-	ExtraFields  map[string]apijson.Field
+	ID          apijson.Field
+	Description apijson.Field
+	Name        apijson.Field
+	Variants    apijson.Field
+	Order       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
 func (r *Product) UnmarshalJSON(data []byte) (err error) {
@@ -350,21 +348,6 @@ func (r *Product) UnmarshalJSON(data []byte) (err error) {
 
 func (r productJSON) RawJSON() string {
 	return r.raw
-}
-
-type ProductSubscription string
-
-const (
-	ProductSubscriptionAllowed  ProductSubscription = "allowed"
-	ProductSubscriptionRequired ProductSubscription = "required"
-)
-
-func (r ProductSubscription) IsKnown() bool {
-	switch r {
-	case ProductSubscriptionAllowed, ProductSubscriptionRequired:
-		return true
-	}
-	return false
 }
 
 type ProductVariant struct {
