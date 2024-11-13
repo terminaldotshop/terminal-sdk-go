@@ -64,4 +64,25 @@ type ProductVariant = shared.ProductVariant
 type Shipping = shared.Shipping
 
 // This is an alias to an internal type.
+type Subscription = shared.Subscription
+
+// This is an alias to an internal type.
+type SubscriptionFrequency = shared.SubscriptionFrequency
+
+// This is an alias to an internal value.
+const SubscriptionFrequencyFixed = shared.SubscriptionFrequencyFixed
+
+// This is an alias to an internal value.
+const SubscriptionFrequencyDaily = shared.SubscriptionFrequencyDaily
+
+// This is an alias to an internal value.
+const SubscriptionFrequencyWeekly = shared.SubscriptionFrequencyWeekly
+
+// This is an alias to an internal value.
+const SubscriptionFrequencyMonthly = shared.SubscriptionFrequencyMonthly
+
+// This is an alias to an internal value.
+const SubscriptionFrequencyYearly = shared.SubscriptionFrequencyYearly
+
+// This is an alias to an internal type.
 type User = shared.User
