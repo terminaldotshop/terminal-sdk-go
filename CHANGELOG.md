@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0-alpha.27 (2024-11-13)
+
+Full Changelog: [v0.1.0-alpha.26...v0.1.0-alpha.27](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.26...v0.1.0-alpha.27)
+
+### Features
+
+* **api:** api update ([#107](https://github.com/terminaldotshop/terminal-sdk-go/issues/107)) ([b880524](https://github.com/terminaldotshop/terminal-sdk-go/commit/b880524f5a58af739cc187c881438ce4ac6bd583))
+* **api:** api update ([#109](https://github.com/terminaldotshop/terminal-sdk-go/issues/109)) ([19e1bd2](https://github.com/terminaldotshop/terminal-sdk-go/commit/19e1bd2fcb00949944c0d1ba94b578eec0bba4f9))
+* **api:** update via SDK Studio ([#113](https://github.com/terminaldotshop/terminal-sdk-go/issues/113)) ([de6de7b](https://github.com/terminaldotshop/terminal-sdk-go/commit/de6de7b7c677836a6cee2d8c568e37635e0a889b))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#110](https://github.com/terminaldotshop/terminal-sdk-go/issues/110)) ([185979c](https://github.com/terminaldotshop/terminal-sdk-go/commit/185979c9ce80c896cc404b762c168e8996c65fee))
+* rebuild project due to codegen change ([#111](https://github.com/terminaldotshop/terminal-sdk-go/issues/111)) ([8ae9c3d](https://github.com/terminaldotshop/terminal-sdk-go/commit/8ae9c3d7bef59ee8989067b7859f77a6a5098223))
+* rebuild project due to codegen change ([#112](https://github.com/terminaldotshop/terminal-sdk-go/issues/112)) ([4fb82b3](https://github.com/terminaldotshop/terminal-sdk-go/commit/4fb82b3477cfc5c3f4ffb4942d3361e93b9a99a6))
+
 ## 0.1.0-alpha.26 (2024-10-21)
 
 Full Changelog: [v0.1.0-alpha.25...v0.1.0-alpha.26](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.25...v0.1.0-alpha.26)
