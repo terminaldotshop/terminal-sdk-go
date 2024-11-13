@@ -413,6 +413,54 @@ func (r shippingJSON) RawJSON() string {
 	return r.raw
 }
 
+type Subscription struct {
+	ID               string                `json:"id,required"`
+	CardID           string                `json:"cardID,required"`
+	Frequency        SubscriptionFrequency `json:"frequency,required"`
+	ProductVariantID string                `json:"productVariantID,required"`
+	Quantity         int64                 `json:"quantity,required"`
+	ShippingID       string                `json:"shippingID,required"`
+	JSON             subscriptionJSON      `json:"-"`
+}
+
+// subscriptionJSON contains the JSON metadata for the struct [Subscription]
+type subscriptionJSON struct {
+	ID               apijson.Field
+	CardID           apijson.Field
+	Frequency        apijson.Field
+	ProductVariantID apijson.Field
+	Quantity         apijson.Field
+	ShippingID       apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *Subscription) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionJSON) RawJSON() string {
+	return r.raw
+}
+
+type SubscriptionFrequency string
+
+const (
+	SubscriptionFrequencyFixed   SubscriptionFrequency = "fixed"
+	SubscriptionFrequencyDaily   SubscriptionFrequency = "daily"
+	SubscriptionFrequencyWeekly  SubscriptionFrequency = "weekly"
+	SubscriptionFrequencyMonthly SubscriptionFrequency = "monthly"
+	SubscriptionFrequencyYearly  SubscriptionFrequency = "yearly"
+)
+
+func (r SubscriptionFrequency) IsKnown() bool {
+	switch r {
+	case SubscriptionFrequencyFixed, SubscriptionFrequencyDaily, SubscriptionFrequencyWeekly, SubscriptionFrequencyMonthly, SubscriptionFrequencyYearly:
+		return true
+	}
+	return false
+}
+
 type User struct {
 	ID               string   `json:"id,required"`
 	Email            string   `json:"email,required,nullable"`
