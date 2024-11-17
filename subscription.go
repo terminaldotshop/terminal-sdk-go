@@ -4,6 +4,8 @@ package terminal
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
@@ -43,6 +45,17 @@ func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOp
 	opts = append(r.Options[:], opts...)
 	path := "subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *SubscriptionDeleteResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("subscription/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -86,6 +99,41 @@ func (r *SubscriptionListResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r subscriptionListResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type SubscriptionDeleteResponse struct {
+	Result SubscriptionDeleteResponseResult `json:"result,required"`
+	JSON   subscriptionDeleteResponseJSON   `json:"-"`
+}
+
+// subscriptionDeleteResponseJSON contains the JSON metadata for the struct
+// [SubscriptionDeleteResponse]
+type subscriptionDeleteResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SubscriptionDeleteResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionDeleteResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type SubscriptionDeleteResponseResult string
+
+const (
+	SubscriptionDeleteResponseResultOk SubscriptionDeleteResponseResult = "ok"
+)
+
+func (r SubscriptionDeleteResponseResult) IsKnown() bool {
+	switch r {
+	case SubscriptionDeleteResponseResultOk:
+		return true
+	}
+	return false
 }
 
 type SubscriptionNewParams struct {

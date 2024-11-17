@@ -194,6 +194,7 @@ type Order struct {
 	Items    []OrderItem   `json:"items,required"`
 	Shipping OrderShipping `json:"shipping,required"`
 	Tracking OrderTracking `json:"tracking,required"`
+	Index    float64       `json:"index"`
 	JSON     orderJSON     `json:"-"`
 }
 
@@ -204,6 +205,7 @@ type orderJSON struct {
 	Items       apijson.Field
 	Shipping    apijson.Field
 	Tracking    apijson.Field
+	Index       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -301,14 +303,16 @@ func (r orderShippingJSON) RawJSON() string {
 }
 
 type OrderTracking struct {
-	Number string            `json:"number"`
-	URL    string            `json:"url"`
-	JSON   orderTrackingJSON `json:"-"`
+	Number  string            `json:"number"`
+	Service string            `json:"service"`
+	URL     string            `json:"url"`
+	JSON    orderTrackingJSON `json:"-"`
 }
 
 // orderTrackingJSON contains the JSON metadata for the struct [OrderTracking]
 type orderTrackingJSON struct {
 	Number      apijson.Field
+	Service     apijson.Field
 	URL         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
