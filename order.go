@@ -40,6 +40,13 @@ func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (res *OrderListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "order"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 func (r *OrderService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *OrderGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
@@ -69,6 +76,27 @@ func (r *OrderNewResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r orderNewResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type OrderListResponse struct {
+	Result []shared.Order        `json:"result,required"`
+	JSON   orderListResponseJSON `json:"-"`
+}
+
+// orderListResponseJSON contains the JSON metadata for the struct
+// [OrderListResponse]
+type orderListResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderListResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
