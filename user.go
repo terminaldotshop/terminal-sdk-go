@@ -41,6 +41,13 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 	return
 }
 
+func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (res *UserInitResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "user/init"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/me"
@@ -66,6 +73,60 @@ func (r *UserUpdateResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userUpdateResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type UserInitResponse struct {
+	Result UserInitResponseResult `json:"result,required"`
+	JSON   userInitResponseJSON   `json:"-"`
+}
+
+// userInitResponseJSON contains the JSON metadata for the struct
+// [UserInitResponse]
+type userInitResponseJSON struct {
+	Result      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *UserInitResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userInitResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type UserInitResponseResult struct {
+	Addresses     []shared.Shipping          `json:"addresses,required"`
+	Cards         []shared.Card              `json:"cards,required"`
+	Cart          shared.Cart                `json:"cart,required"`
+	Orders        []shared.Order             `json:"orders,required"`
+	Products      []shared.Product           `json:"products,required"`
+	Subscriptions []shared.Subscription      `json:"subscriptions,required"`
+	User          shared.User                `json:"user,required"`
+	JSON          userInitResponseResultJSON `json:"-"`
+}
+
+// userInitResponseResultJSON contains the JSON metadata for the struct
+// [UserInitResponseResult]
+type userInitResponseResultJSON struct {
+	Addresses     apijson.Field
+	Cards         apijson.Field
+	Cart          apijson.Field
+	Orders        apijson.Field
+	Products      apijson.Field
+	Subscriptions apijson.Field
+	User          apijson.Field
+	raw           string
+	ExtraFields   map[string]apijson.Field
+}
+
+func (r *UserInitResponseResult) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userInitResponseResultJSON) RawJSON() string {
 	return r.raw
 }
 
