@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.34 (2024-11-17)
+
+Full Changelog: [v0.1.0-alpha.33...v0.1.0-alpha.34](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.33...v0.1.0-alpha.34)
+
+### Features
+
+* **api:** update via SDK Studio ([#132](https://github.com/terminaldotshop/terminal-sdk-go/issues/132)) ([555fb76](https://github.com/terminaldotshop/terminal-sdk-go/commit/555fb76c3fed3ff79b5450635fd0b11c71b5ab54))
+
 ## 0.1.0-alpha.33 (2024-11-17)
 
 Full Changelog: [v0.1.0-alpha.32...v0.1.0-alpha.33](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.32...v0.1.0-alpha.33)
