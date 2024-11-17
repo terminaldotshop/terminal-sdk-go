@@ -4,8 +4,6 @@ package terminal
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
@@ -48,17 +46,6 @@ func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
-func (r *CardService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *CardDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	if id == "" {
-		err = errors.New("missing required id parameter")
-		return
-	}
-	path := fmt.Sprintf("card/%s", id)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
-}
-
 type CardNewResponse struct {
 	Result string              `json:"result,required"`
 	JSON   cardNewResponseJSON `json:"-"`
@@ -98,41 +85,6 @@ func (r *CardListResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r cardListResponseJSON) RawJSON() string {
 	return r.raw
-}
-
-type CardDeleteResponse struct {
-	Result CardDeleteResponseResult `json:"result,required"`
-	JSON   cardDeleteResponseJSON   `json:"-"`
-}
-
-// cardDeleteResponseJSON contains the JSON metadata for the struct
-// [CardDeleteResponse]
-type cardDeleteResponseJSON struct {
-	Result      apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *CardDeleteResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cardDeleteResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type CardDeleteResponseResult string
-
-const (
-	CardDeleteResponseResultOk CardDeleteResponseResult = "ok"
-)
-
-func (r CardDeleteResponseResult) IsKnown() bool {
-	switch r {
-	case CardDeleteResponseResultOk:
-		return true
-	}
-	return false
 }
 
 type CardNewParams struct {
