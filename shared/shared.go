@@ -194,6 +194,7 @@ type Order struct {
 	Items    []OrderItem   `json:"items,required"`
 	Shipping OrderShipping `json:"shipping,required"`
 	Tracking OrderTracking `json:"tracking,required"`
+	Index    float64       `json:"index"`
 	JSON     orderJSON     `json:"-"`
 }
 
@@ -204,6 +205,7 @@ type orderJSON struct {
 	Items       apijson.Field
 	Shipping    apijson.Field
 	Tracking    apijson.Field
+	Index       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
