@@ -333,6 +333,7 @@ type Product struct {
 	Variants     []ProductVariant    `json:"variants,required"`
 	Order        int64               `json:"order"`
 	Subscription ProductSubscription `json:"subscription"`
+	Tags         map[string]string   `json:"tags"`
 	JSON         productJSON         `json:"-"`
 }
 
@@ -344,6 +345,7 @@ type productJSON struct {
 	Variants     apijson.Field
 	Order        apijson.Field
 	Subscription apijson.Field
+	Tags         apijson.Field
 	raw          string
 	ExtraFields  map[string]apijson.Field
 }
