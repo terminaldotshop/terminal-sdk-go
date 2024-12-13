@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0-alpha.36 (2024-12-13)
+
+Full Changelog: [v0.1.0-alpha.35...v0.1.0-alpha.36](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.35...v0.1.0-alpha.36)
+
+### Features
+
+* **api:** api update ([#138](https://github.com/terminaldotshop/terminal-sdk-go/issues/138)) ([cafdba4](https://github.com/terminaldotshop/terminal-sdk-go/commit/cafdba42b7fb7c0fbe79030758fd29533e7367af))
+* **api:** api update ([#140](https://github.com/terminaldotshop/terminal-sdk-go/issues/140)) ([d8695aa](https://github.com/terminaldotshop/terminal-sdk-go/commit/d8695aa6b50dd8e1ea73daafb308f43eee2d39c5))
+* **api:** update via SDK Studio ([#141](https://github.com/terminaldotshop/terminal-sdk-go/issues/141)) ([b9c2ac9](https://github.com/terminaldotshop/terminal-sdk-go/commit/b9c2ac9f0e7caa38c6880c26094571b9777d51ba))
+* **api:** update via SDK Studio ([#142](https://github.com/terminaldotshop/terminal-sdk-go/issues/142)) ([3c4c9cc](https://github.com/terminaldotshop/terminal-sdk-go/commit/3c4c9cc59bdacabbfd664db7a01a5d144cf63324))
+* **api:** update via SDK Studio ([#143](https://github.com/terminaldotshop/terminal-sdk-go/issues/143)) ([51d4eed](https://github.com/terminaldotshop/terminal-sdk-go/commit/51d4eedb02b0bf5586c9ce77dfaea3774f315526))
+
+
+### Chores
+
+* configure new SDK language ([2a22ad9](https://github.com/terminaldotshop/terminal-sdk-go/commit/2a22ad900edceeb68025c2fd0324d500960f8f05))
+
 ## 0.1.0-alpha.35 (2024-12-04)
 
 Full Changelog: [v0.1.0-alpha.34...v0.1.0-alpha.35](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.34...v0.1.0-alpha.35)
