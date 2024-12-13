@@ -3,8 +3,8 @@
 package terminal
 
 import (
-	"github.com/stainless-sdks/terminal-go/internal/apierror"
-	"github.com/stainless-sdks/terminal-go/shared"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apierror"
+	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 type Error = apierror.Error
