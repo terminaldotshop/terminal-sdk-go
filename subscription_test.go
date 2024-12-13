@@ -29,11 +29,11 @@ func TestSubscriptionNew(t *testing.T) {
 	_, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
 		Subscription: shared.SubscriptionParam{
 			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Frequency:        terminal.F(shared.SubscriptionFrequencyFixed),
 			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Quantity:         terminal.F(int64(1)),
-			ShippingID:       terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 		},
 	})
 	if err != nil {
