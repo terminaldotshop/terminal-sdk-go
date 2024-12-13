@@ -7,8 +7,10 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
-// A physical address for shipping that sweet, sweet coffee to people's doorstep.
+// Physical address associated with a Terminal shop user.
 type Address struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
 	// City of the address.
 	City string `json:"city,required"`
 	// ISO 3166-1 alpha-2 country code of the address.
@@ -30,6 +32,7 @@ type Address struct {
 
 // addressJSON contains the JSON metadata for the struct [Address]
 type addressJSON struct {
+	ID          apijson.Field
 	City        apijson.Field
 	Country     apijson.Field
 	Name        apijson.Field
@@ -114,13 +117,13 @@ type Cart struct {
 	Items []CartItem `json:"items,required"`
 	// The subtotal of all items in the current user's cart.
 	Subtotal float64 `json:"subtotal,required"`
+	// ID of the shipping address selected on the current user's cart.
+	AddressID string `json:"addressID"`
 	// ID of the card selected on the current user's cart.
 	CardID string `json:"cardID"`
 	// Shipping information for the current user's cart.
 	Shipping CartShipping `json:"shipping"`
-	// ID of the shipping address selected on the current user's cart.
-	ShippingID string   `json:"shippingID"`
-	JSON       cartJSON `json:"-"`
+	JSON     cartJSON     `json:"-"`
 }
 
 // cartJSON contains the JSON metadata for the struct [Cart]
@@ -128,9 +131,9 @@ type cartJSON struct {
 	Amount      apijson.Field
 	Items       apijson.Field
 	Subtotal    apijson.Field
+	AddressID   apijson.Field
 	CardID      apijson.Field
 	Shipping    apijson.Field
-	ShippingID  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -232,8 +235,8 @@ type Order struct {
 	Amount OrderAmount `json:"amount,required"`
 	// Items in the order.
 	Items []OrderItem `json:"items,required"`
-	// A physical address for shipping that sweet, sweet coffee to people's doorstep.
-	Shipping Address `json:"shipping,required"`
+	// Shipping address of the order.
+	Shipping OrderShipping `json:"shipping,required"`
 	// Tracking information of the order.
 	Tracking OrderTracking `json:"tracking,required"`
 	// Zero-based index of the order for this user only.
@@ -316,6 +319,49 @@ func (r *OrderItem) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r orderItemJSON) RawJSON() string {
+	return r.raw
+}
+
+// Shipping address of the order.
+type OrderShipping struct {
+	// City of the address.
+	City string `json:"city,required"`
+	// ISO 3166-1 alpha-2 country code of the address.
+	Country string `json:"country,required"`
+	// The recipient's name.
+	Name string `json:"name,required"`
+	// Street of the address.
+	Street1 string `json:"street1,required"`
+	// Zip code of the address.
+	Zip string `json:"zip,required"`
+	// Phone number of the recipient.
+	Phone string `json:"phone"`
+	// Province or state of the address.
+	Province string `json:"province"`
+	// Apartment, suite, etc. of the address.
+	Street2 string            `json:"street2"`
+	JSON    orderShippingJSON `json:"-"`
+}
+
+// orderShippingJSON contains the JSON metadata for the struct [OrderShipping]
+type orderShippingJSON struct {
+	City        apijson.Field
+	Country     apijson.Field
+	Name        apijson.Field
+	Street1     apijson.Field
+	Zip         apijson.Field
+	Phone       apijson.Field
+	Province    apijson.Field
+	Street2     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderShipping) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderShippingJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -435,6 +481,8 @@ func (r productVariantJSON) RawJSON() string {
 type Subscription struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID string `json:"id,required"`
+	// ID of the shipping address used for the subscription.
+	AddressID string `json:"addressID,required"`
 	// ID of the card used for the subscription.
 	CardID string `json:"cardID,required"`
 	// Frequency of the subscription.
@@ -442,20 +490,18 @@ type Subscription struct {
 	// ID of the product variant being subscribed to.
 	ProductVariantID string `json:"productVariantID,required"`
 	// Quantity of the subscription.
-	Quantity int64 `json:"quantity,required"`
-	// ID of the shipping address used for the subscription.
-	ShippingID string           `json:"shippingID,required"`
-	JSON       subscriptionJSON `json:"-"`
+	Quantity int64            `json:"quantity,required"`
+	JSON     subscriptionJSON `json:"-"`
 }
 
 // subscriptionJSON contains the JSON metadata for the struct [Subscription]
 type subscriptionJSON struct {
 	ID               apijson.Field
+	AddressID        apijson.Field
 	CardID           apijson.Field
 	Frequency        apijson.Field
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
-	ShippingID       apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
 }
@@ -491,6 +537,8 @@ func (r SubscriptionFrequency) IsKnown() bool {
 type SubscriptionParam struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID param.Field[string] `json:"id,required"`
+	// ID of the shipping address used for the subscription.
+	AddressID param.Field[string] `json:"addressID,required"`
 	// ID of the card used for the subscription.
 	CardID param.Field[string] `json:"cardID,required"`
 	// Frequency of the subscription.
@@ -499,8 +547,6 @@ type SubscriptionParam struct {
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	// Quantity of the subscription.
 	Quantity param.Field[int64] `json:"quantity,required"`
-	// ID of the shipping address used for the subscription.
-	ShippingID param.Field[string] `json:"shippingID,required"`
 }
 
 func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {

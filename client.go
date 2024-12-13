@@ -18,6 +18,7 @@ type Client struct {
 	Options      []option.RequestOption
 	Product      *ProductService
 	User         *UserService
+	Address      *AddressService
 	Card         *CardService
 	Cart         *CartService
 	Order        *OrderService
@@ -39,6 +40,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r.Product = NewProductService(opts...)
 	r.User = NewUserService(opts...)
+	r.Address = NewAddressService(opts...)
 	r.Card = NewCardService(opts...)
 	r.Cart = NewCartService(opts...)
 	r.Order = NewOrderService(opts...)

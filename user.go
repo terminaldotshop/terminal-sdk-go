@@ -20,8 +20,7 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewUserService] method instead.
 type UserService struct {
-	Options  []option.RequestOption
-	Shipping *UserShippingService
+	Options []option.RequestOption
 }
 
 // NewUserService generates a new service that applies the given options to each
@@ -30,7 +29,6 @@ type UserService struct {
 func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	r = &UserService{}
 	r.Options = opts
-	r.Shipping = NewUserShippingService(opts...)
 	return
 }
 
@@ -105,8 +103,8 @@ func (r userInitResponseJSON) RawJSON() string {
 
 // Initial app data.
 type UserInitResponseData struct {
-	Addresses []UserInitResponseDataAddress `json:"addresses,required"`
-	Cards     []shared.Card                 `json:"cards,required"`
+	Addresses []shared.Address `json:"addresses,required"`
+	Cards     []shared.Card    `json:"cards,required"`
 	// The current Terminal shop user's cart.
 	Cart          shared.Cart           `json:"cart,required"`
 	Orders        []shared.Order        `json:"orders,required"`
@@ -136,32 +134,6 @@ func (r *UserInitResponseData) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userInitResponseDataJSON) RawJSON() string {
-	return r.raw
-}
-
-// Shipping address associated with a Terminal shop user.
-type UserInitResponseDataAddress struct {
-	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
-	// A physical address for shipping that sweet, sweet coffee to people's doorstep.
-	Address shared.Address                  `json:"address,required"`
-	JSON    userInitResponseDataAddressJSON `json:"-"`
-}
-
-// userInitResponseDataAddressJSON contains the JSON metadata for the struct
-// [UserInitResponseDataAddress]
-type userInitResponseDataAddressJSON struct {
-	ID          apijson.Field
-	Address     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserInitResponseDataAddress) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userInitResponseDataAddressJSON) RawJSON() string {
 	return r.raw
 }
 
