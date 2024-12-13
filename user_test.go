@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/internal/testutil"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func TestUserUpdateWithOptionalParams(t *testing.T) {
@@ -26,9 +26,8 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.User.Update(context.TODO(), terminal.UserUpdateParams{
-		ID:    terminal.F("id"),
-		Email: terminal.F("email"),
-		Name:  terminal.F("name"),
+		Email: terminal.F("john@example.com"),
+		Name:  terminal.F("John Doe"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

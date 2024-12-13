@@ -6,11 +6,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // CartService contains methods and other services that help with interacting with
@@ -32,6 +32,7 @@ func NewCartService(opts ...option.RequestOption) (r *CartService) {
 	return
 }
 
+// Get the current user's cart.
 func (r *CartService) List(ctx context.Context, opts ...option.RequestOption) (res *CartListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart"
@@ -39,6 +40,7 @@ func (r *CartService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// Set the credit card for the current user's cart.
 func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts ...option.RequestOption) (res *CartSetCardResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart/card"
@@ -46,6 +48,7 @@ func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts 
 	return
 }
 
+// Add an item to the current user's cart.
 func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts ...option.RequestOption) (res *CartSetItemResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart/item"
@@ -53,6 +56,7 @@ func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts 
 	return
 }
 
+// Set the shipping address for the current user's cart.
 func (r *CartService) SetShipping(ctx context.Context, body CartSetShippingParams, opts ...option.RequestOption) (res *CartSetShippingResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart/shipping"
@@ -61,14 +65,15 @@ func (r *CartService) SetShipping(ctx context.Context, body CartSetShippingParam
 }
 
 type CartListResponse struct {
-	Result shared.Cart          `json:"result,required"`
-	JSON   cartListResponseJSON `json:"-"`
+	// The current Terminal shop user's cart.
+	Data shared.Cart          `json:"data,required"`
+	JSON cartListResponseJSON `json:"-"`
 }
 
 // cartListResponseJSON contains the JSON metadata for the struct
 // [CartListResponse]
 type cartListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -82,14 +87,14 @@ func (r cartListResponseJSON) RawJSON() string {
 }
 
 type CartSetCardResponse struct {
-	Result CartSetCardResponseResult `json:"result,required"`
-	JSON   cartSetCardResponseJSON   `json:"-"`
+	Data CartSetCardResponseData `json:"data,required"`
+	JSON cartSetCardResponseJSON `json:"-"`
 }
 
 // cartSetCardResponseJSON contains the JSON metadata for the struct
 // [CartSetCardResponse]
 type cartSetCardResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -102,29 +107,30 @@ func (r cartSetCardResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartSetCardResponseResult string
+type CartSetCardResponseData string
 
 const (
-	CartSetCardResponseResultOk CartSetCardResponseResult = "ok"
+	CartSetCardResponseDataOk CartSetCardResponseData = "ok"
 )
 
-func (r CartSetCardResponseResult) IsKnown() bool {
+func (r CartSetCardResponseData) IsKnown() bool {
 	switch r {
-	case CartSetCardResponseResultOk:
+	case CartSetCardResponseDataOk:
 		return true
 	}
 	return false
 }
 
 type CartSetItemResponse struct {
-	Result shared.Cart             `json:"result,required"`
-	JSON   cartSetItemResponseJSON `json:"-"`
+	// The current Terminal shop user's cart.
+	Data shared.Cart             `json:"data,required"`
+	JSON cartSetItemResponseJSON `json:"-"`
 }
 
 // cartSetItemResponseJSON contains the JSON metadata for the struct
 // [CartSetItemResponse]
 type cartSetItemResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -138,14 +144,14 @@ func (r cartSetItemResponseJSON) RawJSON() string {
 }
 
 type CartSetShippingResponse struct {
-	Result CartSetShippingResponseResult `json:"result,required"`
-	JSON   cartSetShippingResponseJSON   `json:"-"`
+	Data CartSetShippingResponseData `json:"data,required"`
+	JSON cartSetShippingResponseJSON `json:"-"`
 }
 
 // cartSetShippingResponseJSON contains the JSON metadata for the struct
 // [CartSetShippingResponse]
 type cartSetShippingResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -158,21 +164,22 @@ func (r cartSetShippingResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartSetShippingResponseResult string
+type CartSetShippingResponseData string
 
 const (
-	CartSetShippingResponseResultOk CartSetShippingResponseResult = "ok"
+	CartSetShippingResponseDataOk CartSetShippingResponseData = "ok"
 )
 
-func (r CartSetShippingResponseResult) IsKnown() bool {
+func (r CartSetShippingResponseData) IsKnown() bool {
 	switch r {
-	case CartSetShippingResponseResultOk:
+	case CartSetShippingResponseDataOk:
 		return true
 	}
 	return false
 }
 
 type CartSetCardParams struct {
+	// ID of the credit card to set for the current user's cart.
 	CardID param.Field[string] `json:"cardID,required"`
 }
 
@@ -181,8 +188,10 @@ func (r CartSetCardParams) MarshalJSON() (data []byte, err error) {
 }
 
 type CartSetItemParams struct {
+	// ID of the product variant to add to the cart.
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
-	Quantity         param.Field[int64]  `json:"quantity,required"`
+	// Quantity of the item to add to the cart.
+	Quantity param.Field[float64] `json:"quantity,required"`
 }
 
 func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
@@ -190,6 +199,7 @@ func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
 }
 
 type CartSetShippingParams struct {
+	// ID of the shipping address to set for the current user's cart.
 	ShippingID param.Field[string] `json:"shippingID,required"`
 }
 

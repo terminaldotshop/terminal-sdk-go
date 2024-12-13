@@ -6,11 +6,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // UserService contains methods and other services that help with interacting with
@@ -34,6 +34,7 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	return
 }
 
+// Update the current user.
 func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ...option.RequestOption) (res *UserUpdateResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/me"
@@ -41,6 +42,8 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 	return
 }
 
+// Get initial app data, including user, products, cart, addresses, cards,
+// subscriptions, and orders.
 func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (res *UserInitResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/init"
@@ -48,6 +51,7 @@ func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// Get the current user.
 func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/me"
@@ -56,14 +60,15 @@ func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res
 }
 
 type UserUpdateResponse struct {
-	Result shared.User            `json:"result,required"`
-	JSON   userUpdateResponseJSON `json:"-"`
+	// A Terminal shop user. (We have users, btw.)
+	Data shared.User            `json:"data,required"`
+	JSON userUpdateResponseJSON `json:"-"`
 }
 
 // userUpdateResponseJSON contains the JSON metadata for the struct
 // [UserUpdateResponse]
 type userUpdateResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -77,14 +82,15 @@ func (r userUpdateResponseJSON) RawJSON() string {
 }
 
 type UserInitResponse struct {
-	Result UserInitResponseResult `json:"result,required"`
-	JSON   userInitResponseJSON   `json:"-"`
+	// Initial app data.
+	Data UserInitResponseData `json:"data,required"`
+	JSON userInitResponseJSON `json:"-"`
 }
 
 // userInitResponseJSON contains the JSON metadata for the struct
 // [UserInitResponse]
 type userInitResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -97,20 +103,23 @@ func (r userInitResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type UserInitResponseResult struct {
-	Addresses     []shared.Shipping          `json:"addresses,required"`
-	Cards         []shared.Card              `json:"cards,required"`
-	Cart          shared.Cart                `json:"cart,required"`
-	Orders        []shared.Order             `json:"orders,required"`
-	Products      []shared.Product           `json:"products,required"`
-	Subscriptions []shared.Subscription      `json:"subscriptions,required"`
-	User          shared.User                `json:"user,required"`
-	JSON          userInitResponseResultJSON `json:"-"`
+// Initial app data.
+type UserInitResponseData struct {
+	Addresses []UserInitResponseDataAddress `json:"addresses,required"`
+	Cards     []shared.Card                 `json:"cards,required"`
+	// The current Terminal shop user's cart.
+	Cart          shared.Cart           `json:"cart,required"`
+	Orders        []shared.Order        `json:"orders,required"`
+	Products      []shared.Product      `json:"products,required"`
+	Subscriptions []shared.Subscription `json:"subscriptions,required"`
+	// A Terminal shop user. (We have users, btw.)
+	User shared.User              `json:"user,required"`
+	JSON userInitResponseDataJSON `json:"-"`
 }
 
-// userInitResponseResultJSON contains the JSON metadata for the struct
-// [UserInitResponseResult]
-type userInitResponseResultJSON struct {
+// userInitResponseDataJSON contains the JSON metadata for the struct
+// [UserInitResponseData]
+type userInitResponseDataJSON struct {
 	Addresses     apijson.Field
 	Cards         apijson.Field
 	Cart          apijson.Field
@@ -122,22 +131,49 @@ type userInitResponseResultJSON struct {
 	ExtraFields   map[string]apijson.Field
 }
 
-func (r *UserInitResponseResult) UnmarshalJSON(data []byte) (err error) {
+func (r *UserInitResponseData) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r userInitResponseResultJSON) RawJSON() string {
+func (r userInitResponseDataJSON) RawJSON() string {
+	return r.raw
+}
+
+// Shipping address associated with a Terminal shop user.
+type UserInitResponseDataAddress struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// A physical address for shipping that sweet, sweet coffee to people's doorstep.
+	Address shared.Address                  `json:"address,required"`
+	JSON    userInitResponseDataAddressJSON `json:"-"`
+}
+
+// userInitResponseDataAddressJSON contains the JSON metadata for the struct
+// [UserInitResponseDataAddress]
+type userInitResponseDataAddressJSON struct {
+	ID          apijson.Field
+	Address     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *UserInitResponseDataAddress) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userInitResponseDataAddressJSON) RawJSON() string {
 	return r.raw
 }
 
 type UserMeResponse struct {
-	Result shared.User        `json:"result,required"`
-	JSON   userMeResponseJSON `json:"-"`
+	// A Terminal shop user. (We have users, btw.)
+	Data shared.User        `json:"data,required"`
+	JSON userMeResponseJSON `json:"-"`
 }
 
 // userMeResponseJSON contains the JSON metadata for the struct [UserMeResponse]
 type userMeResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -151,9 +187,10 @@ func (r userMeResponseJSON) RawJSON() string {
 }
 
 type UserUpdateParams struct {
-	ID    param.Field[string] `json:"id,required"`
+	// Email address of the user.
 	Email param.Field[string] `json:"email"`
-	Name  param.Field[string] `json:"name"`
+	// Name of the user.
+	Name param.Field[string] `json:"name"`
 }
 
 func (r UserUpdateParams) MarshalJSON() (data []byte, err error) {

@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/internal/testutil"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func TestCardNew(t *testing.T) {
@@ -26,7 +26,7 @@ func TestCardNew(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.New(context.TODO(), terminal.CardNewParams{
-		Token: terminal.F("token"),
+		Token: terminal.F("tok_1N3T00LkdIwHu7ixt44h1F8k"),
 	})
 	if err != nil {
 		var apierr *terminal.Error
@@ -71,7 +71,7 @@ func TestCardDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Card.Delete(context.TODO(), "id")
+	_, err := client.Card.Delete(context.TODO(), "crd_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

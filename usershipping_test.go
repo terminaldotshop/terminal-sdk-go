@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/internal/testutil"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func TestUserShippingNewWithOptionalParams(t *testing.T) {
@@ -26,14 +26,14 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.User.Shipping.New(context.TODO(), terminal.UserShippingNewParams{
-		City:     terminal.F("city"),
-		Country:  terminal.F("country"),
-		Name:     terminal.F("name"),
-		Street1:  terminal.F("street1"),
-		Zip:      terminal.F("zip"),
-		Phone:    terminal.F("phone"),
-		Province: terminal.F("province"),
-		Street2:  terminal.F("street2"),
+		City:     terminal.F("Anytown"),
+		Country:  terminal.F("US"),
+		Name:     terminal.F("John Doe"),
+		Street1:  terminal.F("123 Main St"),
+		Zip:      terminal.F("12345"),
+		Phone:    terminal.F("5555555555"),
+		Province: terminal.F("CA"),
+		Street2:  terminal.F("Apt 1"),
 	})
 	if err != nil {
 		var apierr *terminal.Error
@@ -78,7 +78,7 @@ func TestUserShippingDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.Delete(context.TODO(), "id")
+	_, err := client.User.Shipping.Delete(context.TODO(), "shp_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

@@ -1,4 +1,4 @@
-module github.com/terminaldotshop/terminal-sdk-go
+module github.com/stainless-sdks/terminal-go
 
 go 1.21
 
