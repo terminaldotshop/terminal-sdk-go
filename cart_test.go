@@ -97,7 +97,7 @@ func TestCartSetItem(t *testing.T) {
 	)
 	_, err := client.Cart.SetItem(context.TODO(), terminal.CartSetItemParams{
 		ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		Quantity:         terminal.F(2.000000),
+		Quantity:         terminal.F(int64(2)),
 	})
 	if err != nil {
 		var apierr *terminal.Error
