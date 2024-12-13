@@ -115,8 +115,8 @@ type Cart struct {
 	Amount CartAmount `json:"amount,required"`
 	// An array of items in the current user's cart.
 	Items []CartItem `json:"items,required"`
-	// The subtotal of all items in the current user's cart.
-	Subtotal float64 `json:"subtotal,required"`
+	// The subtotal of all items in the current user's cart, in cents (USD).
+	Subtotal int64 `json:"subtotal,required"`
 	// ID of the shipping address selected on the current user's cart.
 	AddressID string `json:"addressID"`
 	// ID of the card selected on the current user's cart.
