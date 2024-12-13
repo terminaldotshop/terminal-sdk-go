@@ -3,8 +3,8 @@
 package shared
 
 import (
-	"github.com/stainless-sdks/terminal-go/internal/apijson"
-	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
 // A physical address for shipping that sweet, sweet coffee to people's doorstep.

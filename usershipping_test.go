@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-go"
-	"github.com/stainless-sdks/terminal-go/internal/testutil"
-	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/terminaldotshop/terminal-sdk-go"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
+	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
 func TestUserShippingNewWithOptionalParams(t *testing.T) {
