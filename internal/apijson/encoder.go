@@ -13,7 +13,7 @@ import (
 
 	"github.com/tidwall/sjson"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
+	"github.com/stainless-sdks/terminal-go/internal/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

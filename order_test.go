@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/internal/testutil"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func TestOrderNew(t *testing.T) {
@@ -69,7 +69,7 @@ func TestOrderGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Order.Get(context.TODO(), "id")
+	_, err := client.Order.Get(context.TODO(), "ord_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

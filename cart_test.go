@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/internal/testutil"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func TestCartList(t *testing.T) {
@@ -48,7 +48,7 @@ func TestCartSetCard(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetCard(context.TODO(), terminal.CartSetCardParams{
-		CardID: terminal.F("cardID"),
+		CardID: terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 	})
 	if err != nil {
 		var apierr *terminal.Error
@@ -72,8 +72,8 @@ func TestCartSetItem(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetItem(context.TODO(), terminal.CartSetItemParams{
-		ProductVariantID: terminal.F("productVariantID"),
-		Quantity:         terminal.F(int64(0)),
+		ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Quantity:         terminal.F(2.000000),
 	})
 	if err != nil {
 		var apierr *terminal.Error
@@ -97,7 +97,7 @@ func TestCartSetShipping(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.SetShipping(context.TODO(), terminal.CartSetShippingParams{
-		ShippingID: terminal.F("shippingID"),
+		ShippingID: terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 // Client creates a struct with services and top level methods that help with

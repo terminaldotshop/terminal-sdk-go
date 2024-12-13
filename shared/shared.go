@@ -3,19 +3,29 @@
 package shared
 
 import (
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/param"
 )
 
+// A physical address for shipping that sweet, sweet coffee to people's doorstep.
 type Address struct {
-	City     string      `json:"city,required"`
-	Country  string      `json:"country,required"`
-	Name     string      `json:"name,required"`
-	Street1  string      `json:"street1,required"`
-	Zip      string      `json:"zip,required"`
-	Phone    string      `json:"phone"`
-	Province string      `json:"province"`
-	Street2  string      `json:"street2"`
-	JSON     addressJSON `json:"-"`
+	// City of the address.
+	City string `json:"city,required"`
+	// ISO 3166-1 alpha-2 country code of the address.
+	Country string `json:"country,required"`
+	// The recipient's name.
+	Name string `json:"name,required"`
+	// Street of the address.
+	Street1 string `json:"street1,required"`
+	// Zip code of the address.
+	Zip string `json:"zip,required"`
+	// Phone number of the recipient.
+	Phone string `json:"phone"`
+	// Province or state of the address.
+	Province string `json:"province"`
+	// Apartment, suite, etc. of the address.
+	Street2 string      `json:"street2"`
+	JSON    addressJSON `json:"-"`
 }
 
 // addressJSON contains the JSON metadata for the struct [Address]
@@ -40,12 +50,17 @@ func (r addressJSON) RawJSON() string {
 	return r.raw
 }
 
+// Credit card used for payments in the Terminal shop.
 type Card struct {
-	ID         string         `json:"id,required"`
-	Brand      string         `json:"brand,required"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Brand of the card.
+	Brand string `json:"brand,required"`
+	// Expiration of the card.
 	Expiration CardExpiration `json:"expiration,required"`
-	Last4      string         `json:"last4,required"`
-	JSON       cardJSON       `json:"-"`
+	// Last four digits of the card.
+	Last4 string   `json:"last4,required"`
+	JSON  cardJSON `json:"-"`
 }
 
 // cardJSON contains the JSON metadata for the struct [Card]
@@ -66,10 +81,13 @@ func (r cardJSON) RawJSON() string {
 	return r.raw
 }
 
+// Expiration of the card.
 type CardExpiration struct {
-	Month int64              `json:"month,required"`
-	Year  int64              `json:"year,required"`
-	JSON  cardExpirationJSON `json:"-"`
+	// Expiration month of the card.
+	Month int64 `json:"month,required"`
+	// Expiration year of the card.
+	Year int64              `json:"year,required"`
+	JSON cardExpirationJSON `json:"-"`
 }
 
 // cardExpirationJSON contains the JSON metadata for the struct [CardExpiration]
@@ -88,14 +106,21 @@ func (r cardExpirationJSON) RawJSON() string {
 	return r.raw
 }
 
+// The current Terminal shop user's cart.
 type Cart struct {
-	Amount     CartAmount   `json:"amount,required"`
-	Items      []CartItem   `json:"items,required"`
-	Subtotal   int64        `json:"subtotal,required"`
-	CardID     string       `json:"cardID"`
-	Shipping   CartShipping `json:"shipping"`
-	ShippingID string       `json:"shippingID"`
-	JSON       cartJSON     `json:"-"`
+	// The subtotal and shipping amounts for the current user's cart.
+	Amount CartAmount `json:"amount,required"`
+	// An array of items in the current user's cart.
+	Items []CartItem `json:"items,required"`
+	// The subtotal of all items in the current user's cart.
+	Subtotal float64 `json:"subtotal,required"`
+	// ID of the card selected on the current user's cart.
+	CardID string `json:"cardID"`
+	// Shipping information for the current user's cart.
+	Shipping CartShipping `json:"shipping"`
+	// ID of the shipping address selected on the current user's cart.
+	ShippingID string   `json:"shippingID"`
+	JSON       cartJSON `json:"-"`
 }
 
 // cartJSON contains the JSON metadata for the struct [Cart]
@@ -118,8 +143,11 @@ func (r cartJSON) RawJSON() string {
 	return r.raw
 }
 
+// The subtotal and shipping amounts for the current user's cart.
 type CartAmount struct {
-	Subtotal int64          `json:"subtotal,required"`
+	// Subtotal of the current user's cart, in cents (USD).
+	Subtotal int64 `json:"subtotal,required"`
+	// Shipping amount of the current user's cart, in cents (USD).
 	Shipping int64          `json:"shipping"`
 	JSON     cartAmountJSON `json:"-"`
 }
@@ -140,12 +168,17 @@ func (r cartAmountJSON) RawJSON() string {
 	return r.raw
 }
 
+// An item in the current Terminal shop user's cart.
 type CartItem struct {
-	ID               string       `json:"id,required"`
-	ProductVariantID string       `json:"productVariantID,required"`
-	Quantity         int64        `json:"quantity,required"`
-	Subtotal         int64        `json:"subtotal,required"`
-	JSON             cartItemJSON `json:"-"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// ID of the product variant for this item in the current user's cart.
+	ProductVariantID string `json:"productVariantID,required"`
+	// Quantity of the item in the current user's cart.
+	Quantity float64 `json:"quantity,required"`
+	// Subtotal of the item in the current user's cart, in cents (USD).
+	Subtotal int64        `json:"subtotal,required"`
+	JSON     cartItemJSON `json:"-"`
 }
 
 // cartItemJSON contains the JSON metadata for the struct [CartItem]
@@ -166,8 +199,11 @@ func (r cartItemJSON) RawJSON() string {
 	return r.raw
 }
 
+// Shipping information for the current user's cart.
 type CartShipping struct {
-	Service   string           `json:"service"`
+	// Shipping service name.
+	Service string `json:"service"`
+	// Shipping timeframe provided by the shipping carrier.
 	Timeframe string           `json:"timeframe"`
 	JSON      cartShippingJSON `json:"-"`
 }
@@ -188,14 +224,21 @@ func (r cartShippingJSON) RawJSON() string {
 	return r.raw
 }
 
+// An order from the Terminal shop.
 type Order struct {
-	ID       string        `json:"id,required"`
-	Amount   OrderAmount   `json:"amount,required"`
-	Items    []OrderItem   `json:"items,required"`
-	Shipping OrderShipping `json:"shipping,required"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// The subtotal and shipping amounts of the order.
+	Amount OrderAmount `json:"amount,required"`
+	// Items in the order.
+	Items []OrderItem `json:"items,required"`
+	// A physical address for shipping that sweet, sweet coffee to people's doorstep.
+	Shipping Address `json:"shipping,required"`
+	// Tracking information of the order.
 	Tracking OrderTracking `json:"tracking,required"`
-	Index    float64       `json:"index"`
-	JSON     orderJSON     `json:"-"`
+	// Zero-based index of the order for this user only.
+	Index float64   `json:"index"`
+	JSON  orderJSON `json:"-"`
 }
 
 // orderJSON contains the JSON metadata for the struct [Order]
@@ -218,8 +261,11 @@ func (r orderJSON) RawJSON() string {
 	return r.raw
 }
 
+// The subtotal and shipping amounts of the order.
 type OrderAmount struct {
-	Shipping float64         `json:"shipping,required"`
+	// Shipping amount of the order, in cents (USD).
+	Shipping float64 `json:"shipping,required"`
+	// Subtotal amount of the order, in cents (USD).
 	Subtotal float64         `json:"subtotal,required"`
 	JSON     orderAmountJSON `json:"-"`
 }
@@ -241,10 +287,15 @@ func (r orderAmountJSON) RawJSON() string {
 }
 
 type OrderItem struct {
-	ID               string        `json:"id,required"`
-	Amount           float64       `json:"amount,required"`
-	Quantity         int64         `json:"quantity,required"`
-	Description      string        `json:"description"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Amount of the item in the order, in cents (USD).
+	Amount float64 `json:"amount,required"`
+	// Quantity of the item in the order.
+	Quantity float64 `json:"quantity,required"`
+	// Description of the item in the order.
+	Description string `json:"description"`
+	// ID of the product variant of the item in the order.
 	ProductVariantID string        `json:"productVariantID"`
 	JSON             orderItemJSON `json:"-"`
 }
@@ -268,45 +319,15 @@ func (r orderItemJSON) RawJSON() string {
 	return r.raw
 }
 
-type OrderShipping struct {
-	City     string            `json:"city,required"`
-	Country  string            `json:"country,required"`
-	Name     string            `json:"name,required"`
-	Street1  string            `json:"street1,required"`
-	Zip      string            `json:"zip,required"`
-	Phone    string            `json:"phone"`
-	Province string            `json:"province"`
-	Street2  string            `json:"street2"`
-	JSON     orderShippingJSON `json:"-"`
-}
-
-// orderShippingJSON contains the JSON metadata for the struct [OrderShipping]
-type orderShippingJSON struct {
-	City        apijson.Field
-	Country     apijson.Field
-	Name        apijson.Field
-	Street1     apijson.Field
-	Zip         apijson.Field
-	Phone       apijson.Field
-	Province    apijson.Field
-	Street2     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *OrderShipping) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r orderShippingJSON) RawJSON() string {
-	return r.raw
-}
-
+// Tracking information of the order.
 type OrderTracking struct {
-	Number  string            `json:"number"`
-	Service string            `json:"service"`
-	URL     string            `json:"url"`
-	JSON    orderTrackingJSON `json:"-"`
+	// Tracking number of the order.
+	Number string `json:"number"`
+	// Shipping service of the order.
+	Service string `json:"service"`
+	// Tracking URL of the order.
+	URL  string            `json:"url"`
+	JSON orderTrackingJSON `json:"-"`
 }
 
 // orderTrackingJSON contains the JSON metadata for the struct [OrderTracking]
@@ -326,15 +347,23 @@ func (r orderTrackingJSON) RawJSON() string {
 	return r.raw
 }
 
+// Product sold in the Terminal shop.
 type Product struct {
-	ID           string              `json:"id,required"`
-	Description  string              `json:"description,required"`
-	Name         string              `json:"name,required"`
-	Variants     []ProductVariant    `json:"variants,required"`
-	Order        int64               `json:"order"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Description of the product.
+	Description string `json:"description,required"`
+	// Name of the product.
+	Name string `json:"name,required"`
+	// List of variants of the product.
+	Variants []ProductVariant `json:"variants,required"`
+	// Order of the product used when displaying a sorted list of products.
+	Order int64 `json:"order"`
+	// Whether the product must be or can be subscribed to.
 	Subscription ProductSubscription `json:"subscription"`
-	Tags         map[string]string   `json:"tags"`
-	JSON         productJSON         `json:"-"`
+	// Tags for the product.
+	Tags map[string]string `json:"tags"`
+	JSON productJSON       `json:"-"`
 }
 
 // productJSON contains the JSON metadata for the struct [Product]
@@ -358,6 +387,7 @@ func (r productJSON) RawJSON() string {
 	return r.raw
 }
 
+// Whether the product must be or can be subscribed to.
 type ProductSubscription string
 
 const (
@@ -373,10 +403,14 @@ func (r ProductSubscription) IsKnown() bool {
 	return false
 }
 
+// Variant of a product in the Terminal shop.
 type ProductVariant struct {
-	ID    string             `json:"id,required"`
-	Name  string             `json:"name,required"`
-	Price int64              `json:"price,required"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Name of the product variant.
+	Name string `json:"name,required"`
+	// Price of the product variant in cents (USD).
+	Price float64            `json:"price,required"`
 	JSON  productVariantJSON `json:"-"`
 }
 
@@ -397,36 +431,21 @@ func (r productVariantJSON) RawJSON() string {
 	return r.raw
 }
 
-type Shipping struct {
-	ID      string       `json:"id,required"`
-	Address Address      `json:"address,required"`
-	JSON    shippingJSON `json:"-"`
-}
-
-// shippingJSON contains the JSON metadata for the struct [Shipping]
-type shippingJSON struct {
-	ID          apijson.Field
-	Address     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Shipping) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r shippingJSON) RawJSON() string {
-	return r.raw
-}
-
+// Subscription to a Terminal shop product.
 type Subscription struct {
-	ID               string                `json:"id,required"`
-	CardID           string                `json:"cardID,required"`
-	Frequency        SubscriptionFrequency `json:"frequency,required"`
-	ProductVariantID string                `json:"productVariantID,required"`
-	Quantity         int64                 `json:"quantity,required"`
-	ShippingID       string                `json:"shippingID,required"`
-	JSON             subscriptionJSON      `json:"-"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// ID of the card used for the subscription.
+	CardID string `json:"cardID,required"`
+	// Frequency of the subscription.
+	Frequency SubscriptionFrequency `json:"frequency,required"`
+	// ID of the product variant being subscribed to.
+	ProductVariantID string `json:"productVariantID,required"`
+	// Quantity of the subscription.
+	Quantity int64 `json:"quantity,required"`
+	// ID of the shipping address used for the subscription.
+	ShippingID string           `json:"shippingID,required"`
+	JSON       subscriptionJSON `json:"-"`
 }
 
 // subscriptionJSON contains the JSON metadata for the struct [Subscription]
@@ -449,6 +468,7 @@ func (r subscriptionJSON) RawJSON() string {
 	return r.raw
 }
 
+// Frequency of the subscription.
 type SubscriptionFrequency string
 
 const (
@@ -467,11 +487,37 @@ func (r SubscriptionFrequency) IsKnown() bool {
 	return false
 }
 
+// Subscription to a Terminal shop product.
+type SubscriptionParam struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID param.Field[string] `json:"id,required"`
+	// ID of the card used for the subscription.
+	CardID param.Field[string] `json:"cardID,required"`
+	// Frequency of the subscription.
+	Frequency param.Field[SubscriptionFrequency] `json:"frequency,required"`
+	// ID of the product variant being subscribed to.
+	ProductVariantID param.Field[string] `json:"productVariantID,required"`
+	// Quantity of the subscription.
+	Quantity param.Field[int64] `json:"quantity,required"`
+	// ID of the shipping address used for the subscription.
+	ShippingID param.Field[string] `json:"shippingID,required"`
+}
+
+func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// A Terminal shop user. (We have users, btw.)
 type User struct {
-	ID               string   `json:"id,required"`
-	Email            string   `json:"email,required,nullable"`
-	Fingerprint      string   `json:"fingerprint,required,nullable"`
-	Name             string   `json:"name,required,nullable"`
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Email address of the user.
+	Email string `json:"email,required,nullable"`
+	// The user's fingerprint, derived from their public SSH key.
+	Fingerprint string `json:"fingerprint,required,nullable"`
+	// Name of the user.
+	Name string `json:"name,required,nullable"`
+	// Stripe customer ID of the user.
 	StripeCustomerID string   `json:"stripeCustomerID,required"`
 	JSON             userJSON `json:"-"`
 }

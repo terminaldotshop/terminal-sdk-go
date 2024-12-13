@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // CardService contains methods and other services that help with interacting with
@@ -34,6 +34,7 @@ func NewCardService(opts ...option.RequestOption) (r *CardService) {
 	return
 }
 
+// Attach a credit card (tokenized via Stripe) to the current user.
 func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...option.RequestOption) (res *CardNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "card"
@@ -41,6 +42,7 @@ func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...optio
 	return
 }
 
+// List the credit cards associated with the current user.
 func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (res *CardListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "card"
@@ -48,6 +50,7 @@ func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// Delete a credit card associated with the current user.
 func (r *CardService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *CardDeleteResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
@@ -60,13 +63,14 @@ func (r *CardService) Delete(ctx context.Context, id string, opts ...option.Requ
 }
 
 type CardNewResponse struct {
-	Result string              `json:"result,required"`
-	JSON   cardNewResponseJSON `json:"-"`
+	// ID of the card.
+	Data string              `json:"data,required"`
+	JSON cardNewResponseJSON `json:"-"`
 }
 
 // cardNewResponseJSON contains the JSON metadata for the struct [CardNewResponse]
 type cardNewResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -80,14 +84,15 @@ func (r cardNewResponseJSON) RawJSON() string {
 }
 
 type CardListResponse struct {
-	Result []shared.Card        `json:"result,required"`
-	JSON   cardListResponseJSON `json:"-"`
+	// List of cards associated with the user.
+	Data []shared.Card        `json:"data,required"`
+	JSON cardListResponseJSON `json:"-"`
 }
 
 // cardListResponseJSON contains the JSON metadata for the struct
 // [CardListResponse]
 type cardListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -101,14 +106,14 @@ func (r cardListResponseJSON) RawJSON() string {
 }
 
 type CardDeleteResponse struct {
-	Result CardDeleteResponseResult `json:"result,required"`
-	JSON   cardDeleteResponseJSON   `json:"-"`
+	Data CardDeleteResponseData `json:"data,required"`
+	JSON cardDeleteResponseJSON `json:"-"`
 }
 
 // cardDeleteResponseJSON contains the JSON metadata for the struct
 // [CardDeleteResponse]
 type cardDeleteResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -121,21 +126,23 @@ func (r cardDeleteResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CardDeleteResponseResult string
+type CardDeleteResponseData string
 
 const (
-	CardDeleteResponseResultOk CardDeleteResponseResult = "ok"
+	CardDeleteResponseDataOk CardDeleteResponseData = "ok"
 )
 
-func (r CardDeleteResponseResult) IsKnown() bool {
+func (r CardDeleteResponseData) IsKnown() bool {
 	switch r {
-	case CardDeleteResponseResultOk:
+	case CardDeleteResponseDataOk:
 		return true
 	}
 	return false
 }
 
 type CardNewParams struct {
+	// Stripe card token. Learn how to
+	// [create one here](https://docs.stripe.com/api/tokens/create_card).
 	Token param.Field[string] `json:"token,required"`
 }
 

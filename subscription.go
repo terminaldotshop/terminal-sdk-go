@@ -8,11 +8,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // SubscriptionService contains methods and other services that help with
@@ -34,6 +33,7 @@ func NewSubscriptionService(opts ...option.RequestOption) (r *SubscriptionServic
 	return
 }
 
+// Create a subscription for the current user.
 func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParams, opts ...option.RequestOption) (res *SubscriptionNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "subscription"
@@ -41,6 +41,7 @@ func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParam
 	return
 }
 
+// List the subscriptions associated with the current user.
 func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "subscription"
@@ -48,6 +49,7 @@ func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOp
 	return
 }
 
+// Cancel a subscription for the current user.
 func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *SubscriptionDeleteResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
@@ -60,14 +62,14 @@ func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...opt
 }
 
 type SubscriptionNewResponse struct {
-	Result bool                        `json:"result,required"`
-	JSON   subscriptionNewResponseJSON `json:"-"`
+	Data SubscriptionNewResponseData `json:"data,required"`
+	JSON subscriptionNewResponseJSON `json:"-"`
 }
 
 // subscriptionNewResponseJSON contains the JSON metadata for the struct
 // [SubscriptionNewResponse]
 type subscriptionNewResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -80,15 +82,30 @@ func (r subscriptionNewResponseJSON) RawJSON() string {
 	return r.raw
 }
 
+type SubscriptionNewResponseData string
+
+const (
+	SubscriptionNewResponseDataOk SubscriptionNewResponseData = "ok"
+)
+
+func (r SubscriptionNewResponseData) IsKnown() bool {
+	switch r {
+	case SubscriptionNewResponseDataOk:
+		return true
+	}
+	return false
+}
+
 type SubscriptionListResponse struct {
-	Result []shared.Subscription        `json:"result,required"`
-	JSON   subscriptionListResponseJSON `json:"-"`
+	// List of subscriptions.
+	Data []shared.Subscription        `json:"data,required"`
+	JSON subscriptionListResponseJSON `json:"-"`
 }
 
 // subscriptionListResponseJSON contains the JSON metadata for the struct
 // [SubscriptionListResponse]
 type subscriptionListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -102,14 +119,14 @@ func (r subscriptionListResponseJSON) RawJSON() string {
 }
 
 type SubscriptionDeleteResponse struct {
-	Result SubscriptionDeleteResponseResult `json:"result,required"`
-	JSON   subscriptionDeleteResponseJSON   `json:"-"`
+	Data SubscriptionDeleteResponseData `json:"data,required"`
+	JSON subscriptionDeleteResponseJSON `json:"-"`
 }
 
 // subscriptionDeleteResponseJSON contains the JSON metadata for the struct
 // [SubscriptionDeleteResponse]
 type subscriptionDeleteResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -122,46 +139,25 @@ func (r subscriptionDeleteResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type SubscriptionDeleteResponseResult string
+type SubscriptionDeleteResponseData string
 
 const (
-	SubscriptionDeleteResponseResultOk SubscriptionDeleteResponseResult = "ok"
+	SubscriptionDeleteResponseDataOk SubscriptionDeleteResponseData = "ok"
 )
 
-func (r SubscriptionDeleteResponseResult) IsKnown() bool {
+func (r SubscriptionDeleteResponseData) IsKnown() bool {
 	switch r {
-	case SubscriptionDeleteResponseResultOk:
+	case SubscriptionDeleteResponseDataOk:
 		return true
 	}
 	return false
 }
 
 type SubscriptionNewParams struct {
-	CardID           param.Field[string]                         `json:"cardID,required"`
-	Frequency        param.Field[SubscriptionNewParamsFrequency] `json:"frequency,required"`
-	ProductVariantID param.Field[string]                         `json:"productVariantID,required"`
-	Quantity         param.Field[int64]                          `json:"quantity,required"`
-	ShippingID       param.Field[string]                         `json:"shippingID,required"`
+	// Subscription to a Terminal shop product.
+	Subscription shared.SubscriptionParam `json:"subscription,required"`
 }
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type SubscriptionNewParamsFrequency string
-
-const (
-	SubscriptionNewParamsFrequencyFixed   SubscriptionNewParamsFrequency = "fixed"
-	SubscriptionNewParamsFrequencyDaily   SubscriptionNewParamsFrequency = "daily"
-	SubscriptionNewParamsFrequencyWeekly  SubscriptionNewParamsFrequency = "weekly"
-	SubscriptionNewParamsFrequencyMonthly SubscriptionNewParamsFrequency = "monthly"
-	SubscriptionNewParamsFrequencyYearly  SubscriptionNewParamsFrequency = "yearly"
-)
-
-func (r SubscriptionNewParamsFrequency) IsKnown() bool {
-	switch r {
-	case SubscriptionNewParamsFrequencyFixed, SubscriptionNewParamsFrequencyDaily, SubscriptionNewParamsFrequencyWeekly, SubscriptionNewParamsFrequencyMonthly, SubscriptionNewParamsFrequencyYearly:
-		return true
-	}
-	return false
+	return apijson.MarshalRoot(r.Subscription)
 }

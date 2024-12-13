@@ -1,6 +1,6 @@
 # Terminal Go API Library
 
-<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go"><img src="https://pkg.go.dev/badge/github.com/terminaldotshop/terminal-sdk-go.svg" alt="Go Reference"></a>
+<a href="https://pkg.go.dev/github.com/stainless-sdks/terminal-go"><img src="https://pkg.go.dev/badge/github.com/stainless-sdks/terminal-go.svg" alt="Go Reference"></a>
 
 The Terminal Go library provides convenient access to [the Terminal REST
 API](https://docs.terminal.com) from applications written in Go. The full API of this library can be found in [api.md](api.md).
@@ -9,25 +9,17 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
-<!-- x-release-please-start-version -->
-
 ```go
 import (
-	"github.com/terminaldotshop/terminal-sdk-go" // imported as terminal
+	"github.com/stainless-sdks/terminal-go" // imported as terminal
 )
 ```
 
-<!-- x-release-please-end -->
-
 Or to pin the version:
 
-<!-- x-release-please-start-version -->
-
 ```sh
-go get -u 'github.com/terminaldotshop/terminal-sdk-go@v0.1.0-alpha.35'
+go get -u 'github.com/stainless-sdks/terminal-go@v0.1.0-alpha.35'
 ```
-
-<!-- x-release-please-end -->
 
 ## Requirements
 
@@ -44,8 +36,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/terminaldotshop/terminal-sdk-go"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/stainless-sdks/terminal-go"
+	"github.com/stainless-sdks/terminal-go/option"
 )
 
 func main() {
@@ -57,7 +49,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", product.Result)
+	fmt.Printf("%+v\n", product.Data)
 }
 
 ```
@@ -154,7 +146,7 @@ client.Product.List(context.TODO(), ...,
 )
 ```
 
-See the [full list of request options](https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go/option).
+See the [full list of request options](https://pkg.go.dev/github.com/stainless-sdks/terminal-go/option).
 
 ### Pagination
 
@@ -333,7 +325,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/terminaldotshop/terminal-sdk-go/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/terminal-go/issues) with questions, bugs, or suggestions.
 
 ## Contributing
 

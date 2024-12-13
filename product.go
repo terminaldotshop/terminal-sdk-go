@@ -6,10 +6,10 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // ProductService contains methods and other services that help with interacting
@@ -31,6 +31,7 @@ func NewProductService(opts ...option.RequestOption) (r *ProductService) {
 	return
 }
 
+// List all products for sale in the Terminal shop.
 func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption) (res *ProductListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "product"
@@ -39,14 +40,15 @@ func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption)
 }
 
 type ProductListResponse struct {
-	Result []shared.Product        `json:"result,required"`
-	JSON   productListResponseJSON `json:"-"`
+	// A list of products.
+	Data []shared.Product        `json:"data,required"`
+	JSON productListResponseJSON `json:"-"`
 }
 
 // productListResponseJSON contains the JSON metadata for the struct
 // [ProductListResponse]
 type productListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // OrderService contains methods and other services that help with interacting with
@@ -33,6 +33,7 @@ func NewOrderService(opts ...option.RequestOption) (r *OrderService) {
 	return
 }
 
+// Create an order from the current user's cart.
 func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (res *OrderNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "order"
@@ -40,6 +41,7 @@ func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// List the orders associated with the current user.
 func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (res *OrderListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "order"
@@ -47,6 +49,7 @@ func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (
 	return
 }
 
+// Get the order with the given ID.
 func (r *OrderService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *OrderGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
@@ -59,14 +62,15 @@ func (r *OrderService) Get(ctx context.Context, id string, opts ...option.Reques
 }
 
 type OrderNewResponse struct {
-	Result shared.Order         `json:"result,required"`
-	JSON   orderNewResponseJSON `json:"-"`
+	// An order from the Terminal shop.
+	Data shared.Order         `json:"data,required"`
+	JSON orderNewResponseJSON `json:"-"`
 }
 
 // orderNewResponseJSON contains the JSON metadata for the struct
 // [OrderNewResponse]
 type orderNewResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -80,14 +84,15 @@ func (r orderNewResponseJSON) RawJSON() string {
 }
 
 type OrderListResponse struct {
-	Result []shared.Order        `json:"result,required"`
-	JSON   orderListResponseJSON `json:"-"`
+	// List of orders.
+	Data []shared.Order        `json:"data,required"`
+	JSON orderListResponseJSON `json:"-"`
 }
 
 // orderListResponseJSON contains the JSON metadata for the struct
 // [OrderListResponse]
 type orderListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -101,14 +106,15 @@ func (r orderListResponseJSON) RawJSON() string {
 }
 
 type OrderGetResponse struct {
-	Result shared.Order         `json:"result,required"`
-	JSON   orderGetResponseJSON `json:"-"`
+	// An order from the Terminal shop.
+	Data shared.Order         `json:"data,required"`
+	JSON orderGetResponseJSON `json:"-"`
 }
 
 // orderGetResponseJSON contains the JSON metadata for the struct
 // [OrderGetResponse]
 type orderGetResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

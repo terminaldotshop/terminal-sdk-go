@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
-	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
-	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
+	"github.com/stainless-sdks/terminal-go/internal/apijson"
+	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/stainless-sdks/terminal-go/internal/requestconfig"
+	"github.com/stainless-sdks/terminal-go/option"
+	"github.com/stainless-sdks/terminal-go/shared"
 )
 
 // UserShippingService contains methods and other services that help with
@@ -34,6 +34,7 @@ func NewUserShippingService(opts ...option.RequestOption) (r *UserShippingServic
 	return
 }
 
+// Create and add a shipping address to the current user.
 func (r *UserShippingService) New(ctx context.Context, body UserShippingNewParams, opts ...option.RequestOption) (res *UserShippingNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/shipping"
@@ -41,6 +42,7 @@ func (r *UserShippingService) New(ctx context.Context, body UserShippingNewParam
 	return
 }
 
+// Get the shipping addresses associated with the current user.
 func (r *UserShippingService) List(ctx context.Context, opts ...option.RequestOption) (res *UserShippingListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "user/shipping"
@@ -48,6 +50,7 @@ func (r *UserShippingService) List(ctx context.Context, opts ...option.RequestOp
 	return
 }
 
+// Delete a shipping address from the current user.
 func (r *UserShippingService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *UserShippingDeleteResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
@@ -60,14 +63,15 @@ func (r *UserShippingService) Delete(ctx context.Context, id string, opts ...opt
 }
 
 type UserShippingNewResponse struct {
-	Result string                      `json:"result,required"`
-	JSON   userShippingNewResponseJSON `json:"-"`
+	// Shipping address ID.
+	Data string                      `json:"data,required"`
+	JSON userShippingNewResponseJSON `json:"-"`
 }
 
 // userShippingNewResponseJSON contains the JSON metadata for the struct
 // [UserShippingNewResponse]
 type userShippingNewResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -81,14 +85,15 @@ func (r userShippingNewResponseJSON) RawJSON() string {
 }
 
 type UserShippingListResponse struct {
-	Result []shared.Shipping            `json:"result,required"`
-	JSON   userShippingListResponseJSON `json:"-"`
+	// Shipping addresses.
+	Data []UserShippingListResponseData `json:"data,required"`
+	JSON userShippingListResponseJSON   `json:"-"`
 }
 
 // userShippingListResponseJSON contains the JSON metadata for the struct
 // [UserShippingListResponse]
 type userShippingListResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -101,15 +106,41 @@ func (r userShippingListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
+// Shipping address associated with a Terminal shop user.
+type UserShippingListResponseData struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// A physical address for shipping that sweet, sweet coffee to people's doorstep.
+	Address shared.Address                   `json:"address,required"`
+	JSON    userShippingListResponseDataJSON `json:"-"`
+}
+
+// userShippingListResponseDataJSON contains the JSON metadata for the struct
+// [UserShippingListResponseData]
+type userShippingListResponseDataJSON struct {
+	ID          apijson.Field
+	Address     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *UserShippingListResponseData) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userShippingListResponseDataJSON) RawJSON() string {
+	return r.raw
+}
+
 type UserShippingDeleteResponse struct {
-	Result UserShippingDeleteResponseResult `json:"result,required"`
-	JSON   userShippingDeleteResponseJSON   `json:"-"`
+	Data UserShippingDeleteResponseData `json:"data,required"`
+	JSON userShippingDeleteResponseJSON `json:"-"`
 }
 
 // userShippingDeleteResponseJSON contains the JSON metadata for the struct
 // [UserShippingDeleteResponse]
 type userShippingDeleteResponseJSON struct {
-	Result      apijson.Field
+	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -122,29 +153,36 @@ func (r userShippingDeleteResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type UserShippingDeleteResponseResult string
+type UserShippingDeleteResponseData string
 
 const (
-	UserShippingDeleteResponseResultOk UserShippingDeleteResponseResult = "ok"
+	UserShippingDeleteResponseDataOk UserShippingDeleteResponseData = "ok"
 )
 
-func (r UserShippingDeleteResponseResult) IsKnown() bool {
+func (r UserShippingDeleteResponseData) IsKnown() bool {
 	switch r {
-	case UserShippingDeleteResponseResultOk:
+	case UserShippingDeleteResponseDataOk:
 		return true
 	}
 	return false
 }
 
 type UserShippingNewParams struct {
-	City     param.Field[string] `json:"city,required"`
-	Country  param.Field[string] `json:"country,required"`
-	Name     param.Field[string] `json:"name,required"`
-	Street1  param.Field[string] `json:"street1,required"`
-	Zip      param.Field[string] `json:"zip,required"`
-	Phone    param.Field[string] `json:"phone"`
+	// City of the address.
+	City    param.Field[string] `json:"city,required"`
+	Country param.Field[string] `json:"country,required"`
+	// The recipient's name.
+	Name param.Field[string] `json:"name,required"`
+	// Street of the address.
+	Street1 param.Field[string] `json:"street1,required"`
+	// Zip code of the address.
+	Zip param.Field[string] `json:"zip,required"`
+	// Phone number of the recipient.
+	Phone param.Field[string] `json:"phone"`
+	// Province or state of the address.
 	Province param.Field[string] `json:"province"`
-	Street2  param.Field[string] `json:"street2"`
+	// Apartment, suite, etc. of the address.
+	Street2 param.Field[string] `json:"street2"`
 }
 
 func (r UserShippingNewParams) MarshalJSON() (data []byte, err error) {
