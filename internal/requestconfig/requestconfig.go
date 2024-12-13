@@ -17,10 +17,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/terminal-go/internal"
-	"github.com/stainless-sdks/terminal-go/internal/apierror"
-	"github.com/stainless-sdks/terminal-go/internal/apiform"
-	"github.com/stainless-sdks/terminal-go/internal/apiquery"
+	"github.com/terminaldotshop/terminal-sdk-go/internal"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apierror"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apiform"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

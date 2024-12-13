@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stainless-sdks/terminal-go/internal/param"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 )
 
 var encoders sync.Map // map[reflect.Type]encoderFunc
