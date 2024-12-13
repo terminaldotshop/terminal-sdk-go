@@ -40,6 +40,14 @@ func (r *CartService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// Set the shipping address for the current user's cart.
+func (r *CartService) SetAddress(ctx context.Context, body CartSetAddressParams, opts ...option.RequestOption) (res *CartSetAddressResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/address"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
 // Set the credit card for the current user's cart.
 func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts ...option.RequestOption) (res *CartSetCardResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -52,14 +60,6 @@ func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts 
 func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts ...option.RequestOption) (res *CartSetItemResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart/item"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
-}
-
-// Set the shipping address for the current user's cart.
-func (r *CartService) SetShipping(ctx context.Context, body CartSetShippingParams, opts ...option.RequestOption) (res *CartSetShippingResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "cart/shipping"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
@@ -84,6 +84,41 @@ func (r *CartListResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r cartListResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type CartSetAddressResponse struct {
+	Data CartSetAddressResponseData `json:"data,required"`
+	JSON cartSetAddressResponseJSON `json:"-"`
+}
+
+// cartSetAddressResponseJSON contains the JSON metadata for the struct
+// [CartSetAddressResponse]
+type cartSetAddressResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartSetAddressResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartSetAddressResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartSetAddressResponseData string
+
+const (
+	CartSetAddressResponseDataOk CartSetAddressResponseData = "ok"
+)
+
+func (r CartSetAddressResponseData) IsKnown() bool {
+	switch r {
+	case CartSetAddressResponseDataOk:
+		return true
+	}
+	return false
 }
 
 type CartSetCardResponse struct {
@@ -143,39 +178,13 @@ func (r cartSetItemResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartSetShippingResponse struct {
-	Data CartSetShippingResponseData `json:"data,required"`
-	JSON cartSetShippingResponseJSON `json:"-"`
+type CartSetAddressParams struct {
+	// ID of the shipping address to set for the current user's cart.
+	AddressID param.Field[string] `json:"addressID,required"`
 }
 
-// cartSetShippingResponseJSON contains the JSON metadata for the struct
-// [CartSetShippingResponse]
-type cartSetShippingResponseJSON struct {
-	Data        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *CartSetShippingResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r cartSetShippingResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type CartSetShippingResponseData string
-
-const (
-	CartSetShippingResponseDataOk CartSetShippingResponseData = "ok"
-)
-
-func (r CartSetShippingResponseData) IsKnown() bool {
-	switch r {
-	case CartSetShippingResponseDataOk:
-		return true
-	}
-	return false
+func (r CartSetAddressParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }
 
 type CartSetCardParams struct {
@@ -195,14 +204,5 @@ type CartSetItemParams struct {
 }
 
 func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type CartSetShippingParams struct {
-	// ID of the shipping address to set for the current user's cart.
-	ShippingID param.Field[string] `json:"shippingID,required"`
-}
-
-func (r CartSetShippingParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
