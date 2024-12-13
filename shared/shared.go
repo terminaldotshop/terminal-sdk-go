@@ -178,7 +178,7 @@ type CartItem struct {
 	// ID of the product variant for this item in the current user's cart.
 	ProductVariantID string `json:"productVariantID,required"`
 	// Quantity of the item in the current user's cart.
-	Quantity float64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity,required"`
 	// Subtotal of the item in the current user's cart, in cents (USD).
 	Subtotal int64        `json:"subtotal,required"`
 	JSON     cartItemJSON `json:"-"`
@@ -240,7 +240,7 @@ type Order struct {
 	// Tracking information of the order.
 	Tracking OrderTracking `json:"tracking,required"`
 	// Zero-based index of the order for this user only.
-	Index float64   `json:"index"`
+	Index int64     `json:"index"`
 	JSON  orderJSON `json:"-"`
 }
 
@@ -267,9 +267,9 @@ func (r orderJSON) RawJSON() string {
 // The subtotal and shipping amounts of the order.
 type OrderAmount struct {
 	// Shipping amount of the order, in cents (USD).
-	Shipping float64 `json:"shipping,required"`
+	Shipping int64 `json:"shipping,required"`
 	// Subtotal amount of the order, in cents (USD).
-	Subtotal float64         `json:"subtotal,required"`
+	Subtotal int64           `json:"subtotal,required"`
 	JSON     orderAmountJSON `json:"-"`
 }
 
@@ -456,7 +456,7 @@ type ProductVariant struct {
 	// Name of the product variant.
 	Name string `json:"name,required"`
 	// Price of the product variant in cents (USD).
-	Price float64            `json:"price,required"`
+	Price int64              `json:"price,required"`
 	JSON  productVariantJSON `json:"-"`
 }
 

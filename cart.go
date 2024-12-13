@@ -200,7 +200,7 @@ type CartSetItemParams struct {
 	// ID of the product variant to add to the cart.
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	// Quantity of the item to add to the cart.
-	Quantity param.Field[float64] `json:"quantity,required"`
+	Quantity param.Field[int64] `json:"quantity,required"`
 }
 
 func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
