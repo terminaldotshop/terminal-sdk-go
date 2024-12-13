@@ -115,8 +115,8 @@ type Cart struct {
 	Amount CartAmount `json:"amount,required"`
 	// An array of items in the current user's cart.
 	Items []CartItem `json:"items,required"`
-	// The subtotal of all items in the current user's cart.
-	Subtotal float64 `json:"subtotal,required"`
+	// The subtotal of all items in the current user's cart, in cents (USD).
+	Subtotal int64 `json:"subtotal,required"`
 	// ID of the shipping address selected on the current user's cart.
 	AddressID string `json:"addressID"`
 	// ID of the card selected on the current user's cart.
@@ -293,9 +293,9 @@ type OrderItem struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID string `json:"id,required"`
 	// Amount of the item in the order, in cents (USD).
-	Amount float64 `json:"amount,required"`
+	Amount int64 `json:"amount,required"`
 	// Quantity of the item in the order.
-	Quantity float64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity,required"`
 	// Description of the item in the order.
 	Description string `json:"description"`
 	// ID of the product variant of the item in the order.
