@@ -40,15 +40,6 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 	return
 }
 
-// Get initial app data, including user, products, cart, addresses, cards,
-// subscriptions, and orders.
-func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (res *UserInitResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "user/init"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
-}
-
 // Get the current user.
 func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -76,64 +67,6 @@ func (r *UserUpdateResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r userUpdateResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-type UserInitResponse struct {
-	// Initial app data.
-	Data UserInitResponseData `json:"data,required"`
-	JSON userInitResponseJSON `json:"-"`
-}
-
-// userInitResponseJSON contains the JSON metadata for the struct
-// [UserInitResponse]
-type userInitResponseJSON struct {
-	Data        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserInitResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userInitResponseJSON) RawJSON() string {
-	return r.raw
-}
-
-// Initial app data.
-type UserInitResponseData struct {
-	Addresses []shared.Address `json:"addresses,required"`
-	Cards     []shared.Card    `json:"cards,required"`
-	// The current Terminal shop user's cart.
-	Cart          shared.Cart           `json:"cart,required"`
-	Orders        []shared.Order        `json:"orders,required"`
-	Products      []shared.Product      `json:"products,required"`
-	Subscriptions []shared.Subscription `json:"subscriptions,required"`
-	// A Terminal shop user. (We have users, btw.)
-	User shared.User              `json:"user,required"`
-	JSON userInitResponseDataJSON `json:"-"`
-}
-
-// userInitResponseDataJSON contains the JSON metadata for the struct
-// [UserInitResponseData]
-type userInitResponseDataJSON struct {
-	Addresses     apijson.Field
-	Cards         apijson.Field
-	Cart          apijson.Field
-	Orders        apijson.Field
-	Products      apijson.Field
-	Subscriptions apijson.Field
-	User          apijson.Field
-	raw           string
-	ExtraFields   map[string]apijson.Field
-}
-
-func (r *UserInitResponseData) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userInitResponseDataJSON) RawJSON() string {
 	return r.raw
 }
 
