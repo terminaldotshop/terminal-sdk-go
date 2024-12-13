@@ -9,7 +9,7 @@ import (
 
 type Error = apierror.Error
 
-// A physical address for shipping that sweet, sweet coffee to people's doorstep.
+// Physical address associated with a Terminal shop user.
 //
 // This is an alias to an internal type.
 type Address = shared.Address
@@ -56,6 +56,11 @@ type OrderAmount = shared.OrderAmount
 
 // This is an alias to an internal type.
 type OrderItem = shared.OrderItem
+
+// Shipping address of the order.
+//
+// This is an alias to an internal type.
+type OrderShipping = shared.OrderShipping
 
 // Tracking information of the order.
 //

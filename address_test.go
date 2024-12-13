@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestUserShippingNewWithOptionalParams(t *testing.T) {
+func TestAddressNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +25,7 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.New(context.TODO(), terminal.UserShippingNewParams{
+	_, err := client.Address.New(context.TODO(), terminal.AddressNewParams{
 		City:     terminal.F("Anytown"),
 		Country:  terminal.F("US"),
 		Name:     terminal.F("John Doe"),
@@ -44,7 +44,7 @@ func TestUserShippingNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestUserShippingList(t *testing.T) {
+func TestAddressList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -56,7 +56,7 @@ func TestUserShippingList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.List(context.TODO())
+	_, err := client.Address.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -66,7 +66,7 @@ func TestUserShippingList(t *testing.T) {
 	}
 }
 
-func TestUserShippingDelete(t *testing.T) {
+func TestAddressDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -78,7 +78,7 @@ func TestUserShippingDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Shipping.Delete(context.TODO(), "shp_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Address.Delete(context.TODO(), "shp_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
