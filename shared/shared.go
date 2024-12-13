@@ -293,9 +293,9 @@ type OrderItem struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID string `json:"id,required"`
 	// Amount of the item in the order, in cents (USD).
-	Amount float64 `json:"amount,required"`
+	Amount int64 `json:"amount,required"`
 	// Quantity of the item in the order.
-	Quantity float64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity,required"`
 	// Description of the item in the order.
 	Description string `json:"description"`
 	// ID of the product variant of the item in the order.
