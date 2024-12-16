@@ -32,18 +32,10 @@ func NewOrderService(opts ...option.RequestOption) (r *OrderService) {
 	return
 }
 
-// Create an order from the current user's cart.
-func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (res *OrderNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	path := "orders"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
-}
-
 // List the orders associated with the current user.
 func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (res *OrderListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "orders"
+	path := "order"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -55,7 +47,7 @@ func (r *OrderService) Get(ctx context.Context, id string, opts ...option.Reques
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("orders/%s", id)
+	path := fmt.Sprintf("order/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -223,28 +215,6 @@ func (r *OrderTracking) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r orderTrackingJSON) RawJSON() string {
-	return r.raw
-}
-
-type OrderNewResponse struct {
-	// An order from the Terminal shop.
-	Data Order                `json:"data,required"`
-	JSON orderNewResponseJSON `json:"-"`
-}
-
-// orderNewResponseJSON contains the JSON metadata for the struct
-// [OrderNewResponse]
-type orderNewResponseJSON struct {
-	Data        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *OrderNewResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r orderNewResponseJSON) RawJSON() string {
 	return r.raw
 }
 

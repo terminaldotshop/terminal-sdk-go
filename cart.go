@@ -31,8 +31,16 @@ func NewCartService(opts ...option.RequestOption) (r *CartService) {
 	return
 }
 
+// Convert the current user's cart to an order.
+func (r *CartService) Convert(ctx context.Context, opts ...option.RequestOption) (res *CartConvertResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/convert"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
 // Get the current user's cart.
-func (r *CartService) List(ctx context.Context, opts ...option.RequestOption) (res *CartListResponse, err error) {
+func (r *CartService) Get(ctx context.Context, opts ...option.RequestOption) (res *CartGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -181,25 +189,46 @@ func (r cartShippingJSON) RawJSON() string {
 	return r.raw
 }
 
-type CartListResponse struct {
-	// The current Terminal shop user's cart.
-	Data Cart                 `json:"data,required"`
-	JSON cartListResponseJSON `json:"-"`
+type CartConvertResponse struct {
+	// An order from the Terminal shop.
+	Data Order                   `json:"data,required"`
+	JSON cartConvertResponseJSON `json:"-"`
 }
 
-// cartListResponseJSON contains the JSON metadata for the struct
-// [CartListResponse]
-type cartListResponseJSON struct {
+// cartConvertResponseJSON contains the JSON metadata for the struct
+// [CartConvertResponse]
+type cartConvertResponseJSON struct {
 	Data        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *CartListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *CartConvertResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r cartListResponseJSON) RawJSON() string {
+func (r cartConvertResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartGetResponse struct {
+	// The current Terminal shop user's cart.
+	Data Cart                `json:"data,required"`
+	JSON cartGetResponseJSON `json:"-"`
+}
+
+// cartGetResponseJSON contains the JSON metadata for the struct [CartGetResponse]
+type cartGetResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartGetResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartGetResponseJSON) RawJSON() string {
 	return r.raw
 }
 

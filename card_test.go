@@ -25,7 +25,7 @@ func TestCardNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cards.New(context.TODO(), terminal.CardNewParams{
+	_, err := client.Card.New(context.TODO(), terminal.CardNewParams{
 		Token: terminal.F("tok_1N3T00LkdIwHu7ixt44h1F8k"),
 	})
 	if err != nil {
@@ -49,7 +49,7 @@ func TestCardList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cards.List(context.TODO())
+	_, err := client.Card.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -71,7 +71,7 @@ func TestCardDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cards.Delete(context.TODO(), "crd_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Card.Delete(context.TODO(), "crd_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

@@ -33,7 +33,7 @@ func NewProductService(opts ...option.RequestOption) (r *ProductService) {
 // List all products for sale in the Terminal shop.
 func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption) (res *ProductListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "products"
+	path := "product"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
