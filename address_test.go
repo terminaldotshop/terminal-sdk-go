@@ -25,7 +25,7 @@ func TestAddressNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Addresses.New(context.TODO(), terminal.AddressNewParams{
+	_, err := client.Address.New(context.TODO(), terminal.AddressNewParams{
 		City:     terminal.F("Anytown"),
 		Country:  terminal.F("US"),
 		Name:     terminal.F("John Doe"),
@@ -56,7 +56,7 @@ func TestAddressList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Addresses.List(context.TODO())
+	_, err := client.Address.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -78,7 +78,7 @@ func TestAddressDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Addresses.Delete(context.TODO(), "shp_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Address.Delete(context.TODO(), "shp_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
