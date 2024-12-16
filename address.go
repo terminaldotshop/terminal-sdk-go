@@ -36,7 +36,7 @@ func NewAddressService(opts ...option.RequestOption) (r *AddressService) {
 // Create and add a shipping address to the current user.
 func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ...option.RequestOption) (res *AddressNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "addresses"
+	path := "address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -44,7 +44,7 @@ func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ..
 // Get the shipping addresses associated with the current user.
 func (r *AddressService) List(ctx context.Context, opts ...option.RequestOption) (res *AddressListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "addresses"
+	path := "address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -56,7 +56,7 @@ func (r *AddressService) Delete(ctx context.Context, id string, opts ...option.R
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("addresses/%s", id)
+	path := fmt.Sprintf("address/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }

@@ -25,7 +25,7 @@ func TestSubscriptionNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscriptions.New(context.TODO(), terminal.SubscriptionNewParams{
+	_, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
 		Subscription: terminal.SubscriptionParam{
 			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
@@ -56,7 +56,7 @@ func TestSubscriptionList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscriptions.List(context.TODO())
+	_, err := client.Subscription.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -78,7 +78,7 @@ func TestSubscriptionDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscriptions.Delete(context.TODO(), "sub_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Subscription.Delete(context.TODO(), "sub_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
