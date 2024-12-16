@@ -9,9 +9,9 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // SubscriptionService contains methods and other services that help with
@@ -36,7 +36,7 @@ func NewSubscriptionService(opts ...option.RequestOption) (r *SubscriptionServic
 // Create a subscription for the current user.
 func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParams, opts ...option.RequestOption) (res *SubscriptionNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "subscription"
+	path := "subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
@@ -44,7 +44,7 @@ func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParam
 // List the subscriptions associated with the current user.
 func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "subscription"
+	path := "subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -56,9 +56,85 @@ func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...opt
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("subscription/%s", id)
+	path := fmt.Sprintf("subscriptions/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
+}
+
+// Subscription to a Terminal shop product.
+type Subscription struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// ID of the shipping address used for the subscription.
+	AddressID string `json:"addressID,required"`
+	// ID of the card used for the subscription.
+	CardID string `json:"cardID,required"`
+	// Frequency of the subscription.
+	Frequency SubscriptionFrequency `json:"frequency,required"`
+	// ID of the product variant being subscribed to.
+	ProductVariantID string `json:"productVariantID,required"`
+	// Quantity of the subscription.
+	Quantity int64            `json:"quantity,required"`
+	JSON     subscriptionJSON `json:"-"`
+}
+
+// subscriptionJSON contains the JSON metadata for the struct [Subscription]
+type subscriptionJSON struct {
+	ID               apijson.Field
+	AddressID        apijson.Field
+	CardID           apijson.Field
+	Frequency        apijson.Field
+	ProductVariantID apijson.Field
+	Quantity         apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *Subscription) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionJSON) RawJSON() string {
+	return r.raw
+}
+
+// Frequency of the subscription.
+type SubscriptionFrequency string
+
+const (
+	SubscriptionFrequencyFixed   SubscriptionFrequency = "fixed"
+	SubscriptionFrequencyDaily   SubscriptionFrequency = "daily"
+	SubscriptionFrequencyWeekly  SubscriptionFrequency = "weekly"
+	SubscriptionFrequencyMonthly SubscriptionFrequency = "monthly"
+	SubscriptionFrequencyYearly  SubscriptionFrequency = "yearly"
+)
+
+func (r SubscriptionFrequency) IsKnown() bool {
+	switch r {
+	case SubscriptionFrequencyFixed, SubscriptionFrequencyDaily, SubscriptionFrequencyWeekly, SubscriptionFrequencyMonthly, SubscriptionFrequencyYearly:
+		return true
+	}
+	return false
+}
+
+// Subscription to a Terminal shop product.
+type SubscriptionParam struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID param.Field[string] `json:"id,required"`
+	// ID of the shipping address used for the subscription.
+	AddressID param.Field[string] `json:"addressID,required"`
+	// ID of the card used for the subscription.
+	CardID param.Field[string] `json:"cardID,required"`
+	// Frequency of the subscription.
+	Frequency param.Field[SubscriptionFrequency] `json:"frequency,required"`
+	// ID of the product variant being subscribed to.
+	ProductVariantID param.Field[string] `json:"productVariantID,required"`
+	// Quantity of the subscription.
+	Quantity param.Field[int64] `json:"quantity,required"`
+}
+
+func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }
 
 type SubscriptionNewResponse struct {
@@ -98,7 +174,7 @@ func (r SubscriptionNewResponseData) IsKnown() bool {
 
 type SubscriptionListResponse struct {
 	// List of subscriptions.
-	Data []shared.Subscription        `json:"data,required"`
+	Data []Subscription               `json:"data,required"`
 	JSON subscriptionListResponseJSON `json:"-"`
 }
 
@@ -155,7 +231,7 @@ func (r SubscriptionDeleteResponseData) IsKnown() bool {
 
 type SubscriptionNewParams struct {
 	// Subscription to a Terminal shop product.
-	Subscription shared.SubscriptionParam `json:"subscription,required"`
+	Subscription SubscriptionParam `json:"subscription,required"`
 }
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {

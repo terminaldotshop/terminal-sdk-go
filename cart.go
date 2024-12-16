@@ -10,7 +10,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // CartService contains methods and other services that help with interacting with
@@ -64,9 +63,127 @@ func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts 
 	return
 }
 
+// The current Terminal shop user's cart.
+type Cart struct {
+	// The subtotal and shipping amounts for the current user's cart.
+	Amount CartAmount `json:"amount,required"`
+	// An array of items in the current user's cart.
+	Items []CartItem `json:"items,required"`
+	// The subtotal of all items in the current user's cart, in cents (USD).
+	Subtotal int64 `json:"subtotal,required"`
+	// ID of the shipping address selected on the current user's cart.
+	AddressID string `json:"addressID"`
+	// ID of the card selected on the current user's cart.
+	CardID string `json:"cardID"`
+	// Shipping information for the current user's cart.
+	Shipping CartShipping `json:"shipping"`
+	JSON     cartJSON     `json:"-"`
+}
+
+// cartJSON contains the JSON metadata for the struct [Cart]
+type cartJSON struct {
+	Amount      apijson.Field
+	Items       apijson.Field
+	Subtotal    apijson.Field
+	AddressID   apijson.Field
+	CardID      apijson.Field
+	Shipping    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Cart) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartJSON) RawJSON() string {
+	return r.raw
+}
+
+// The subtotal and shipping amounts for the current user's cart.
+type CartAmount struct {
+	// Subtotal of the current user's cart, in cents (USD).
+	Subtotal int64 `json:"subtotal,required"`
+	// Shipping amount of the current user's cart, in cents (USD).
+	Shipping int64          `json:"shipping"`
+	JSON     cartAmountJSON `json:"-"`
+}
+
+// cartAmountJSON contains the JSON metadata for the struct [CartAmount]
+type cartAmountJSON struct {
+	Subtotal    apijson.Field
+	Shipping    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartAmount) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartAmountJSON) RawJSON() string {
+	return r.raw
+}
+
+// An item in the current Terminal shop user's cart.
+type CartItem struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// ID of the product variant for this item in the current user's cart.
+	ProductVariantID string `json:"productVariantID,required"`
+	// Quantity of the item in the current user's cart.
+	Quantity int64 `json:"quantity,required"`
+	// Subtotal of the item in the current user's cart, in cents (USD).
+	Subtotal int64        `json:"subtotal,required"`
+	JSON     cartItemJSON `json:"-"`
+}
+
+// cartItemJSON contains the JSON metadata for the struct [CartItem]
+type cartItemJSON struct {
+	ID               apijson.Field
+	ProductVariantID apijson.Field
+	Quantity         apijson.Field
+	Subtotal         apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *CartItem) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartItemJSON) RawJSON() string {
+	return r.raw
+}
+
+// Shipping information for the current user's cart.
+type CartShipping struct {
+	// Shipping service name.
+	Service string `json:"service"`
+	// Shipping timeframe provided by the shipping carrier.
+	Timeframe string           `json:"timeframe"`
+	JSON      cartShippingJSON `json:"-"`
+}
+
+// cartShippingJSON contains the JSON metadata for the struct [CartShipping]
+type cartShippingJSON struct {
+	Service     apijson.Field
+	Timeframe   apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartShipping) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartShippingJSON) RawJSON() string {
+	return r.raw
+}
+
 type CartListResponse struct {
 	// The current Terminal shop user's cart.
-	Data shared.Cart          `json:"data,required"`
+	Data Cart                 `json:"data,required"`
 	JSON cartListResponseJSON `json:"-"`
 }
 
@@ -158,7 +275,7 @@ func (r CartSetCardResponseData) IsKnown() bool {
 
 type CartSetItemResponse struct {
 	// The current Terminal shop user's cart.
-	Data shared.Cart             `json:"data,required"`
+	Data Cart                    `json:"data,required"`
 	JSON cartSetItemResponseJSON `json:"-"`
 }
 

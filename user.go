@@ -10,7 +10,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // UserService contains methods and other services that help with interacting with
@@ -35,7 +34,7 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 // Update the current user.
 func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ...option.RequestOption) (res *UserUpdateResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "user/me"
+	path := "users/me"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
@@ -44,7 +43,7 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 // subscriptions, and orders.
 func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (res *UserInitResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "user/init"
+	path := "users/init"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -52,14 +51,48 @@ func (r *UserService) Init(ctx context.Context, opts ...option.RequestOption) (r
 // Get the current user.
 func (r *UserService) Me(ctx context.Context, opts ...option.RequestOption) (res *UserMeResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "user/me"
+	path := "users/me"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
+// A Terminal shop user. (We have users, btw.)
+type User struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Email address of the user.
+	Email string `json:"email,required,nullable"`
+	// The user's fingerprint, derived from their public SSH key.
+	Fingerprint string `json:"fingerprint,required,nullable"`
+	// Name of the user.
+	Name string `json:"name,required,nullable"`
+	// Stripe customer ID of the user.
+	StripeCustomerID string   `json:"stripeCustomerID,required"`
+	JSON             userJSON `json:"-"`
+}
+
+// userJSON contains the JSON metadata for the struct [User]
+type userJSON struct {
+	ID               apijson.Field
+	Email            apijson.Field
+	Fingerprint      apijson.Field
+	Name             apijson.Field
+	StripeCustomerID apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *User) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r userJSON) RawJSON() string {
+	return r.raw
+}
+
 type UserUpdateResponse struct {
 	// A Terminal shop user. (We have users, btw.)
-	Data shared.User            `json:"data,required"`
+	Data User                   `json:"data,required"`
 	JSON userUpdateResponseJSON `json:"-"`
 }
 
@@ -103,15 +136,15 @@ func (r userInitResponseJSON) RawJSON() string {
 
 // Initial app data.
 type UserInitResponseData struct {
-	Addresses []shared.Address `json:"addresses,required"`
-	Cards     []shared.Card    `json:"cards,required"`
+	Addresses []Address `json:"addresses,required"`
+	Cards     []Card    `json:"cards,required"`
 	// The current Terminal shop user's cart.
-	Cart          shared.Cart           `json:"cart,required"`
-	Orders        []shared.Order        `json:"orders,required"`
-	Products      []shared.Product      `json:"products,required"`
-	Subscriptions []shared.Subscription `json:"subscriptions,required"`
+	Cart          Cart           `json:"cart,required"`
+	Orders        []Order        `json:"orders,required"`
+	Products      []Product      `json:"products,required"`
+	Subscriptions []Subscription `json:"subscriptions,required"`
 	// A Terminal shop user. (We have users, btw.)
-	User shared.User              `json:"user,required"`
+	User User                     `json:"user,required"`
 	JSON userInitResponseDataJSON `json:"-"`
 }
 
@@ -139,7 +172,7 @@ func (r userInitResponseDataJSON) RawJSON() string {
 
 type UserMeResponse struct {
 	// A Terminal shop user. (We have users, btw.)
-	Data shared.User        `json:"data,required"`
+	Data User               `json:"data,required"`
 	JSON userMeResponseJSON `json:"-"`
 }
 

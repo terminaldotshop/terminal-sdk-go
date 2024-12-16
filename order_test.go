@@ -25,7 +25,7 @@ func TestOrderNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Order.New(context.TODO())
+	_, err := client.Orders.New(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -47,7 +47,7 @@ func TestOrderList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Order.List(context.TODO())
+	_, err := client.Orders.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -69,7 +69,7 @@ func TestOrderGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Order.Get(context.TODO(), "ord_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Orders.Get(context.TODO(), "ord_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
