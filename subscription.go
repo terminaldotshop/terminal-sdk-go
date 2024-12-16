@@ -36,7 +36,7 @@ func NewSubscriptionService(opts ...option.RequestOption) (r *SubscriptionServic
 // Create a subscription for the current user.
 func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParams, opts ...option.RequestOption) (res *SubscriptionNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "subscriptions"
+	path := "subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
 }
@@ -44,7 +44,7 @@ func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParam
 // List the subscriptions associated with the current user.
 func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "subscriptions"
+	path := "subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -56,7 +56,7 @@ func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...opt
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("subscriptions/%s", id)
+	path := fmt.Sprintf("subscription/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }

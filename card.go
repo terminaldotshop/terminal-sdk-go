@@ -36,7 +36,7 @@ func NewCardService(opts ...option.RequestOption) (r *CardService) {
 // Attach a credit card (tokenized via Stripe) to the current user.
 func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...option.RequestOption) (res *CardNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "cards"
+	path := "card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -44,7 +44,7 @@ func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...optio
 // List the credit cards associated with the current user.
 func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (res *CardListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "cards"
+	path := "card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -56,7 +56,7 @@ func (r *CardService) Delete(ctx context.Context, id string, opts ...option.Requ
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("cards/%s", id)
+	path := fmt.Sprintf("card/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
