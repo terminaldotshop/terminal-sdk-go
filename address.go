@@ -12,7 +12,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // AddressService contains methods and other services that help with interacting
@@ -37,7 +36,7 @@ func NewAddressService(opts ...option.RequestOption) (r *AddressService) {
 // Create and add a shipping address to the current user.
 func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ...option.RequestOption) (res *AddressNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "address"
+	path := "addresses"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -45,7 +44,7 @@ func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ..
 // Get the shipping addresses associated with the current user.
 func (r *AddressService) List(ctx context.Context, opts ...option.RequestOption) (res *AddressListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "address"
+	path := "addresses"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -57,9 +56,55 @@ func (r *AddressService) Delete(ctx context.Context, id string, opts ...option.R
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("address/%s", id)
+	path := fmt.Sprintf("addresses/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
+}
+
+// Physical address associated with a Terminal shop user.
+type Address struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// City of the address.
+	City string `json:"city,required"`
+	// ISO 3166-1 alpha-2 country code of the address.
+	Country string `json:"country,required"`
+	// The recipient's name.
+	Name string `json:"name,required"`
+	// Street of the address.
+	Street1 string `json:"street1,required"`
+	// Zip code of the address.
+	Zip string `json:"zip,required"`
+	// Phone number of the recipient.
+	Phone string `json:"phone"`
+	// Province or state of the address.
+	Province string `json:"province"`
+	// Apartment, suite, etc. of the address.
+	Street2 string      `json:"street2"`
+	JSON    addressJSON `json:"-"`
+}
+
+// addressJSON contains the JSON metadata for the struct [Address]
+type addressJSON struct {
+	ID          apijson.Field
+	City        apijson.Field
+	Country     apijson.Field
+	Name        apijson.Field
+	Street1     apijson.Field
+	Zip         apijson.Field
+	Phone       apijson.Field
+	Province    apijson.Field
+	Street2     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Address) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r addressJSON) RawJSON() string {
+	return r.raw
 }
 
 type AddressNewResponse struct {
@@ -86,7 +131,7 @@ func (r addressNewResponseJSON) RawJSON() string {
 
 type AddressListResponse struct {
 	// Shipping addresses.
-	Data []shared.Address        `json:"data,required"`
+	Data []Address               `json:"data,required"`
 	JSON addressListResponseJSON `json:"-"`
 }
 

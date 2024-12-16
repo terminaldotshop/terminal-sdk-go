@@ -15,15 +15,15 @@ import (
 // interacting with the terminal API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options      []option.RequestOption
-	Product      *ProductService
-	User         *UserService
-	Address      *AddressService
-	Card         *CardService
-	Cart         *CartService
-	Order        *OrderService
-	Subscription *SubscriptionService
-	Email        *EmailService
+	Options       []option.RequestOption
+	Products      *ProductService
+	Users         *UserService
+	Addresses     *AddressService
+	Cards         *CardService
+	Cart          *CartService
+	Orders        *OrderService
+	Subscriptions *SubscriptionService
+	Emails        *EmailService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -39,14 +39,14 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r = &Client{Options: opts}
 
-	r.Product = NewProductService(opts...)
-	r.User = NewUserService(opts...)
-	r.Address = NewAddressService(opts...)
-	r.Card = NewCardService(opts...)
+	r.Products = NewProductService(opts...)
+	r.Users = NewUserService(opts...)
+	r.Addresses = NewAddressService(opts...)
+	r.Cards = NewCardService(opts...)
 	r.Cart = NewCartService(opts...)
-	r.Order = NewOrderService(opts...)
-	r.Subscription = NewSubscriptionService(opts...)
-	r.Email = NewEmailService(opts...)
+	r.Orders = NewOrderService(opts...)
+	r.Subscriptions = NewSubscriptionService(opts...)
+	r.Emails = NewEmailService(opts...)
 
 	return
 }

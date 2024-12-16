@@ -12,7 +12,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // CardService contains methods and other services that help with interacting with
@@ -37,7 +36,7 @@ func NewCardService(opts ...option.RequestOption) (r *CardService) {
 // Attach a credit card (tokenized via Stripe) to the current user.
 func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...option.RequestOption) (res *CardNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "card"
+	path := "cards"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -45,7 +44,7 @@ func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...optio
 // List the credit cards associated with the current user.
 func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (res *CardListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "card"
+	path := "cards"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -57,9 +56,65 @@ func (r *CardService) Delete(ctx context.Context, id string, opts ...option.Requ
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("card/%s", id)
+	path := fmt.Sprintf("cards/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
+}
+
+// Credit card used for payments in the Terminal shop.
+type Card struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Brand of the card.
+	Brand string `json:"brand,required"`
+	// Expiration of the card.
+	Expiration CardExpiration `json:"expiration,required"`
+	// Last four digits of the card.
+	Last4 string   `json:"last4,required"`
+	JSON  cardJSON `json:"-"`
+}
+
+// cardJSON contains the JSON metadata for the struct [Card]
+type cardJSON struct {
+	ID          apijson.Field
+	Brand       apijson.Field
+	Expiration  apijson.Field
+	Last4       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Card) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardJSON) RawJSON() string {
+	return r.raw
+}
+
+// Expiration of the card.
+type CardExpiration struct {
+	// Expiration month of the card.
+	Month int64 `json:"month,required"`
+	// Expiration year of the card.
+	Year int64              `json:"year,required"`
+	JSON cardExpirationJSON `json:"-"`
+}
+
+// cardExpirationJSON contains the JSON metadata for the struct [CardExpiration]
+type cardExpirationJSON struct {
+	Month       apijson.Field
+	Year        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CardExpiration) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardExpirationJSON) RawJSON() string {
+	return r.raw
 }
 
 type CardNewResponse struct {
@@ -85,7 +140,7 @@ func (r cardNewResponseJSON) RawJSON() string {
 
 type CardListResponse struct {
 	// List of cards associated with the user.
-	Data []shared.Card        `json:"data,required"`
+	Data []Card               `json:"data,required"`
 	JSON cardListResponseJSON `json:"-"`
 }
 

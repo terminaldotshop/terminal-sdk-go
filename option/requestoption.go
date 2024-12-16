@@ -228,11 +228,11 @@ func WithEnvironmentProduction() RequestOption {
 	return WithBaseURL("https://api.terminal.shop//")
 }
 
-// WithEnvironmentDev returns a RequestOption that sets the current
-// environment to be the "dev" environment. An environment specifies which base URL
+// WithEnvironmentSandbox returns a RequestOption that sets the current
+// environment to be the "sandbox" environment. An environment specifies which base URL
 // to use by default.
-func WithEnvironmentDev() RequestOption {
-	return WithBaseURL("https://api.dev.terminal.shop//")
+func WithEnvironmentSandbox() RequestOption {
+	return WithBaseURL("https://sandbox.terminal.shop//")
 }
 
 // WithBearerToken returns a RequestOption that sets the client setting "bearer_token".
