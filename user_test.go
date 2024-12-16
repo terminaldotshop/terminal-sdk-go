@@ -25,7 +25,7 @@ func TestUserUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Update(context.TODO(), terminal.UserUpdateParams{
+	_, err := client.Users.Update(context.TODO(), terminal.UserUpdateParams{
 		Email: terminal.F("john@example.com"),
 		Name:  terminal.F("John Doe"),
 	})
@@ -50,7 +50,7 @@ func TestUserInit(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Init(context.TODO())
+	_, err := client.Users.Init(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -72,7 +72,7 @@ func TestUserMe(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.User.Me(context.TODO())
+	_, err := client.Users.Me(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {

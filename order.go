@@ -11,7 +11,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // OrderService contains methods and other services that help with interacting with
@@ -36,7 +35,7 @@ func NewOrderService(opts ...option.RequestOption) (r *OrderService) {
 // Create an order from the current user's cart.
 func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (res *OrderNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "order"
+	path := "orders"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
 }
@@ -44,7 +43,7 @@ func (r *OrderService) New(ctx context.Context, opts ...option.RequestOption) (r
 // List the orders associated with the current user.
 func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (res *OrderListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "order"
+	path := "orders"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -56,14 +55,180 @@ func (r *OrderService) Get(ctx context.Context, id string, opts ...option.Reques
 		err = errors.New("missing required id parameter")
 		return
 	}
-	path := fmt.Sprintf("order/%s", id)
+	path := fmt.Sprintf("orders/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
+// An order from the Terminal shop.
+type Order struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// The subtotal and shipping amounts of the order.
+	Amount OrderAmount `json:"amount,required"`
+	// Items in the order.
+	Items []OrderItem `json:"items,required"`
+	// Shipping address of the order.
+	Shipping OrderShipping `json:"shipping,required"`
+	// Tracking information of the order.
+	Tracking OrderTracking `json:"tracking,required"`
+	// Zero-based index of the order for this user only.
+	Index int64     `json:"index"`
+	JSON  orderJSON `json:"-"`
+}
+
+// orderJSON contains the JSON metadata for the struct [Order]
+type orderJSON struct {
+	ID          apijson.Field
+	Amount      apijson.Field
+	Items       apijson.Field
+	Shipping    apijson.Field
+	Tracking    apijson.Field
+	Index       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Order) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderJSON) RawJSON() string {
+	return r.raw
+}
+
+// The subtotal and shipping amounts of the order.
+type OrderAmount struct {
+	// Shipping amount of the order, in cents (USD).
+	Shipping int64 `json:"shipping,required"`
+	// Subtotal amount of the order, in cents (USD).
+	Subtotal int64           `json:"subtotal,required"`
+	JSON     orderAmountJSON `json:"-"`
+}
+
+// orderAmountJSON contains the JSON metadata for the struct [OrderAmount]
+type orderAmountJSON struct {
+	Shipping    apijson.Field
+	Subtotal    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderAmount) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderAmountJSON) RawJSON() string {
+	return r.raw
+}
+
+type OrderItem struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Amount of the item in the order, in cents (USD).
+	Amount int64 `json:"amount,required"`
+	// Quantity of the item in the order.
+	Quantity int64 `json:"quantity,required"`
+	// Description of the item in the order.
+	Description string `json:"description"`
+	// ID of the product variant of the item in the order.
+	ProductVariantID string        `json:"productVariantID"`
+	JSON             orderItemJSON `json:"-"`
+}
+
+// orderItemJSON contains the JSON metadata for the struct [OrderItem]
+type orderItemJSON struct {
+	ID               apijson.Field
+	Amount           apijson.Field
+	Quantity         apijson.Field
+	Description      apijson.Field
+	ProductVariantID apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *OrderItem) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderItemJSON) RawJSON() string {
+	return r.raw
+}
+
+// Shipping address of the order.
+type OrderShipping struct {
+	// City of the address.
+	City string `json:"city,required"`
+	// ISO 3166-1 alpha-2 country code of the address.
+	Country string `json:"country,required"`
+	// The recipient's name.
+	Name string `json:"name,required"`
+	// Street of the address.
+	Street1 string `json:"street1,required"`
+	// Zip code of the address.
+	Zip string `json:"zip,required"`
+	// Phone number of the recipient.
+	Phone string `json:"phone"`
+	// Province or state of the address.
+	Province string `json:"province"`
+	// Apartment, suite, etc. of the address.
+	Street2 string            `json:"street2"`
+	JSON    orderShippingJSON `json:"-"`
+}
+
+// orderShippingJSON contains the JSON metadata for the struct [OrderShipping]
+type orderShippingJSON struct {
+	City        apijson.Field
+	Country     apijson.Field
+	Name        apijson.Field
+	Street1     apijson.Field
+	Zip         apijson.Field
+	Phone       apijson.Field
+	Province    apijson.Field
+	Street2     apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderShipping) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderShippingJSON) RawJSON() string {
+	return r.raw
+}
+
+// Tracking information of the order.
+type OrderTracking struct {
+	// Tracking number of the order.
+	Number string `json:"number"`
+	// Shipping service of the order.
+	Service string `json:"service"`
+	// Tracking URL of the order.
+	URL  string            `json:"url"`
+	JSON orderTrackingJSON `json:"-"`
+}
+
+// orderTrackingJSON contains the JSON metadata for the struct [OrderTracking]
+type orderTrackingJSON struct {
+	Number      apijson.Field
+	Service     apijson.Field
+	URL         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderTracking) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderTrackingJSON) RawJSON() string {
+	return r.raw
+}
+
 type OrderNewResponse struct {
 	// An order from the Terminal shop.
-	Data shared.Order         `json:"data,required"`
+	Data Order                `json:"data,required"`
 	JSON orderNewResponseJSON `json:"-"`
 }
 
@@ -85,7 +250,7 @@ func (r orderNewResponseJSON) RawJSON() string {
 
 type OrderListResponse struct {
 	// List of orders.
-	Data []shared.Order        `json:"data,required"`
+	Data []Order               `json:"data,required"`
 	JSON orderListResponseJSON `json:"-"`
 }
 
@@ -107,7 +272,7 @@ func (r orderListResponseJSON) RawJSON() string {
 
 type OrderGetResponse struct {
 	// An order from the Terminal shop.
-	Data shared.Order         `json:"data,required"`
+	Data Order                `json:"data,required"`
 	JSON orderGetResponseJSON `json:"-"`
 }
 

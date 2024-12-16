@@ -11,7 +11,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/testutil"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 func TestSubscriptionNew(t *testing.T) {
@@ -26,12 +25,12 @@ func TestSubscriptionNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
-		Subscription: shared.SubscriptionParam{
+	_, err := client.Subscriptions.New(context.TODO(), terminal.SubscriptionNewParams{
+		Subscription: terminal.SubscriptionParam{
 			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Frequency:        terminal.F(shared.SubscriptionFrequencyFixed),
+			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
 			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Quantity:         terminal.F(int64(1)),
 		},
@@ -57,7 +56,7 @@ func TestSubscriptionList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscription.List(context.TODO())
+	_, err := client.Subscriptions.List(context.TODO())
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
@@ -79,7 +78,7 @@ func TestSubscriptionDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Subscription.Delete(context.TODO(), "sub_XXXXXXXXXXXXXXXXXXXXXXXXX")
+	_, err := client.Subscriptions.Delete(context.TODO(), "sub_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
 		var apierr *terminal.Error
 		if errors.As(err, &apierr) {
