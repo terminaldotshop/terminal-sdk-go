@@ -113,3 +113,13 @@ Response Types:
 Methods:
 
 - <code title="post /email">client.Email.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#EmailService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#EmailNewParams">EmailNewParams</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#EmailNewResponse">EmailNewResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# View
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#ViewInitResponse">ViewInitResponse</a>
+
+Methods:
+
+- <code title="get /view/init">client.View.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#ViewService.Init">Init</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go">terminal</a>.<a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go#ViewInitResponse">ViewInitResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
