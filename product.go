@@ -9,7 +9,6 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
-	"github.com/terminaldotshop/terminal-sdk-go/shared"
 )
 
 // ProductService contains methods and other services that help with interacting
@@ -34,14 +33,98 @@ func NewProductService(opts ...option.RequestOption) (r *ProductService) {
 // List all products for sale in the Terminal shop.
 func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption) (res *ProductListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "product"
+	path := "products"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
+// Product sold in the Terminal shop.
+type Product struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Description of the product.
+	Description string `json:"description,required"`
+	// Name of the product.
+	Name string `json:"name,required"`
+	// List of variants of the product.
+	Variants []ProductVariant `json:"variants,required"`
+	// Order of the product used when displaying a sorted list of products.
+	Order int64 `json:"order"`
+	// Whether the product must be or can be subscribed to.
+	Subscription ProductSubscription `json:"subscription"`
+	// Tags for the product.
+	Tags map[string]string `json:"tags"`
+	JSON productJSON       `json:"-"`
+}
+
+// productJSON contains the JSON metadata for the struct [Product]
+type productJSON struct {
+	ID           apijson.Field
+	Description  apijson.Field
+	Name         apijson.Field
+	Variants     apijson.Field
+	Order        apijson.Field
+	Subscription apijson.Field
+	Tags         apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
+}
+
+func (r *Product) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r productJSON) RawJSON() string {
+	return r.raw
+}
+
+// Whether the product must be or can be subscribed to.
+type ProductSubscription string
+
+const (
+	ProductSubscriptionAllowed  ProductSubscription = "allowed"
+	ProductSubscriptionRequired ProductSubscription = "required"
+)
+
+func (r ProductSubscription) IsKnown() bool {
+	switch r {
+	case ProductSubscriptionAllowed, ProductSubscriptionRequired:
+		return true
+	}
+	return false
+}
+
+// Variant of a product in the Terminal shop.
+type ProductVariant struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID string `json:"id,required"`
+	// Name of the product variant.
+	Name string `json:"name,required"`
+	// Price of the product variant in cents (USD).
+	Price int64              `json:"price,required"`
+	JSON  productVariantJSON `json:"-"`
+}
+
+// productVariantJSON contains the JSON metadata for the struct [ProductVariant]
+type productVariantJSON struct {
+	ID          apijson.Field
+	Name        apijson.Field
+	Price       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ProductVariant) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r productVariantJSON) RawJSON() string {
+	return r.raw
+}
+
 type ProductListResponse struct {
 	// A list of products.
-	Data []shared.Product        `json:"data,required"`
+	Data []Product               `json:"data,required"`
 	JSON productListResponseJSON `json:"-"`
 }
 

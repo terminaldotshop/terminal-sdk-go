@@ -25,7 +25,7 @@ func TestEmailNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Email.New(context.TODO(), terminal.EmailNewParams{
+	_, err := client.Emails.New(context.TODO(), terminal.EmailNewParams{
 		Email: terminal.F("john@example.com"),
 	})
 	if err != nil {

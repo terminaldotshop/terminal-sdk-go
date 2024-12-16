@@ -34,7 +34,7 @@ func NewEmailService(opts ...option.RequestOption) (r *EmailService) {
 // Subscribe to email updates from Terminal.
 func (r *EmailService) New(ctx context.Context, body EmailNewParams, opts ...option.RequestOption) (res *EmailNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "email/subscription"
+	path := "emails"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
