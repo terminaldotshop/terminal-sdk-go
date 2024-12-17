@@ -23,6 +23,8 @@ type Client struct {
 	Cart         *CartService
 	Order        *OrderService
 	Subscription *SubscriptionService
+	Token        *TokenService
+	App          *AppService
 	Email        *EmailService
 	View         *ViewService
 }
@@ -47,6 +49,8 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.Cart = NewCartService(opts...)
 	r.Order = NewOrderService(opts...)
 	r.Subscription = NewSubscriptionService(opts...)
+	r.Token = NewTokenService(opts...)
+	r.App = NewAppService(opts...)
 	r.Email = NewEmailService(opts...)
 	r.View = NewViewService(opts...)
 
