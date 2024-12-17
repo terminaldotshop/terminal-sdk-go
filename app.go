@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
@@ -29,6 +30,14 @@ type AppService struct {
 func NewAppService(opts ...option.RequestOption) (r *AppService) {
 	r = &AppService{}
 	r.Options = opts
+	return
+}
+
+// Create an app.
+func (r *AppService) New(ctx context.Context, body AppNewParams, opts ...option.RequestOption) (res *AppNewResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "app"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -89,6 +98,65 @@ func (r *App) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r appJSON) RawJSON() string {
+	return r.raw
+}
+
+// A Terminal App used for configuring an OAuth 2.0 client.
+type AppParam struct {
+	// Unique object identifier. The format and length of IDs may change over time.
+	ID param.Field[string] `json:"id,required"`
+	// Name of the app.
+	Name param.Field[string] `json:"name,required"`
+	// Redirect URI of the app.
+	RedirectUri param.Field[string] `json:"redirectURI,required"`
+}
+
+func (r AppParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type AppNewResponse struct {
+	Data AppNewResponseData `json:"data,required"`
+	JSON appNewResponseJSON `json:"-"`
+}
+
+// appNewResponseJSON contains the JSON metadata for the struct [AppNewResponse]
+type appNewResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *AppNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r appNewResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type AppNewResponseData struct {
+	// OAuth 2.0 client ID.
+	ID string `json:"id,required"`
+	// OAuth 2.0 client secret.
+	Secret string                 `json:"secret,required"`
+	JSON   appNewResponseDataJSON `json:"-"`
+}
+
+// appNewResponseDataJSON contains the JSON metadata for the struct
+// [AppNewResponseData]
+type appNewResponseDataJSON struct {
+	ID          apijson.Field
+	Secret      apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *AppNewResponseData) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r appNewResponseDataJSON) RawJSON() string {
 	return r.raw
 }
 
@@ -167,4 +235,13 @@ func (r *AppGetResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r appGetResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type AppNewParams struct {
+	// A Terminal App used for configuring an OAuth 2.0 client.
+	App AppParam `json:"app,required"`
+}
+
+func (r AppNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r.App)
 }
