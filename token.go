@@ -32,6 +32,14 @@ func NewTokenService(opts ...option.RequestOption) (r *TokenService) {
 	return
 }
 
+// Create a personal access token.
+func (r *TokenService) New(ctx context.Context, opts ...option.RequestOption) (res *TokenNewResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "token"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
 // List the current user's personal access tokens.
 func (r *TokenService) List(ctx context.Context, opts ...option.RequestOption) (res *TokenListResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -112,6 +120,53 @@ func (r *TokenTime) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r tokenTimeJSON) RawJSON() string {
+	return r.raw
+}
+
+type TokenNewResponse struct {
+	Data TokenNewResponseData `json:"data,required"`
+	JSON tokenNewResponseJSON `json:"-"`
+}
+
+// tokenNewResponseJSON contains the JSON metadata for the struct
+// [TokenNewResponse]
+type tokenNewResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *TokenNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r tokenNewResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type TokenNewResponseData struct {
+	// Personal token ID.
+	ID string `json:"id,required"`
+	// Personal access token. Include this in the Authorization header
+	// (`Bearer <token>`) when accessing the Terminal API.
+	Token string                   `json:"token,required"`
+	JSON  tokenNewResponseDataJSON `json:"-"`
+}
+
+// tokenNewResponseDataJSON contains the JSON metadata for the struct
+// [TokenNewResponseData]
+type tokenNewResponseDataJSON struct {
+	ID          apijson.Field
+	Token       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *TokenNewResponseData) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r tokenNewResponseDataJSON) RawJSON() string {
 	return r.raw
 }
 
