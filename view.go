@@ -64,6 +64,7 @@ func (r viewInitResponseJSON) RawJSON() string {
 // Initial app data.
 type ViewInitResponseData struct {
 	Addresses []Address `json:"addresses,required"`
+	Apps      []App     `json:"apps,required"`
 	Cards     []Card    `json:"cards,required"`
 	// The current Terminal shop user's cart.
 	Cart     Cart      `json:"cart,required"`
@@ -72,6 +73,7 @@ type ViewInitResponseData struct {
 	// A Terminal shop user's profile. (We have users, btw.)
 	Profile       Profile                  `json:"profile,required"`
 	Subscriptions []Subscription           `json:"subscriptions,required"`
+	Tokens        []Token                  `json:"tokens,required"`
 	JSON          viewInitResponseDataJSON `json:"-"`
 }
 
@@ -79,12 +81,14 @@ type ViewInitResponseData struct {
 // [ViewInitResponseData]
 type viewInitResponseDataJSON struct {
 	Addresses     apijson.Field
+	Apps          apijson.Field
 	Cards         apijson.Field
 	Cart          apijson.Field
 	Orders        apijson.Field
 	Products      apijson.Field
 	Profile       apijson.Field
 	Subscriptions apijson.Field
+	Tokens        apijson.Field
 	raw           string
 	ExtraFields   map[string]apijson.Field
 }
