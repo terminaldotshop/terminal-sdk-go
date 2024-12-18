@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.47 (2024-12-18)
+
+Full Changelog: [v0.1.0-alpha.46...v0.1.0-alpha.47](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.46...v0.1.0-alpha.47)
+
+### Chores
+
+* **internal:** codegen related update ([#181](https://github.com/terminaldotshop/terminal-sdk-go/issues/181)) ([0159817](https://github.com/terminaldotshop/terminal-sdk-go/commit/0159817807f010f3a35dcd775b646e187a6ae292))
+
 ## 0.1.0-alpha.46 (2024-12-17)
 
 Full Changelog: [v0.1.0-alpha.45...v0.1.0-alpha.46](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.45...v0.1.0-alpha.46)
