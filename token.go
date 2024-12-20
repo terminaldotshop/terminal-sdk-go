@@ -60,7 +60,7 @@ func (r *TokenService) Delete(ctx context.Context, id string, opts ...option.Req
 	return
 }
 
-// Get the personal token with the given ID.
+// Get the personal access token with the given ID.
 func (r *TokenService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *TokenGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if id == "" {
