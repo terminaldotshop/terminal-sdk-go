@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0-alpha.47 (2025-01-21)
+
+Full Changelog: [v0.1.0-alpha.46...v0.1.0-alpha.47](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.46...v0.1.0-alpha.47)
+
+### Bug Fixes
+
+* fix apijson.Port for embedded structs ([#186](https://github.com/terminaldotshop/terminal-sdk-go/issues/186)) ([a695598](https://github.com/terminaldotshop/terminal-sdk-go/commit/a695598d4461c70013b445ce2e786a922f7cbc47))
+* fix apijson.Port for embedded structs ([#187](https://github.com/terminaldotshop/terminal-sdk-go/issues/187)) ([5163450](https://github.com/terminaldotshop/terminal-sdk-go/commit/516345068fab4c658797d41c87cae3a4825defd7))
+
+
+### Chores
+
+* **internal:** codegen related update ([#181](https://github.com/terminaldotshop/terminal-sdk-go/issues/181)) ([0159817](https://github.com/terminaldotshop/terminal-sdk-go/commit/0159817807f010f3a35dcd775b646e187a6ae292))
+* **internal:** codegen related update ([#183](https://github.com/terminaldotshop/terminal-sdk-go/issues/183)) ([a001347](https://github.com/terminaldotshop/terminal-sdk-go/commit/a001347f7517921e581d0deaa1ffab650266e390))
+* **internal:** codegen related update ([#184](https://github.com/terminaldotshop/terminal-sdk-go/issues/184)) ([6280ce0](https://github.com/terminaldotshop/terminal-sdk-go/commit/6280ce06138426e1a618c395168e5d12cd34fe9d))
+* **internal:** codegen related update ([#185](https://github.com/terminaldotshop/terminal-sdk-go/issues/185)) ([300e52d](https://github.com/terminaldotshop/terminal-sdk-go/commit/300e52d20da3b22cd8d47994bf509ecde62b18e3))
+
 ## 0.1.0-alpha.46 (2024-12-17)
 
 Full Changelog: [v0.1.0-alpha.45...v0.1.0-alpha.46](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.45...v0.1.0-alpha.46)
