@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.48 (2025-02-01)
+
+Full Changelog: [v0.1.0-alpha.47...v0.1.0-alpha.48](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.47...v0.1.0-alpha.48)
+
+### Bug Fixes
+
+* fix unicode encoding for json ([#191](https://github.com/terminaldotshop/terminal-sdk-go/issues/191)) ([210268d](https://github.com/terminaldotshop/terminal-sdk-go/commit/210268dd0c0027f4b22f3b01ad592c88fb39c239))
+
+
+### Chores
+
+* refactor client tests ([#189](https://github.com/terminaldotshop/terminal-sdk-go/issues/189)) ([85d43c0](https://github.com/terminaldotshop/terminal-sdk-go/commit/85d43c054441df93ecc40c480d0b3f40ee67a30f))
+
 ## 0.1.0-alpha.47 (2025-01-21)
 
 Full Changelog: [v0.1.0-alpha.46...v0.1.0-alpha.47](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.46...v0.1.0-alpha.47)
