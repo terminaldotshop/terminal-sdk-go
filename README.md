@@ -238,6 +238,24 @@ client := terminal.NewClient(
 client.Product.List(context.TODO(), option.WithMaxRetries(5))
 ```
 
+### Accessing raw response data (e.g. response headers)
+
+You can access the raw HTTP response data by using the `option.WithResponseInto()` request option. This is useful when
+you need to examine response headers, status codes, or other details.
+
+```go
+// Create a variable to store the HTTP response
+var response *http.Response
+product, err := client.Product.List(context.TODO(), option.WithResponseInto(&response))
+if err != nil {
+	// handle error
+}
+fmt.Printf("%+v\n", product)
+
+fmt.Printf("Status Code: %d\n", response.StatusCode)
+fmt.Printf("Headers: %+#v\n", response.Header)
+```
+
 ### Making custom/undocumented requests
 
 This library is typed for convenient access to the documented API. If you need to access undocumented
