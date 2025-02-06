@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestSubscriptionNew(t *testing.T) {
+func TestSubscriptionNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -33,6 +33,7 @@ func TestSubscriptionNew(t *testing.T) {
 			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
 			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Quantity:         terminal.F(int64(1)),
+			Next:             terminal.F("2025-02-01T19:36:19.000Z"),
 		},
 	})
 	if err != nil {
