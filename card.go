@@ -61,6 +61,15 @@ func (r *CardService) Delete(ctx context.Context, id string, opts ...option.Requ
 	return
 }
 
+// Create a temporary URL for collecting credit card information for the current
+// user.
+func (r *CardService) Collect(ctx context.Context, opts ...option.RequestOption) (res *CardCollectResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "card/collect"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
 // Credit card used for payments in the Terminal shop.
 type Card struct {
 	// Unique object identifier. The format and length of IDs may change over time.
@@ -193,6 +202,52 @@ func (r CardDeleteResponseData) IsKnown() bool {
 		return true
 	}
 	return false
+}
+
+type CardCollectResponse struct {
+	// URL for collecting card information.
+	Data CardCollectResponseData `json:"data,required"`
+	JSON cardCollectResponseJSON `json:"-"`
+}
+
+// cardCollectResponseJSON contains the JSON metadata for the struct
+// [CardCollectResponse]
+type cardCollectResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CardCollectResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardCollectResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+// URL for collecting card information.
+type CardCollectResponseData struct {
+	// Temporary URL that allows a user to enter credit card details over https at
+	// terminal.shop.
+	URL  string                      `json:"url,required" format:"uri"`
+	JSON cardCollectResponseDataJSON `json:"-"`
+}
+
+// cardCollectResponseDataJSON contains the JSON metadata for the struct
+// [CardCollectResponseData]
+type cardCollectResponseDataJSON struct {
+	URL         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CardCollectResponseData) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardCollectResponseDataJSON) RawJSON() string {
+	return r.raw
 }
 
 type CardNewParams struct {
