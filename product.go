@@ -43,7 +43,8 @@ type Product struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID string `json:"id,required"`
 	// Description of the product.
-	Description string `json:"description,required"`
+	Description string          `json:"description,required"`
+	Filters     []ProductFilter `json:"filters,required"`
 	// Name of the product.
 	Name string `json:"name,required"`
 	// List of variants of the product.
@@ -61,6 +62,7 @@ type Product struct {
 type productJSON struct {
 	ID           apijson.Field
 	Description  apijson.Field
+	Filters      apijson.Field
 	Name         apijson.Field
 	Variants     apijson.Field
 	Order        apijson.Field
@@ -76,6 +78,21 @@ func (r *Product) UnmarshalJSON(data []byte) (err error) {
 
 func (r productJSON) RawJSON() string {
 	return r.raw
+}
+
+type ProductFilter string
+
+const (
+	ProductFilterEu ProductFilter = "eu"
+	ProductFilterNa ProductFilter = "na"
+)
+
+func (r ProductFilter) IsKnown() bool {
+	switch r {
+	case ProductFilterEu, ProductFilterNa:
+		return true
+	}
+	return false
 }
 
 // Whether the product must be or can be subscribed to.

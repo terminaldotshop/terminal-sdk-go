@@ -74,8 +74,10 @@ type Subscription struct {
 	// ID of the product variant being subscribed to.
 	ProductVariantID string `json:"productVariantID,required"`
 	// Quantity of the subscription.
-	Quantity int64            `json:"quantity,required"`
-	JSON     subscriptionJSON `json:"-"`
+	Quantity int64 `json:"quantity,required"`
+	// Next shipment and billing date for the subscription.
+	Next string           `json:"next"`
+	JSON subscriptionJSON `json:"-"`
 }
 
 // subscriptionJSON contains the JSON metadata for the struct [Subscription]
@@ -86,6 +88,7 @@ type subscriptionJSON struct {
 	Frequency        apijson.Field
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
+	Next             apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
 }
@@ -131,6 +134,8 @@ type SubscriptionParam struct {
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	// Quantity of the subscription.
 	Quantity param.Field[int64] `json:"quantity,required"`
+	// Next shipment and billing date for the subscription.
+	Next param.Field[string] `json:"next"`
 }
 
 func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {
