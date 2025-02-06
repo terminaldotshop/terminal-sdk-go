@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.0-alpha.49 (2025-02-06)
+
+Full Changelog: [v0.1.0-alpha.48...v0.1.0-alpha.49](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.48...v0.1.0-alpha.49)
+
+### Features
+
+* **api:** manual updates ([#197](https://github.com/terminaldotshop/terminal-sdk-go/issues/197)) ([83b2530](https://github.com/terminaldotshop/terminal-sdk-go/commit/83b2530720abd2624dc64272a769f62489a21455))
+* **client:** send `X-Stainless-Timeout` header ([#195](https://github.com/terminaldotshop/terminal-sdk-go/issues/195)) ([3c87644](https://github.com/terminaldotshop/terminal-sdk-go/commit/3c876448a43571f45505b8e7f20dbdf4d019ea48))
+
+
+### Chores
+
+* add UnionUnmarshaler for responses that are interfaces ([#196](https://github.com/terminaldotshop/terminal-sdk-go/issues/196)) ([aca6c1d](https://github.com/terminaldotshop/terminal-sdk-go/commit/aca6c1d440403cdeab878aa9868fbaac62e322f5))
+
+
+### Documentation
+
+* document raw responses ([#193](https://github.com/terminaldotshop/terminal-sdk-go/issues/193)) ([81f2f8c](https://github.com/terminaldotshop/terminal-sdk-go/commit/81f2f8c59c5f762a0e279459d7d0dd30b68a285d))
+
 ## 0.1.0-alpha.48 (2025-02-01)
 
 Full Changelog: [v0.1.0-alpha.47...v0.1.0-alpha.48](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.47...v0.1.0-alpha.48)
