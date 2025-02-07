@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.50 (2025-02-07)
+
+Full Changelog: [v0.1.0-alpha.49...v0.1.0-alpha.50](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.49...v0.1.0-alpha.50)
+
+### Bug Fixes
+
+* fix early cancel when RequestTimeout is provided for streaming requests ([#199](https://github.com/terminaldotshop/terminal-sdk-go/issues/199)) ([60ace27](https://github.com/terminaldotshop/terminal-sdk-go/commit/60ace278088ebffabde0bfe7989b01c9fab30d81))
+
 ## 0.1.0-alpha.49 (2025-02-06)
 
 Full Changelog: [v0.1.0-alpha.48...v0.1.0-alpha.49](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.48...v0.1.0-alpha.49)
