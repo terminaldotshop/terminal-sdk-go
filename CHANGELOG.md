@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.51 (2025-02-11)
+
+Full Changelog: [v0.1.0-alpha.50...v0.1.0-alpha.51](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.50...v0.1.0-alpha.51)
+
+### Bug Fixes
+
+* do not call path.Base on ContentType ([#202](https://github.com/terminaldotshop/terminal-sdk-go/issues/202)) ([ead9d41](https://github.com/terminaldotshop/terminal-sdk-go/commit/ead9d4189493102383f087f47fb6c0962e799d4a))
+
 ## 0.1.0-alpha.50 (2025-02-07)
 
 Full Changelog: [v0.1.0-alpha.49...v0.1.0-alpha.50](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.49...v0.1.0-alpha.50)
