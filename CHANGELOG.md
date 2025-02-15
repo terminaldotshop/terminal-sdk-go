@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.52 (2025-02-15)
+
+Full Changelog: [v0.1.0-alpha.51...v0.1.0-alpha.52](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.51...v0.1.0-alpha.52)
+
+### Bug Fixes
+
+* **client:** don't truncate manually specified filenames ([#205](https://github.com/terminaldotshop/terminal-sdk-go/issues/205)) ([dc87fdb](https://github.com/terminaldotshop/terminal-sdk-go/commit/dc87fdb9b3031515f5155df355ca413690996c68))
+
 ## 0.1.0-alpha.51 (2025-02-11)
 
 Full Changelog: [v0.1.0-alpha.50...v0.1.0-alpha.51](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.50...v0.1.0-alpha.51)
