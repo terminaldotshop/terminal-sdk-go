@@ -7,11 +7,13 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"reflect"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/tidwall/gjson"
 )
 
 // SubscriptionService contains methods and other services that help with
@@ -76,8 +78,10 @@ type Subscription struct {
 	// Quantity of the subscription.
 	Quantity int64 `json:"quantity,required"`
 	// Next shipment and billing date for the subscription.
-	Next string           `json:"next"`
-	JSON subscriptionJSON `json:"-"`
+	Next string `json:"next"`
+	// Schedule of the subscription.
+	Schedule SubscriptionSchedule `json:"schedule"`
+	JSON     subscriptionJSON     `json:"-"`
 }
 
 // subscriptionJSON contains the JSON metadata for the struct [Subscription]
@@ -89,6 +93,7 @@ type subscriptionJSON struct {
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
 	Next             apijson.Field
+	Schedule         apijson.Field
 	raw              string
 	ExtraFields      map[string]apijson.Field
 }
@@ -120,6 +125,143 @@ func (r SubscriptionFrequency) IsKnown() bool {
 	return false
 }
 
+// Schedule of the subscription.
+type SubscriptionSchedule struct {
+	Type     SubscriptionScheduleType `json:"type,required"`
+	Interval int64                    `json:"interval"`
+	JSON     subscriptionScheduleJSON `json:"-"`
+	union    SubscriptionScheduleUnion
+}
+
+// subscriptionScheduleJSON contains the JSON metadata for the struct
+// [SubscriptionSchedule]
+type subscriptionScheduleJSON struct {
+	Type        apijson.Field
+	Interval    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r subscriptionScheduleJSON) RawJSON() string {
+	return r.raw
+}
+
+func (r *SubscriptionSchedule) UnmarshalJSON(data []byte) (err error) {
+	*r = SubscriptionSchedule{}
+	err = apijson.UnmarshalRoot(data, &r.union)
+	if err != nil {
+		return err
+	}
+	return apijson.Port(r.union, &r)
+}
+
+// AsUnion returns a [SubscriptionScheduleUnion] interface which you can cast to
+// the specific types for more type safety.
+//
+// Possible runtime types of the union are [SubscriptionScheduleType],
+// [SubscriptionScheduleObject].
+func (r SubscriptionSchedule) AsUnion() SubscriptionScheduleUnion {
+	return r.union
+}
+
+// Schedule of the subscription.
+//
+// Union satisfied by [SubscriptionScheduleType] or [SubscriptionScheduleObject].
+type SubscriptionScheduleUnion interface {
+	implementsSubscriptionSchedule()
+}
+
+func init() {
+	apijson.RegisterUnion(
+		reflect.TypeOf((*SubscriptionScheduleUnion)(nil)).Elem(),
+		"",
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SubscriptionScheduleType{}),
+		},
+		apijson.UnionVariant{
+			TypeFilter: gjson.JSON,
+			Type:       reflect.TypeOf(SubscriptionScheduleObject{}),
+		},
+	)
+}
+
+type SubscriptionScheduleType struct {
+	Type SubscriptionScheduleTypeType `json:"type,required"`
+	JSON subscriptionScheduleTypeJSON `json:"-"`
+}
+
+// subscriptionScheduleTypeJSON contains the JSON metadata for the struct
+// [SubscriptionScheduleType]
+type subscriptionScheduleTypeJSON struct {
+	Type        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SubscriptionScheduleType) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionScheduleTypeJSON) RawJSON() string {
+	return r.raw
+}
+
+func (r SubscriptionScheduleType) implementsSubscriptionSchedule() {}
+
+type SubscriptionScheduleTypeType string
+
+const (
+	SubscriptionScheduleTypeTypeFixed SubscriptionScheduleTypeType = "fixed"
+)
+
+func (r SubscriptionScheduleTypeType) IsKnown() bool {
+	switch r {
+	case SubscriptionScheduleTypeTypeFixed:
+		return true
+	}
+	return false
+}
+
+type SubscriptionScheduleObject struct {
+	Interval int64                          `json:"interval,required"`
+	Type     SubscriptionScheduleObjectType `json:"type,required"`
+	JSON     subscriptionScheduleObjectJSON `json:"-"`
+}
+
+// subscriptionScheduleObjectJSON contains the JSON metadata for the struct
+// [SubscriptionScheduleObject]
+type subscriptionScheduleObjectJSON struct {
+	Interval    apijson.Field
+	Type        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SubscriptionScheduleObject) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionScheduleObjectJSON) RawJSON() string {
+	return r.raw
+}
+
+func (r SubscriptionScheduleObject) implementsSubscriptionSchedule() {}
+
+type SubscriptionScheduleObjectType string
+
+const (
+	SubscriptionScheduleObjectTypeWeekly SubscriptionScheduleObjectType = "weekly"
+)
+
+func (r SubscriptionScheduleObjectType) IsKnown() bool {
+	switch r {
+	case SubscriptionScheduleObjectTypeWeekly:
+		return true
+	}
+	return false
+}
+
 // Subscription to a Terminal shop product.
 type SubscriptionParam struct {
 	// Unique object identifier. The format and length of IDs may change over time.
@@ -136,11 +278,54 @@ type SubscriptionParam struct {
 	Quantity param.Field[int64] `json:"quantity,required"`
 	// Next shipment and billing date for the subscription.
 	Next param.Field[string] `json:"next"`
+	// Schedule of the subscription.
+	Schedule param.Field[SubscriptionScheduleUnionParam] `json:"schedule"`
 }
 
 func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
+
+// Schedule of the subscription.
+type SubscriptionScheduleParam struct {
+	Type     param.Field[SubscriptionScheduleType] `json:"type,required"`
+	Interval param.Field[int64]                    `json:"interval"`
+}
+
+func (r SubscriptionScheduleParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionScheduleParam) implementsSubscriptionScheduleUnionParam() {}
+
+// Schedule of the subscription.
+//
+// Satisfied by [SubscriptionScheduleTypeParam], [SubscriptionScheduleObjectParam],
+// [SubscriptionScheduleParam].
+type SubscriptionScheduleUnionParam interface {
+	implementsSubscriptionScheduleUnionParam()
+}
+
+type SubscriptionScheduleTypeParam struct {
+	Type param.Field[SubscriptionScheduleTypeType] `json:"type,required"`
+}
+
+func (r SubscriptionScheduleTypeParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionScheduleTypeParam) implementsSubscriptionScheduleUnionParam() {}
+
+type SubscriptionScheduleObjectParam struct {
+	Interval param.Field[int64]                          `json:"interval,required"`
+	Type     param.Field[SubscriptionScheduleObjectType] `json:"type,required"`
+}
+
+func (r SubscriptionScheduleObjectParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionScheduleObjectParam) implementsSubscriptionScheduleUnionParam() {}
 
 type SubscriptionNewResponse struct {
 	Data SubscriptionNewResponseData `json:"data,required"`
