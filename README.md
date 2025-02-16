@@ -51,7 +51,7 @@ import (
 func main() {
 	client := terminal.NewClient(
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
-		option.WithEnvironmentSandbox(),           // defaults to option.WithEnvironmentProduction()
+		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
 	product, err := client.Product.List(context.TODO())
 	if err != nil {
