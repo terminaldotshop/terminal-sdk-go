@@ -34,6 +34,10 @@ func TestSubscriptionNewWithOptionalParams(t *testing.T) {
 			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Quantity:         terminal.F(int64(1)),
 			Next:             terminal.F("2025-02-01T19:36:19.000Z"),
+			Schedule: terminal.F[terminal.SubscriptionScheduleUnionParam](terminal.SubscriptionScheduleObjectParam{
+				Interval: terminal.F(int64(3)),
+				Type:     terminal.F(terminal.SubscriptionScheduleObjectTypeWeekly),
+			}),
 		},
 	})
 	if err != nil {
