@@ -24,9 +24,18 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	product, err := client.Product.List(context.TODO())
+	subscription, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
+		Subscription: terminal.SubscriptionParam{
+			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
+			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			Quantity:         terminal.F(int64(1)),
+		},
+	})
 	if err != nil {
 		t.Error(err)
 	}
-	t.Logf("%+v\n", product.Data)
+	t.Logf("%+v\n", subscription.Data)
 }
