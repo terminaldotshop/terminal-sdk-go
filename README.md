@@ -53,11 +53,20 @@ func main() {
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
 		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
-	product, err := client.Product.List(context.TODO())
+	subscription, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
+		Subscription: terminal.SubscriptionParam{
+			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
+			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+			Quantity:         terminal.F(int64(1)),
+		},
+	})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", product.Data)
+	fmt.Printf("%+v\n", subscription.Data)
 }
 
 ```
