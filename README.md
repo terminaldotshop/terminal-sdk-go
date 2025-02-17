@@ -53,20 +53,11 @@ func main() {
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
 		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
-	subscription, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
-		Subscription: terminal.SubscriptionParam{
-			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
-			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Quantity:         terminal.F(int64(1)),
-		},
-	})
+	product, err := client.Product.List(context.TODO())
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", subscription.Data)
+	fmt.Printf("%+v\n", product.Data)
 }
 
 ```
@@ -155,7 +146,7 @@ client := terminal.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.Subscription.New(context.TODO(), ...,
+client.Product.List(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -184,23 +175,14 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Subscription.New(context.TODO(), terminal.SubscriptionNewParams{
-	Subscription: terminal.SubscriptionParam{
-		ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
-		ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		Quantity:         terminal.F(int64(1)),
-	},
-})
+_, err := client.Product.List(context.TODO())
 if err != nil {
 	var apierr *terminal.Error
 	if errors.As(err, &apierr) {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/subscription": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/product": 400 Bad Request { ... }
 }
 ```
 
@@ -218,18 +200,8 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.Subscription.New(
+client.Product.List(
 	ctx,
-	terminal.SubscriptionNewParams{
-		Subscription: terminal.SubscriptionParam{
-			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
-			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Quantity:         terminal.F(int64(1)),
-		},
-	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
 )
@@ -263,20 +235,7 @@ client := terminal.NewClient(
 )
 
 // Override per-request:
-client.Subscription.New(
-	context.TODO(),
-	terminal.SubscriptionNewParams{
-		Subscription: terminal.SubscriptionParam{
-			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
-			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Quantity:         terminal.F(int64(1)),
-		},
-	},
-	option.WithMaxRetries(5),
-)
+client.Product.List(context.TODO(), option.WithMaxRetries(5))
 ```
 
 ### Accessing raw response data (e.g. response headers)
@@ -287,24 +246,11 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-subscription, err := client.Subscription.New(
-	context.TODO(),
-	terminal.SubscriptionNewParams{
-		Subscription: terminal.SubscriptionParam{
-			ID:               terminal.F("sub_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Frequency:        terminal.F(terminal.SubscriptionFrequencyFixed),
-			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Quantity:         terminal.F(int64(1)),
-		},
-	},
-	option.WithResponseInto(&response),
-)
+product, err := client.Product.List(context.TODO(), option.WithResponseInto(&response))
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", subscription)
+fmt.Printf("%+v\n", product)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
