@@ -158,15 +158,15 @@ func (r *SubscriptionSchedule) UnmarshalJSON(data []byte) (err error) {
 // AsUnion returns a [SubscriptionScheduleUnion] interface which you can cast to
 // the specific types for more type safety.
 //
-// Possible runtime types of the union are [SubscriptionScheduleType],
-// [SubscriptionScheduleObject].
+// Possible runtime types of the union are [SubscriptionScheduleFixed],
+// [SubscriptionScheduleWeekly].
 func (r SubscriptionSchedule) AsUnion() SubscriptionScheduleUnion {
 	return r.union
 }
 
 // Schedule of the subscription.
 //
-// Union satisfied by [SubscriptionScheduleType] or [SubscriptionScheduleObject].
+// Union satisfied by [SubscriptionScheduleFixed] or [SubscriptionScheduleWeekly].
 type SubscriptionScheduleUnion interface {
 	implementsSubscriptionSchedule()
 }
@@ -177,86 +177,101 @@ func init() {
 		"",
 		apijson.UnionVariant{
 			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SubscriptionScheduleType{}),
+			Type:       reflect.TypeOf(SubscriptionScheduleFixed{}),
 		},
 		apijson.UnionVariant{
 			TypeFilter: gjson.JSON,
-			Type:       reflect.TypeOf(SubscriptionScheduleObject{}),
+			Type:       reflect.TypeOf(SubscriptionScheduleWeekly{}),
 		},
 	)
 }
 
-type SubscriptionScheduleType struct {
-	Type SubscriptionScheduleTypeType `json:"type,required"`
-	JSON subscriptionScheduleTypeJSON `json:"-"`
+type SubscriptionScheduleFixed struct {
+	Type SubscriptionScheduleFixedType `json:"type,required"`
+	JSON subscriptionScheduleFixedJSON `json:"-"`
 }
 
-// subscriptionScheduleTypeJSON contains the JSON metadata for the struct
-// [SubscriptionScheduleType]
-type subscriptionScheduleTypeJSON struct {
+// subscriptionScheduleFixedJSON contains the JSON metadata for the struct
+// [SubscriptionScheduleFixed]
+type subscriptionScheduleFixedJSON struct {
 	Type        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *SubscriptionScheduleType) UnmarshalJSON(data []byte) (err error) {
+func (r *SubscriptionScheduleFixed) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r subscriptionScheduleTypeJSON) RawJSON() string {
+func (r subscriptionScheduleFixedJSON) RawJSON() string {
 	return r.raw
 }
 
-func (r SubscriptionScheduleType) implementsSubscriptionSchedule() {}
+func (r SubscriptionScheduleFixed) implementsSubscriptionSchedule() {}
 
-type SubscriptionScheduleTypeType string
+type SubscriptionScheduleFixedType string
 
 const (
-	SubscriptionScheduleTypeTypeFixed SubscriptionScheduleTypeType = "fixed"
+	SubscriptionScheduleFixedTypeFixed SubscriptionScheduleFixedType = "fixed"
 )
 
-func (r SubscriptionScheduleTypeType) IsKnown() bool {
+func (r SubscriptionScheduleFixedType) IsKnown() bool {
 	switch r {
-	case SubscriptionScheduleTypeTypeFixed:
+	case SubscriptionScheduleFixedTypeFixed:
 		return true
 	}
 	return false
 }
 
-type SubscriptionScheduleObject struct {
+type SubscriptionScheduleWeekly struct {
 	Interval int64                          `json:"interval,required"`
-	Type     SubscriptionScheduleObjectType `json:"type,required"`
-	JSON     subscriptionScheduleObjectJSON `json:"-"`
+	Type     SubscriptionScheduleWeeklyType `json:"type,required"`
+	JSON     subscriptionScheduleWeeklyJSON `json:"-"`
 }
 
-// subscriptionScheduleObjectJSON contains the JSON metadata for the struct
-// [SubscriptionScheduleObject]
-type subscriptionScheduleObjectJSON struct {
+// subscriptionScheduleWeeklyJSON contains the JSON metadata for the struct
+// [SubscriptionScheduleWeekly]
+type subscriptionScheduleWeeklyJSON struct {
 	Interval    apijson.Field
 	Type        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *SubscriptionScheduleObject) UnmarshalJSON(data []byte) (err error) {
+func (r *SubscriptionScheduleWeekly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r subscriptionScheduleObjectJSON) RawJSON() string {
+func (r subscriptionScheduleWeeklyJSON) RawJSON() string {
 	return r.raw
 }
 
-func (r SubscriptionScheduleObject) implementsSubscriptionSchedule() {}
+func (r SubscriptionScheduleWeekly) implementsSubscriptionSchedule() {}
 
-type SubscriptionScheduleObjectType string
+type SubscriptionScheduleWeeklyType string
 
 const (
-	SubscriptionScheduleObjectTypeWeekly SubscriptionScheduleObjectType = "weekly"
+	SubscriptionScheduleWeeklyTypeWeekly SubscriptionScheduleWeeklyType = "weekly"
 )
 
-func (r SubscriptionScheduleObjectType) IsKnown() bool {
+func (r SubscriptionScheduleWeeklyType) IsKnown() bool {
 	switch r {
-	case SubscriptionScheduleObjectTypeWeekly:
+	case SubscriptionScheduleWeeklyTypeWeekly:
+		return true
+	}
+	return false
+}
+
+type SubscriptionScheduleType string
+
+const (
+	SubscriptionScheduleTypeFixed  SubscriptionScheduleType = "fixed"
+	SubscriptionScheduleTypeWeekly SubscriptionScheduleType = "weekly"
+)
+
+func (r SubscriptionScheduleType) IsKnown() bool {
+	switch r {
+	case SubscriptionScheduleTypeFixed, SubscriptionScheduleTypeWeekly:
 		return true
 	}
 	return false
@@ -300,32 +315,32 @@ func (r SubscriptionScheduleParam) implementsSubscriptionScheduleUnionParam() {}
 
 // Schedule of the subscription.
 //
-// Satisfied by [SubscriptionScheduleTypeParam], [SubscriptionScheduleObjectParam],
-// [SubscriptionScheduleParam].
+// Satisfied by [SubscriptionScheduleFixedParam],
+// [SubscriptionScheduleWeeklyParam], [SubscriptionScheduleParam].
 type SubscriptionScheduleUnionParam interface {
 	implementsSubscriptionScheduleUnionParam()
 }
 
-type SubscriptionScheduleTypeParam struct {
-	Type param.Field[SubscriptionScheduleTypeType] `json:"type,required"`
+type SubscriptionScheduleFixedParam struct {
+	Type param.Field[SubscriptionScheduleFixedType] `json:"type,required"`
 }
 
-func (r SubscriptionScheduleTypeParam) MarshalJSON() (data []byte, err error) {
+func (r SubscriptionScheduleFixedParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-func (r SubscriptionScheduleTypeParam) implementsSubscriptionScheduleUnionParam() {}
+func (r SubscriptionScheduleFixedParam) implementsSubscriptionScheduleUnionParam() {}
 
-type SubscriptionScheduleObjectParam struct {
+type SubscriptionScheduleWeeklyParam struct {
 	Interval param.Field[int64]                          `json:"interval,required"`
-	Type     param.Field[SubscriptionScheduleObjectType] `json:"type,required"`
+	Type     param.Field[SubscriptionScheduleWeeklyType] `json:"type,required"`
 }
 
-func (r SubscriptionScheduleObjectParam) MarshalJSON() (data []byte, err error) {
+func (r SubscriptionScheduleWeeklyParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-func (r SubscriptionScheduleObjectParam) implementsSubscriptionScheduleUnionParam() {}
+func (r SubscriptionScheduleWeeklyParam) implementsSubscriptionScheduleUnionParam() {}
 
 type SubscriptionNewResponse struct {
 	Data SubscriptionNewResponseData `json:"data,required"`
