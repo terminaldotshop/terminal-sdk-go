@@ -30,6 +30,7 @@ func TestAppNew(t *testing.T) {
 			ID:          terminal.F("cli_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Name:        terminal.F("Example App"),
 			RedirectUri: terminal.F("https://example.com/callback"),
+			Secret:      terminal.F("sec_******XXXX"),
 		},
 	})
 	if err != nil {
