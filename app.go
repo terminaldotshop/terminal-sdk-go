@@ -80,8 +80,10 @@ type App struct {
 	// Name of the app.
 	Name string `json:"name,required"`
 	// Redirect URI of the app.
-	RedirectUri string  `json:"redirectURI,required"`
-	JSON        appJSON `json:"-"`
+	RedirectUri string `json:"redirectURI,required"`
+	// OAuth 2.0 client secret of the app (obfuscated).
+	Secret string  `json:"secret,required"`
+	JSON   appJSON `json:"-"`
 }
 
 // appJSON contains the JSON metadata for the struct [App]
@@ -89,6 +91,7 @@ type appJSON struct {
 	ID          apijson.Field
 	Name        apijson.Field
 	RedirectUri apijson.Field
+	Secret      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -109,6 +112,8 @@ type AppParam struct {
 	Name param.Field[string] `json:"name,required"`
 	// Redirect URI of the app.
 	RedirectUri param.Field[string] `json:"redirectURI,required"`
+	// OAuth 2.0 client secret of the app (obfuscated).
+	Secret param.Field[string] `json:"secret,required"`
 }
 
 func (r AppParam) MarshalJSON() (data []byte, err error) {
