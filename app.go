@@ -244,7 +244,7 @@ func (r appGetResponseJSON) RawJSON() string {
 
 type AppNewParams struct {
 	// A Terminal App used for configuring an OAuth 2.0 client.
-	App AppParam `json:"app,required"`
+	App AppParam `json:"app"`
 }
 
 func (r AppNewParams) MarshalJSON() (data []byte, err error) {
