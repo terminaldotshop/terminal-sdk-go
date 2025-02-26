@@ -436,7 +436,7 @@ func (r SubscriptionDeleteResponseData) IsKnown() bool {
 
 type SubscriptionNewParams struct {
 	// Subscription to a Terminal shop product.
-	Subscription SubscriptionParam `json:"subscription,required"`
+	Subscription SubscriptionParam `json:"subscription"`
 }
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {
