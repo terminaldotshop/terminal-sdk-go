@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
+	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
@@ -29,6 +30,14 @@ type OrderService struct {
 func NewOrderService(opts ...option.RequestOption) (r *OrderService) {
 	r = &OrderService{}
 	r.Options = opts
+	return
+}
+
+// Create an order without a cart. The order will be placed immediately.
+func (r *OrderService) New(ctx context.Context, body OrderNewParams, opts ...option.RequestOption) (res *OrderNewResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "order"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -218,6 +227,28 @@ func (r orderTrackingJSON) RawJSON() string {
 	return r.raw
 }
 
+type OrderNewResponse struct {
+	// Order ID.
+	Data string               `json:"data,required"`
+	JSON orderNewResponseJSON `json:"-"`
+}
+
+// orderNewResponseJSON contains the JSON metadata for the struct
+// [OrderNewResponse]
+type orderNewResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OrderNewResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r orderNewResponseJSON) RawJSON() string {
+	return r.raw
+}
+
 type OrderListResponse struct {
 	// List of orders.
 	Data []Order               `json:"data,required"`
@@ -260,4 +291,17 @@ func (r *OrderGetResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r orderGetResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type OrderNewParams struct {
+	// Shipping address ID.
+	AddressID param.Field[string] `json:"addressID,required"`
+	// Card ID.
+	CardID param.Field[string] `json:"cardID,required"`
+	// Product variants to include in the order, along with their quantities.
+	Variants param.Field[map[string]int64] `json:"variants,required"`
+}
+
+func (r OrderNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }
