@@ -71,8 +71,6 @@ type Subscription struct {
 	AddressID string `json:"addressID,required"`
 	// ID of the card used for the subscription.
 	CardID string `json:"cardID,required"`
-	// Frequency of the subscription.
-	Frequency SubscriptionFrequency `json:"frequency,required"`
 	// ID of the product variant being subscribed to.
 	ProductVariantID string `json:"productVariantID,required"`
 	// Quantity of the subscription.
@@ -89,7 +87,6 @@ type subscriptionJSON struct {
 	ID               apijson.Field
 	AddressID        apijson.Field
 	CardID           apijson.Field
-	Frequency        apijson.Field
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
 	Next             apijson.Field
@@ -104,25 +101,6 @@ func (r *Subscription) UnmarshalJSON(data []byte) (err error) {
 
 func (r subscriptionJSON) RawJSON() string {
 	return r.raw
-}
-
-// Frequency of the subscription.
-type SubscriptionFrequency string
-
-const (
-	SubscriptionFrequencyFixed   SubscriptionFrequency = "fixed"
-	SubscriptionFrequencyDaily   SubscriptionFrequency = "daily"
-	SubscriptionFrequencyWeekly  SubscriptionFrequency = "weekly"
-	SubscriptionFrequencyMonthly SubscriptionFrequency = "monthly"
-	SubscriptionFrequencyYearly  SubscriptionFrequency = "yearly"
-)
-
-func (r SubscriptionFrequency) IsKnown() bool {
-	switch r {
-	case SubscriptionFrequencyFixed, SubscriptionFrequencyDaily, SubscriptionFrequencyWeekly, SubscriptionFrequencyMonthly, SubscriptionFrequencyYearly:
-		return true
-	}
-	return false
 }
 
 // Schedule of the subscription.
@@ -285,8 +263,6 @@ type SubscriptionParam struct {
 	AddressID param.Field[string] `json:"addressID,required"`
 	// ID of the card used for the subscription.
 	CardID param.Field[string] `json:"cardID,required"`
-	// Frequency of the subscription.
-	Frequency param.Field[SubscriptionFrequency] `json:"frequency,required"`
 	// ID of the product variant being subscribed to.
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	// Quantity of the subscription.
