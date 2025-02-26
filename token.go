@@ -79,16 +79,16 @@ type Token struct {
 	ID string `json:"id,required"`
 	// Personal access token (obfuscated).
 	Token string `json:"token,required"`
-	// Relevant timestamps for the token.
-	Time TokenTime `json:"time,required"`
-	JSON tokenJSON `json:"-"`
+	// The created time for the token.
+	Created string    `json:"created,required"`
+	JSON    tokenJSON `json:"-"`
 }
 
 // tokenJSON contains the JSON metadata for the struct [Token]
 type tokenJSON struct {
 	ID          apijson.Field
 	Token       apijson.Field
-	Time        apijson.Field
+	Created     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -98,28 +98,6 @@ func (r *Token) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r tokenJSON) RawJSON() string {
-	return r.raw
-}
-
-// Relevant timestamps for the token.
-type TokenTime struct {
-	// The created time for the token.
-	Created string        `json:"created,required"`
-	JSON    tokenTimeJSON `json:"-"`
-}
-
-// tokenTimeJSON contains the JSON metadata for the struct [TokenTime]
-type tokenTimeJSON struct {
-	Created     apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *TokenTime) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r tokenTimeJSON) RawJSON() string {
 	return r.raw
 }
 
