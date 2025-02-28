@@ -242,3 +242,11 @@ func WithBearerToken(value string) RequestOption {
 		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.BearerToken)))
 	}
 }
+
+// WithApp returns a RequestOption that sets the client setting "app".
+func WithApp(value string) RequestOption {
+	return func(r *requestconfig.RequestConfig) error {
+		r.App = value
+		return r.Apply(WithHeader("x-terminal-app", value))
+	}
+}
