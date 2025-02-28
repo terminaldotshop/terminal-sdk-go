@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.60 (2025-02-28)
+
+Full Changelog: [v0.1.0-alpha.59...v0.1.0-alpha.60](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.59...v0.1.0-alpha.60)
+
+### Features
+
+* **api:** manual updates ([#232](https://github.com/terminaldotshop/terminal-sdk-go/issues/232)) ([b175e18](https://github.com/terminaldotshop/terminal-sdk-go/commit/b175e184b2e68402ffb2e50b4d064a7c1bc15458))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#230](https://github.com/terminaldotshop/terminal-sdk-go/issues/230)) ([066a70a](https://github.com/terminaldotshop/terminal-sdk-go/commit/066a70a65f790f862eb03fc49d0335d24326f31e))
+
 ## 0.1.0-alpha.59 (2025-02-26)
 
 Full Changelog: [v0.1.0-alpha.58...v0.1.0-alpha.59](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.58...v0.1.0-alpha.59)
