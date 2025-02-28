@@ -243,10 +243,10 @@ func WithBearerToken(value string) RequestOption {
 	}
 }
 
-// WithApp returns a RequestOption that sets the client setting "app".
-func WithApp(value string) RequestOption {
+// WithAppID returns a RequestOption that sets the client setting "app_id".
+func WithAppID(value string) RequestOption {
 	return func(r *requestconfig.RequestConfig) error {
-		r.App = value
-		return r.Apply(WithHeader("x-terminal-app", value))
+		r.AppID = value
+		return r.Apply(WithHeader("x-terminal-app-id", value))
 	}
 }
