@@ -4,6 +4,8 @@ package terminal
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
@@ -38,13 +40,24 @@ func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption)
 	return
 }
 
+// Get a product by ID from the Terminal shop.
+func (r *ProductService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *ProductGetResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("product/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Product sold in the Terminal shop.
 type Product struct {
 	// Unique object identifier. The format and length of IDs may change over time.
 	ID string `json:"id,required"`
 	// Description of the product.
-	Description string          `json:"description,required"`
-	Filters     []ProductFilter `json:"filters,required"`
+	Description string `json:"description,required"`
 	// Name of the product.
 	Name string `json:"name,required"`
 	// List of variants of the product.
@@ -54,15 +67,14 @@ type Product struct {
 	// Whether the product must be or can be subscribed to.
 	Subscription ProductSubscription `json:"subscription"`
 	// Tags for the product.
-	Tags map[string]string `json:"tags"`
-	JSON productJSON       `json:"-"`
+	Tags ProductTags `json:"tags"`
+	JSON productJSON `json:"-"`
 }
 
 // productJSON contains the JSON metadata for the struct [Product]
 type productJSON struct {
 	ID           apijson.Field
 	Description  apijson.Field
-	Filters      apijson.Field
 	Name         apijson.Field
 	Variants     apijson.Field
 	Order        apijson.Field
@@ -80,21 +92,6 @@ func (r productJSON) RawJSON() string {
 	return r.raw
 }
 
-type ProductFilter string
-
-const (
-	ProductFilterEu ProductFilter = "eu"
-	ProductFilterNa ProductFilter = "na"
-)
-
-func (r ProductFilter) IsKnown() bool {
-	switch r {
-	case ProductFilterEu, ProductFilterNa:
-		return true
-	}
-	return false
-}
-
 // Whether the product must be or can be subscribed to.
 type ProductSubscription string
 
@@ -109,6 +106,35 @@ func (r ProductSubscription) IsKnown() bool {
 		return true
 	}
 	return false
+}
+
+// Tags for the product.
+type ProductTags struct {
+	App      string          `json:"app"`
+	Color    string          `json:"color"`
+	Featured bool            `json:"featured"`
+	MarketEu bool            `json:"market_eu"`
+	MarketNa bool            `json:"market_na"`
+	JSON     productTagsJSON `json:"-"`
+}
+
+// productTagsJSON contains the JSON metadata for the struct [ProductTags]
+type productTagsJSON struct {
+	App         apijson.Field
+	Color       apijson.Field
+	Featured    apijson.Field
+	MarketEu    apijson.Field
+	MarketNa    apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ProductTags) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r productTagsJSON) RawJSON() string {
+	return r.raw
 }
 
 // Variant of a product in the Terminal shop.
@@ -158,5 +184,27 @@ func (r *ProductListResponse) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r productListResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type ProductGetResponse struct {
+	// Product sold in the Terminal shop.
+	Data Product                `json:"data,required"`
+	JSON productGetResponseJSON `json:"-"`
+}
+
+// productGetResponseJSON contains the JSON metadata for the struct
+// [ProductGetResponse]
+type productGetResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *ProductGetResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r productGetResponseJSON) RawJSON() string {
 	return r.raw
 }

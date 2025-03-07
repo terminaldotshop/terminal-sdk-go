@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestProfileUpdateWithOptionalParams(t *testing.T) {
+func TestProfileUpdate(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

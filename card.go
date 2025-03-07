@@ -70,6 +70,18 @@ func (r *CardService) Collect(ctx context.Context, opts ...option.RequestOption)
 	return
 }
 
+// Get a credit card by ID associated with the current user.
+func (r *CardService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *CardGetResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("card/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Credit card used for payments in the Terminal shop.
 type Card struct {
 	// Unique object identifier. The format and length of IDs may change over time.
@@ -247,6 +259,27 @@ func (r *CardCollectResponseData) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r cardCollectResponseDataJSON) RawJSON() string {
+	return r.raw
+}
+
+type CardGetResponse struct {
+	// Credit card used for payments in the Terminal shop.
+	Data Card                `json:"data,required"`
+	JSON cardGetResponseJSON `json:"-"`
+}
+
+// cardGetResponseJSON contains the JSON metadata for the struct [CardGetResponse]
+type cardGetResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CardGetResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cardGetResponseJSON) RawJSON() string {
 	return r.raw
 }
 
