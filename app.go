@@ -104,22 +104,6 @@ func (r appJSON) RawJSON() string {
 	return r.raw
 }
 
-// A Terminal App used for configuring an OAuth 2.0 client.
-type AppParam struct {
-	// Unique object identifier. The format and length of IDs may change over time.
-	ID param.Field[string] `json:"id,required"`
-	// Name of the app.
-	Name param.Field[string] `json:"name,required"`
-	// Redirect URI of the app.
-	RedirectUri param.Field[string] `json:"redirectURI,required"`
-	// OAuth 2.0 client secret of the app (obfuscated).
-	Secret param.Field[string] `json:"secret,required"`
-}
-
-func (r AppParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type AppNewResponse struct {
 	Data AppNewResponseData `json:"data,required"`
 	JSON appNewResponseJSON `json:"-"`
@@ -243,10 +227,10 @@ func (r appGetResponseJSON) RawJSON() string {
 }
 
 type AppNewParams struct {
-	// A Terminal App used for configuring an OAuth 2.0 client.
-	App AppParam `json:"app"`
+	Name        param.Field[string] `json:"name,required"`
+	RedirectUri param.Field[string] `json:"redirectURI,required"`
 }
 
 func (r AppNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r.App)
+	return apijson.MarshalRoot(r)
 }
