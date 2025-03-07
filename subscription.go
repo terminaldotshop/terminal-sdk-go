@@ -63,6 +63,18 @@ func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...opt
 	return
 }
 
+// Get the subscription with the given ID.
+func (r *SubscriptionService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *SubscriptionGetResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("subscription/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Subscription to a Terminal shop product.
 type Subscription struct {
 	// Unique object identifier. The format and length of IDs may change over time.
@@ -408,6 +420,28 @@ func (r SubscriptionDeleteResponseData) IsKnown() bool {
 		return true
 	}
 	return false
+}
+
+type SubscriptionGetResponse struct {
+	// Subscription to a Terminal shop product.
+	Data Subscription                `json:"data,required"`
+	JSON subscriptionGetResponseJSON `json:"-"`
+}
+
+// subscriptionGetResponseJSON contains the JSON metadata for the struct
+// [SubscriptionGetResponse]
+type subscriptionGetResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SubscriptionGetResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionGetResponseJSON) RawJSON() string {
+	return r.raw
 }
 
 type SubscriptionNewParams struct {
