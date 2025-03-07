@@ -13,7 +13,7 @@ import (
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 )
 
-func TestAppNewWithOptionalParams(t *testing.T) {
+func TestAppNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -26,12 +26,8 @@ func TestAppNewWithOptionalParams(t *testing.T) {
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.App.New(context.TODO(), terminal.AppNewParams{
-		App: terminal.AppParam{
-			ID:          terminal.F("cli_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-			Name:        terminal.F("Example App"),
-			RedirectUri: terminal.F("https://example.com/callback"),
-			Secret:      terminal.F("sec_******XXXX"),
-		},
+		Name:        terminal.F("Example App"),
+		RedirectUri: terminal.F("https://example.com/callback"),
 	})
 	if err != nil {
 		var apierr *terminal.Error

@@ -61,6 +61,18 @@ func (r *AddressService) Delete(ctx context.Context, id string, opts ...option.R
 	return
 }
 
+// Get the shipping address with the given ID.
+func (r *AddressService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *AddressGetResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("address/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Physical address associated with a Terminal shop user.
 type Address struct {
 	// Unique object identifier. The format and length of IDs may change over time.
@@ -184,6 +196,28 @@ func (r AddressDeleteResponseData) IsKnown() bool {
 		return true
 	}
 	return false
+}
+
+type AddressGetResponse struct {
+	// Physical address associated with a Terminal shop user.
+	Data Address                `json:"data,required"`
+	JSON addressGetResponseJSON `json:"-"`
+}
+
+// addressGetResponseJSON contains the JSON metadata for the struct
+// [AddressGetResponse]
+type addressGetResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *AddressGetResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r addressGetResponseJSON) RawJSON() string {
+	return r.raw
 }
 
 type AddressNewParams struct {

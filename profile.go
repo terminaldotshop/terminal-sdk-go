@@ -148,10 +148,8 @@ func (r profileMeResponseJSON) RawJSON() string {
 }
 
 type ProfileUpdateParams struct {
-	// Email address of the user.
-	Email param.Field[string] `json:"email"`
-	// Name of the user.
-	Name param.Field[string] `json:"name"`
+	Email param.Field[string] `json:"email,required" format:"email"`
+	Name  param.Field[string] `json:"name,required"`
 }
 
 func (r ProfileUpdateParams) MarshalJSON() (data []byte, err error) {
