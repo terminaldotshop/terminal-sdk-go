@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2025-03-08)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* **client:** allow custom baseurls without trailing slash ([#240](https://github.com/terminaldotshop/terminal-sdk-go/issues/240)) ([e220ba3](https://github.com/terminaldotshop/terminal-sdk-go/commit/e220ba3a51f63f79ec4c2ce0a2f68fae857ad00c))
+
 ## 1.0.0 (2025-03-07)
 
 Full Changelog: [v0.1.0-alpha.61...v1.0.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.61...v1.0.0)
