@@ -115,6 +115,7 @@ type ProductTags struct {
 	Featured bool            `json:"featured"`
 	MarketEu bool            `json:"market_eu"`
 	MarketNa bool            `json:"market_na"`
+	Type     string          `json:"type"`
 	JSON     productTagsJSON `json:"-"`
 }
 
@@ -125,6 +126,7 @@ type productTagsJSON struct {
 	Featured    apijson.Field
 	MarketEu    apijson.Field
 	MarketNa    apijson.Field
+	Type        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }

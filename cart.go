@@ -32,10 +32,10 @@ func NewCartService(opts ...option.RequestOption) (r *CartService) {
 }
 
 // Convert the current user's cart to an order.
-func (r *CartService) Convert(ctx context.Context, opts ...option.RequestOption) (res *CartConvertResponse, err error) {
+func (r *CartService) Convert(ctx context.Context, body CartConvertParams, opts ...option.RequestOption) (res *CartConvertResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "cart/convert"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -44,6 +44,22 @@ func (r *CartService) Get(ctx context.Context, opts ...option.RequestOption) (re
 	opts = append(r.Options[:], opts...)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+// Apply a gift card to the current user's cart.
+func (r *CartService) RedeemGiftCard(ctx context.Context, body CartRedeemGiftCardParams, opts ...option.RequestOption) (res *CartRedeemGiftCardResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/gift-card"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
+// Remove the gift card from the current user's cart.
+func (r *CartService) RemoveGiftCard(ctx context.Context, opts ...option.RequestOption) (res *CartRemoveGiftCardResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart/gift-card"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -83,6 +99,8 @@ type Cart struct {
 	AddressID string `json:"addressID"`
 	// ID of the card selected on the current user's cart.
 	CardID string `json:"cardID"`
+	// ID of the gift card applied to the current user's cart.
+	GiftCardID string `json:"giftCardID"`
 	// Shipping information for the current user's cart.
 	Shipping CartShipping `json:"shipping"`
 	JSON     cartJSON     `json:"-"`
@@ -95,6 +113,7 @@ type cartJSON struct {
 	Subtotal    apijson.Field
 	AddressID   apijson.Field
 	CardID      apijson.Field
+	GiftCardID  apijson.Field
 	Shipping    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -112,15 +131,21 @@ func (r cartJSON) RawJSON() string {
 type CartAmount struct {
 	// Subtotal of the current user's cart, in cents (USD).
 	Subtotal int64 `json:"subtotal,required"`
+	// Amount applied from gift card on the current user's cart, in cents (USD).
+	GiftCard int64 `json:"giftCard"`
 	// Shipping amount of the current user's cart, in cents (USD).
-	Shipping int64          `json:"shipping"`
-	JSON     cartAmountJSON `json:"-"`
+	Shipping int64 `json:"shipping"`
+	// Total amount after gift card applied, in cents (USD).
+	Total int64          `json:"total"`
+	JSON  cartAmountJSON `json:"-"`
 }
 
 // cartAmountJSON contains the JSON metadata for the struct [CartAmount]
 type cartAmountJSON struct {
 	Subtotal    apijson.Field
+	GiftCard    apijson.Field
 	Shipping    apijson.Field
+	Total       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -232,6 +257,89 @@ func (r cartGetResponseJSON) RawJSON() string {
 	return r.raw
 }
 
+type CartRedeemGiftCardResponse struct {
+	// Gift card redemption result
+	Data CartRedeemGiftCardResponseData `json:"data,required"`
+	JSON cartRedeemGiftCardResponseJSON `json:"-"`
+}
+
+// cartRedeemGiftCardResponseJSON contains the JSON metadata for the struct
+// [CartRedeemGiftCardResponse]
+type cartRedeemGiftCardResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartRedeemGiftCardResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartRedeemGiftCardResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+// Gift card redemption result
+type CartRedeemGiftCardResponseData struct {
+	AppliedAmount    int64                              `json:"appliedAmount,required"`
+	GiftCardID       string                             `json:"giftCardID,required"`
+	RemainingBalance int64                              `json:"remainingBalance,required"`
+	JSON             cartRedeemGiftCardResponseDataJSON `json:"-"`
+}
+
+// cartRedeemGiftCardResponseDataJSON contains the JSON metadata for the struct
+// [CartRedeemGiftCardResponseData]
+type cartRedeemGiftCardResponseDataJSON struct {
+	AppliedAmount    apijson.Field
+	GiftCardID       apijson.Field
+	RemainingBalance apijson.Field
+	raw              string
+	ExtraFields      map[string]apijson.Field
+}
+
+func (r *CartRedeemGiftCardResponseData) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartRedeemGiftCardResponseDataJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartRemoveGiftCardResponse struct {
+	Data CartRemoveGiftCardResponseData `json:"data,required"`
+	JSON cartRemoveGiftCardResponseJSON `json:"-"`
+}
+
+// cartRemoveGiftCardResponseJSON contains the JSON metadata for the struct
+// [CartRemoveGiftCardResponse]
+type cartRemoveGiftCardResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartRemoveGiftCardResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartRemoveGiftCardResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartRemoveGiftCardResponseData string
+
+const (
+	CartRemoveGiftCardResponseDataOk CartRemoveGiftCardResponseData = "ok"
+)
+
+func (r CartRemoveGiftCardResponseData) IsKnown() bool {
+	switch r {
+	case CartRemoveGiftCardResponseDataOk:
+		return true
+	}
+	return false
+}
+
 type CartSetAddressResponse struct {
 	Data CartSetAddressResponseData `json:"data,required"`
 	JSON cartSetAddressResponseJSON `json:"-"`
@@ -322,6 +430,22 @@ func (r *CartSetItemResponse) UnmarshalJSON(data []byte) (err error) {
 
 func (r cartSetItemResponseJSON) RawJSON() string {
 	return r.raw
+}
+
+type CartConvertParams struct {
+	RecipientEmail param.Field[string] `json:"recipientEmail" format:"email"`
+}
+
+func (r CartConvertParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type CartRedeemGiftCardParams struct {
+	GiftCardID param.Field[string] `json:"giftCardID,required"`
+}
+
+func (r CartRedeemGiftCardParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }
 
 type CartSetAddressParams struct {
