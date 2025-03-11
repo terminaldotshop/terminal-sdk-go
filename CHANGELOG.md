@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.0 (2025-03-11)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#242](https://github.com/terminaldotshop/terminal-sdk-go/issues/242)) ([aea5e57](https://github.com/terminaldotshop/terminal-sdk-go/commit/aea5e571f95dbffb0327bc4159af389e05be2082))
+* **api:** gift cards ([#245](https://github.com/terminaldotshop/terminal-sdk-go/issues/245)) ([cfd2f1b](https://github.com/terminaldotshop/terminal-sdk-go/commit/cfd2f1b8ae5e253a99be0f9b7206a61dc272cb61))
+* **client:** accept RFC6838 JSON content types ([#243](https://github.com/terminaldotshop/terminal-sdk-go/issues/243)) ([70a0209](https://github.com/terminaldotshop/terminal-sdk-go/commit/70a0209aacdba5b3c60a59f3c2a3af6941f10f25))
+* **client:** allow custom baseurls without trailing slash ([#240](https://github.com/terminaldotshop/terminal-sdk-go/issues/240)) ([e220ba3](https://github.com/terminaldotshop/terminal-sdk-go/commit/e220ba3a51f63f79ec4c2ce0a2f68fae857ad00c))
+
+
+### Refactors
+
+* tidy up dependencies ([#244](https://github.com/terminaldotshop/terminal-sdk-go/issues/244)) ([030e080](https://github.com/terminaldotshop/terminal-sdk-go/commit/030e0802286970dfac9af324d9e42f0e2ef91ec6))
+
 ## 1.0.0 (2025-03-07)
 
 Full Changelog: [v0.1.0-alpha.61...v1.0.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v0.1.0-alpha.61...v1.0.0)
