@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 (2025-03-13)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **api:** clear cart api ([#247](https://github.com/terminaldotshop/terminal-sdk-go/issues/247)) ([1626076](https://github.com/terminaldotshop/terminal-sdk-go/commit/162607648438a9d41c3442318fecfc34ea68dbf4))
+
 ## 1.1.0 (2025-03-11)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.0.0...v1.1.0)
