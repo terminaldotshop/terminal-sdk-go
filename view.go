@@ -71,10 +71,11 @@ type ViewInitResponseData struct {
 	Orders   []Order   `json:"orders,required"`
 	Products []Product `json:"products,required"`
 	// A Terminal shop user's profile. (We have users, btw.)
-	Profile       Profile                  `json:"profile,required"`
-	Subscriptions []Subscription           `json:"subscriptions,required"`
-	Tokens        []Token                  `json:"tokens,required"`
-	JSON          viewInitResponseDataJSON `json:"-"`
+	Profile       Profile                    `json:"profile,required"`
+	Region        ViewInitResponseDataRegion `json:"region,required"`
+	Subscriptions []Subscription             `json:"subscriptions,required"`
+	Tokens        []Token                    `json:"tokens,required"`
+	JSON          viewInitResponseDataJSON   `json:"-"`
 }
 
 // viewInitResponseDataJSON contains the JSON metadata for the struct
@@ -87,6 +88,7 @@ type viewInitResponseDataJSON struct {
 	Orders        apijson.Field
 	Products      apijson.Field
 	Profile       apijson.Field
+	Region        apijson.Field
 	Subscriptions apijson.Field
 	Tokens        apijson.Field
 	raw           string
@@ -99,4 +101,19 @@ func (r *ViewInitResponseData) UnmarshalJSON(data []byte) (err error) {
 
 func (r viewInitResponseDataJSON) RawJSON() string {
 	return r.raw
+}
+
+type ViewInitResponseDataRegion string
+
+const (
+	ViewInitResponseDataRegionNa ViewInitResponseDataRegion = "na"
+	ViewInitResponseDataRegionEu ViewInitResponseDataRegion = "eu"
+)
+
+func (r ViewInitResponseDataRegion) IsKnown() bool {
+	switch r {
+	case ViewInitResponseDataRegionNa, ViewInitResponseDataRegionEu:
+		return true
+	}
+	return false
 }
