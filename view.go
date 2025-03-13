@@ -39,6 +39,22 @@ func (r *ViewService) Init(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// A Terminal shop user's region.
+type Region string
+
+const (
+	RegionEu Region = "eu"
+	RegionNa Region = "na"
+)
+
+func (r Region) IsKnown() bool {
+	switch r {
+	case RegionEu, RegionNa:
+		return true
+	}
+	return false
+}
+
 type ViewInitResponse struct {
 	// Initial app data.
 	Data ViewInitResponseData `json:"data,required"`
@@ -73,10 +89,10 @@ type ViewInitResponseData struct {
 	// A Terminal shop user's profile. (We have users, btw.)
 	Profile Profile `json:"profile,required"`
 	// A Terminal shop user's region.
-	Region        ViewInitResponseDataRegion `json:"region,required"`
-	Subscriptions []Subscription             `json:"subscriptions,required"`
-	Tokens        []Token                    `json:"tokens,required"`
-	JSON          viewInitResponseDataJSON   `json:"-"`
+	Region        Region                   `json:"region,required"`
+	Subscriptions []Subscription           `json:"subscriptions,required"`
+	Tokens        []Token                  `json:"tokens,required"`
+	JSON          viewInitResponseDataJSON `json:"-"`
 }
 
 // viewInitResponseDataJSON contains the JSON metadata for the struct
@@ -102,20 +118,4 @@ func (r *ViewInitResponseData) UnmarshalJSON(data []byte) (err error) {
 
 func (r viewInitResponseDataJSON) RawJSON() string {
 	return r.raw
-}
-
-// A Terminal shop user's region.
-type ViewInitResponseDataRegion string
-
-const (
-	ViewInitResponseDataRegionEu ViewInitResponseDataRegion = "eu"
-	ViewInitResponseDataRegionNa ViewInitResponseDataRegion = "na"
-)
-
-func (r ViewInitResponseDataRegion) IsKnown() bool {
-	switch r {
-	case ViewInitResponseDataRegionEu, ViewInitResponseDataRegionNa:
-		return true
-	}
-	return false
 }
