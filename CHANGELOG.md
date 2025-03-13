@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 (2025-03-13)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **api:** remove gift cards ([#250](https://github.com/terminaldotshop/terminal-sdk-go/issues/250)) ([4c567d0](https://github.com/terminaldotshop/terminal-sdk-go/commit/4c567d079166b3b1316e0537851d391a2f4b5158))
+
 ## 1.2.0 (2025-03-13)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.1.0...v1.2.0)
