@@ -71,7 +71,8 @@ type ViewInitResponseData struct {
 	Orders   []Order   `json:"orders,required"`
 	Products []Product `json:"products,required"`
 	// A Terminal shop user's profile. (We have users, btw.)
-	Profile       Profile                    `json:"profile,required"`
+	Profile Profile `json:"profile,required"`
+	// A Terminal shop user's region.
 	Region        ViewInitResponseDataRegion `json:"region,required"`
 	Subscriptions []Subscription             `json:"subscriptions,required"`
 	Tokens        []Token                    `json:"tokens,required"`
@@ -103,16 +104,17 @@ func (r viewInitResponseDataJSON) RawJSON() string {
 	return r.raw
 }
 
+// A Terminal shop user's region.
 type ViewInitResponseDataRegion string
 
 const (
-	ViewInitResponseDataRegionNa ViewInitResponseDataRegion = "na"
 	ViewInitResponseDataRegionEu ViewInitResponseDataRegion = "eu"
+	ViewInitResponseDataRegionNa ViewInitResponseDataRegion = "na"
 )
 
 func (r ViewInitResponseDataRegion) IsKnown() bool {
 	switch r {
-	case ViewInitResponseDataRegionNa, ViewInitResponseDataRegionEu:
+	case ViewInitResponseDataRegionEu, ViewInitResponseDataRegionNa:
 		return true
 	}
 	return false
