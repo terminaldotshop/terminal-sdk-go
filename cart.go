@@ -31,6 +31,14 @@ func NewCartService(opts ...option.RequestOption) (r *CartService) {
 	return
 }
 
+// Clear the current user's cart.
+func (r *CartService) Clear(ctx context.Context, opts ...option.RequestOption) (res *CartClearResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "cart"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	return
+}
+
 // Convert the current user's cart to an order.
 func (r *CartService) Convert(ctx context.Context, body CartConvertParams, opts ...option.RequestOption) (res *CartConvertResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -212,6 +220,41 @@ func (r *CartShipping) UnmarshalJSON(data []byte) (err error) {
 
 func (r cartShippingJSON) RawJSON() string {
 	return r.raw
+}
+
+type CartClearResponse struct {
+	Data CartClearResponseData `json:"data,required"`
+	JSON cartClearResponseJSON `json:"-"`
+}
+
+// cartClearResponseJSON contains the JSON metadata for the struct
+// [CartClearResponse]
+type cartClearResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CartClearResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cartClearResponseJSON) RawJSON() string {
+	return r.raw
+}
+
+type CartClearResponseData string
+
+const (
+	CartClearResponseDataOk CartClearResponseData = "ok"
+)
+
+func (r CartClearResponseData) IsKnown() bool {
+	switch r {
+	case CartClearResponseDataOk:
+		return true
+	}
+	return false
 }
 
 type CartConvertResponse struct {
