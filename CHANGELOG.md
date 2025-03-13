@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 (2025-03-13)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** add region to `GET /view/init` ([#253](https://github.com/terminaldotshop/terminal-sdk-go/issues/253)) ([0e625b8](https://github.com/terminaldotshop/terminal-sdk-go/commit/0e625b8a779055f2d66722ab7ae1d37111a317e0))
+
 ## 1.3.0 (2025-03-13)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.2.0...v1.3.0)
