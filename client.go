@@ -29,16 +29,22 @@ type Client struct {
 	View         *ViewService
 }
 
+// DefaultClientOptions read from the environment (TERMINAL_BEARER_TOKEN). This
+// should be used to initialize new clients.
+func DefaultClientOptions() []option.RequestOption {
+	defaults := []option.RequestOption{option.WithEnvironmentProduction()}
+	if o, ok := os.LookupEnv("TERMINAL_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithBearerToken(o))
+	}
+	return defaults
+}
+
 // NewClient generates a new client with the default option read from the
 // environment (TERMINAL_BEARER_TOKEN). The option passed in as arguments are
 // applied after these default arguments, and all option will be passed down to the
 // services and requests that this client makes.
 func NewClient(opts ...option.RequestOption) (r *Client) {
-	defaults := []option.RequestOption{option.WithEnvironmentProduction()}
-	if o, ok := os.LookupEnv("TERMINAL_BEARER_TOKEN"); ok {
-		defaults = append(defaults, option.WithBearerToken(o))
-	}
-	opts = append(defaults, opts...)
+	opts = append(DefaultClientOptions(), opts...)
 
 	r = &Client{Options: opts}
 
