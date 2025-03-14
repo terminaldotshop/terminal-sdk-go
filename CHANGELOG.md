@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.0 (2025-03-14)
+
+Full Changelog: [v1.6.0...v1.7.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.6.0...v1.7.0)
+
+### Features
+
+* **client:** improve default client options support ([#262](https://github.com/terminaldotshop/terminal-sdk-go/issues/262)) ([8363df7](https://github.com/terminaldotshop/terminal-sdk-go/commit/8363df71a37e9cea79811f11310f38b264f3feb1))
+
+
+### Chores
+
+* **internal:** remove extra empty newlines ([#264](https://github.com/terminaldotshop/terminal-sdk-go/issues/264)) ([497456f](https://github.com/terminaldotshop/terminal-sdk-go/commit/497456f72051b08f2666ced1937655ffa38c191e))
+
 ## 1.6.0 (2025-03-13)
 
 Full Changelog: [v1.5.0...v1.6.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.5.0...v1.6.0)
