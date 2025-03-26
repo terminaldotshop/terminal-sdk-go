@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.7.0 (2025-03-26)
+
+Full Changelog: [v1.6.0...v1.7.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.6.0...v1.7.0)
+
+### Features
+
+* **client:** improve default client options support ([#262](https://github.com/terminaldotshop/terminal-sdk-go/issues/262)) ([8363df7](https://github.com/terminaldotshop/terminal-sdk-go/commit/8363df71a37e9cea79811f11310f38b264f3feb1))
+
+
+### Bug Fixes
+
+* **test:** return early after test failure ([#267](https://github.com/terminaldotshop/terminal-sdk-go/issues/267)) ([023997e](https://github.com/terminaldotshop/terminal-sdk-go/commit/023997e49a770b3924f6844ab8a53302a21ff3a6))
+
+
+### Chores
+
+* add request options to client tests ([#266](https://github.com/terminaldotshop/terminal-sdk-go/issues/266)) ([7baf25a](https://github.com/terminaldotshop/terminal-sdk-go/commit/7baf25a31fc2fb1130cedac39f30a7623755caef))
+* **docs:** improve security documentation ([#265](https://github.com/terminaldotshop/terminal-sdk-go/issues/265)) ([f0b5e0e](https://github.com/terminaldotshop/terminal-sdk-go/commit/f0b5e0edff094ad3a6e14d3d3344c6a163d3e059))
+* **internal:** remove extra empty newlines ([#264](https://github.com/terminaldotshop/terminal-sdk-go/issues/264)) ([497456f](https://github.com/terminaldotshop/terminal-sdk-go/commit/497456f72051b08f2666ced1937655ffa38c191e))
+
 ## 1.6.0 (2025-03-13)
 
 Full Changelog: [v1.5.0...v1.6.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.5.0...v1.6.0)
