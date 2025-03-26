@@ -27,6 +27,7 @@ func TestUsage(t *testing.T) {
 	product, err := client.Product.List(context.TODO())
 	if err != nil {
 		t.Error(err)
+		return
 	}
 	t.Logf("%+v\n", product.Data)
 }
