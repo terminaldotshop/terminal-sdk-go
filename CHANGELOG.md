@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1 (2025-03-27)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.0...v1.7.1)
+
+### Chores
+
+* fix typos ([#269](https://github.com/terminaldotshop/terminal-sdk-go/issues/269)) ([68bcda1](https://github.com/terminaldotshop/terminal-sdk-go/commit/68bcda1b16f8d6080df071eedb0d62e370a2995e))
+
 ## 1.7.0 (2025-03-26)
 
 Full Changelog: [v1.6.0...v1.7.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.6.0...v1.7.0)
