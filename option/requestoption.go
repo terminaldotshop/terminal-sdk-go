@@ -231,14 +231,14 @@ func WithRequestTimeout(dur time.Duration) RequestOption {
 // environment to be the "production" environment. An environment specifies which base URL
 // to use by default.
 func WithEnvironmentProduction() RequestOption {
-	return WithBaseURL("https://api.terminal.shop//")
+	return WithBaseURL("https://api.terminal.shop/")
 }
 
 // WithEnvironmentDev returns a RequestOption that sets the current
 // environment to be the "dev" environment. An environment specifies which base URL
 // to use by default.
 func WithEnvironmentDev() RequestOption {
-	return WithBaseURL("https://api.dev.terminal.shop//")
+	return WithBaseURL("https://api.dev.terminal.shop/")
 }
 
 // WithBearerToken returns a RequestOption that sets the client setting "bearer_token".
