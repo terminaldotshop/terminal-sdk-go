@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.1 (2025-04-01)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.0...v1.7.1)
+
+### Bug Fixes
+
+* remove trailing / for environments ([#272](https://github.com/terminaldotshop/terminal-sdk-go/issues/272)) ([45b4237](https://github.com/terminaldotshop/terminal-sdk-go/commit/45b4237bf93642e39bbb7fc5677d62a2c28c615b))
+
+
+### Chores
+
+* fix typos ([#269](https://github.com/terminaldotshop/terminal-sdk-go/issues/269)) ([68bcda1](https://github.com/terminaldotshop/terminal-sdk-go/commit/68bcda1b16f8d6080df071eedb0d62e370a2995e))
+
 ## 1.7.0 (2025-03-26)
 
 Full Changelog: [v1.6.0...v1.7.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.6.0...v1.7.0)
