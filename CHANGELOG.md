@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.2 (2025-04-02)
+
+Full Changelog: [v1.7.1...v1.7.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.1...v1.7.2)
+
+### Bug Fixes
+
+* pluralize `list` response variables ([#274](https://github.com/terminaldotshop/terminal-sdk-go/issues/274)) ([2fcc263](https://github.com/terminaldotshop/terminal-sdk-go/commit/2fcc263bec413f2313c605104a6627598cc61250))
+
 ## 1.7.1 (2025-04-01)
 
 Full Changelog: [v1.7.0...v1.7.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.0...v1.7.1)
