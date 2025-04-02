@@ -53,11 +53,11 @@ func main() {
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
 		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
-	product, err := client.Product.List(context.TODO())
+	products, err := client.Product.List(context.TODO())
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", product.Data)
+	fmt.Printf("%+v\n", products.Data)
 }
 
 ```
@@ -246,11 +246,11 @@ you need to examine response headers, status codes, or other details.
 ```go
 // Create a variable to store the HTTP response
 var response *http.Response
-product, err := client.Product.List(context.TODO(), option.WithResponseInto(&response))
+products, err := client.Product.List(context.TODO(), option.WithResponseInto(&response))
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", product)
+fmt.Printf("%+v\n", products)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
