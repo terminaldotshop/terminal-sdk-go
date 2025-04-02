@@ -24,10 +24,10 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	product, err := client.Product.List(context.TODO())
+	products, err := client.Product.List(context.TODO())
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	t.Logf("%+v\n", product.Data)
+	t.Logf("%+v\n", products.Data)
 }
