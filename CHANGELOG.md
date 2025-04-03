@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.3 (2025-04-03)
+
+Full Changelog: [v1.7.2...v1.7.3](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.2...v1.7.3)
+
+### Bug Fixes
+
+* **client:** return error on bad custom url instead of panic ([#277](https://github.com/terminaldotshop/terminal-sdk-go/issues/277)) ([01da641](https://github.com/terminaldotshop/terminal-sdk-go/commit/01da641d51a572a99569469faff208025ac2f619))
+
 ## 1.7.2 (2025-04-02)
 
 Full Changelog: [v1.7.1...v1.7.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.1...v1.7.2)
