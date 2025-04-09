@@ -205,6 +205,12 @@ type OrderTracking struct {
 	Number string `json:"number"`
 	// Shipping service of the order.
 	Service string `json:"service"`
+	// Current tracking status of the shipment.
+	Status string `json:"status"`
+	// Additional details about the tracking status.
+	StatusDetails string `json:"statusDetails"`
+	// When the tracking status was last updated.
+	StatusUpdatedAt string `json:"statusUpdatedAt"`
 	// Tracking URL of the order.
 	URL  string            `json:"url"`
 	JSON orderTrackingJSON `json:"-"`
@@ -212,11 +218,14 @@ type OrderTracking struct {
 
 // orderTrackingJSON contains the JSON metadata for the struct [OrderTracking]
 type orderTrackingJSON struct {
-	Number      apijson.Field
-	Service     apijson.Field
-	URL         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	Number          apijson.Field
+	Service         apijson.Field
+	Status          apijson.Field
+	StatusDetails   apijson.Field
+	StatusUpdatedAt apijson.Field
+	URL             apijson.Field
+	raw             string
+	ExtraFields     map[string]apijson.Field
 }
 
 func (r *OrderTracking) UnmarshalJSON(data []byte) (err error) {
