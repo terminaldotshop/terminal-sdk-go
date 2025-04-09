@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.0 (2025-04-09)
+
+Full Changelog: [v1.7.3...v1.8.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.3...v1.8.0)
+
+### Features
+
+* **api:** include shipment tracking info on order ([#282](https://github.com/terminaldotshop/terminal-sdk-go/issues/282)) ([f52506f](https://github.com/terminaldotshop/terminal-sdk-go/commit/f52506f8f7ef73eeae8256b9242d70ef366503ae))
+* **client:** support custom http clients ([#280](https://github.com/terminaldotshop/terminal-sdk-go/issues/280)) ([3a60175](https://github.com/terminaldotshop/terminal-sdk-go/commit/3a60175bd2c0ed835f59ab55f0ca15c25b54f35d))
+
 ## 1.7.3 (2025-04-03)
 
 Full Changelog: [v1.7.2...v1.7.3](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.2...v1.7.3)
