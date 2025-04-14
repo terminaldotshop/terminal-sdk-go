@@ -67,6 +67,8 @@ type Order struct {
 	ID string `json:"id,required"`
 	// The subtotal and shipping amounts of the order.
 	Amount OrderAmount `json:"amount,required"`
+	// Date the order was created.
+	Created string `json:"created,required"`
 	// Items in the order.
 	Items []OrderItem `json:"items,required"`
 	// Shipping address of the order.
@@ -82,6 +84,7 @@ type Order struct {
 type orderJSON struct {
 	ID          apijson.Field
 	Amount      apijson.Field
+	Created     apijson.Field
 	Items       apijson.Field
 	Shipping    apijson.Field
 	Tracking    apijson.Field
