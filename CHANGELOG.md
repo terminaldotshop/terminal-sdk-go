@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.9.0 (2025-04-14)
+
+Full Changelog: [v1.8.0...v1.9.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.8.0...v1.9.0)
+
+### Features
+
+* **api:** include created timestamps ([cc2cabd](https://github.com/terminaldotshop/terminal-sdk-go/commit/cc2cabdab8c3353a9403a5dcc992d9e78946ea48))
+
+
+### Chores
+
+* **internal:** expand CI branch coverage ([89374f1](https://github.com/terminaldotshop/terminal-sdk-go/commit/89374f18d74e349fc3f9308a6c559ddf1f3e4981))
+* **internal:** reduce CI branch coverage ([ff6f722](https://github.com/terminaldotshop/terminal-sdk-go/commit/ff6f722ca5de9c66a721b70cc9c7997fa32a1db4))
+
 ## 1.8.0 (2025-04-09)
 
 Full Changelog: [v1.7.3...v1.8.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.7.3...v1.8.0)
