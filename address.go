@@ -81,6 +81,8 @@ type Address struct {
 	City string `json:"city,required"`
 	// ISO 3166-1 alpha-2 country code of the address.
 	Country string `json:"country,required"`
+	// Date the address was created.
+	Created string `json:"created,required"`
 	// The recipient's name.
 	Name string `json:"name,required"`
 	// Street of the address.
@@ -101,6 +103,7 @@ type addressJSON struct {
 	ID          apijson.Field
 	City        apijson.Field
 	Country     apijson.Field
+	Created     apijson.Field
 	Name        apijson.Field
 	Street1     apijson.Field
 	Zip         apijson.Field

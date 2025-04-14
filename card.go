@@ -88,6 +88,8 @@ type Card struct {
 	ID string `json:"id,required"`
 	// Brand of the card.
 	Brand string `json:"brand,required"`
+	// Date the card was created.
+	Created string `json:"created,required"`
 	// Expiration of the card.
 	Expiration CardExpiration `json:"expiration,required"`
 	// Last four digits of the card.
@@ -99,6 +101,7 @@ type Card struct {
 type cardJSON struct {
 	ID          apijson.Field
 	Brand       apijson.Field
+	Created     apijson.Field
 	Expiration  apijson.Field
 	Last4       apijson.Field
 	raw         string
