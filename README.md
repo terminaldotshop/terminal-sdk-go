@@ -2,8 +2,8 @@
 
 <a href="https://pkg.go.dev/github.com/terminaldotshop/terminal-sdk-go"><img src="https://pkg.go.dev/badge/github.com/terminaldotshop/terminal-sdk-go.svg" alt="Go Reference"></a>
 
-The Terminal Go library provides convenient access to [the Terminal REST
-API](https://terminal.shop/docs) from applications written in Go. The full API of this library can be found in [api.md](api.md).
+The Terminal Go library provides convenient access to the [Terminal REST API](https://terminal.shop/docs)
+from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
