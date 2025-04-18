@@ -43,6 +43,18 @@ func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParam
 	return
 }
 
+// Update card, address, or interval for an existing subscription.
+func (r *SubscriptionService) Update(ctx context.Context, id string, body SubscriptionUpdateParams, opts ...option.RequestOption) (res *SubscriptionUpdateResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("subscription/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
 // List the subscriptions associated with the current user.
 func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
 	opts = append(r.Options[:], opts...)
@@ -370,6 +382,28 @@ func (r SubscriptionNewResponseData) IsKnown() bool {
 	return false
 }
 
+type SubscriptionUpdateResponse struct {
+	// Subscription to a Terminal shop product.
+	Data Subscription                   `json:"data,required"`
+	JSON subscriptionUpdateResponseJSON `json:"-"`
+}
+
+// subscriptionUpdateResponseJSON contains the JSON metadata for the struct
+// [SubscriptionUpdateResponse]
+type subscriptionUpdateResponseJSON struct {
+	Data        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *SubscriptionUpdateResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r subscriptionUpdateResponseJSON) RawJSON() string {
+	return r.raw
+}
+
 type SubscriptionListResponse struct {
 	// List of subscriptions.
 	Data []Subscription               `json:"data,required"`
@@ -456,4 +490,101 @@ type SubscriptionNewParams struct {
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r.Subscription)
+}
+
+type SubscriptionUpdateParams struct {
+	// New shipping address ID for the subscription.
+	AddressID param.Field[string] `json:"addressID"`
+	// New payment method ID for the subscription.
+	CardID param.Field[string] `json:"cardID"`
+	// New schedule for the subscription.
+	Schedule param.Field[SubscriptionUpdateParamsScheduleUnion] `json:"schedule"`
+}
+
+func (r SubscriptionUpdateParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// New schedule for the subscription.
+type SubscriptionUpdateParamsSchedule struct {
+	Type     param.Field[SubscriptionUpdateParamsScheduleType] `json:"type,required"`
+	Interval param.Field[int64]                                `json:"interval"`
+}
+
+func (r SubscriptionUpdateParamsSchedule) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionUpdateParamsSchedule) implementsSubscriptionUpdateParamsScheduleUnion() {}
+
+// New schedule for the subscription.
+//
+// Satisfied by [SubscriptionUpdateParamsScheduleFixed],
+// [SubscriptionUpdateParamsScheduleWeekly], [SubscriptionUpdateParamsSchedule].
+type SubscriptionUpdateParamsScheduleUnion interface {
+	implementsSubscriptionUpdateParamsScheduleUnion()
+}
+
+type SubscriptionUpdateParamsScheduleFixed struct {
+	Type param.Field[SubscriptionUpdateParamsScheduleFixedType] `json:"type,required"`
+}
+
+func (r SubscriptionUpdateParamsScheduleFixed) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionUpdateParamsScheduleFixed) implementsSubscriptionUpdateParamsScheduleUnion() {}
+
+type SubscriptionUpdateParamsScheduleFixedType string
+
+const (
+	SubscriptionUpdateParamsScheduleFixedTypeFixed SubscriptionUpdateParamsScheduleFixedType = "fixed"
+)
+
+func (r SubscriptionUpdateParamsScheduleFixedType) IsKnown() bool {
+	switch r {
+	case SubscriptionUpdateParamsScheduleFixedTypeFixed:
+		return true
+	}
+	return false
+}
+
+type SubscriptionUpdateParamsScheduleWeekly struct {
+	Interval param.Field[int64]                                      `json:"interval,required"`
+	Type     param.Field[SubscriptionUpdateParamsScheduleWeeklyType] `json:"type,required"`
+}
+
+func (r SubscriptionUpdateParamsScheduleWeekly) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+func (r SubscriptionUpdateParamsScheduleWeekly) implementsSubscriptionUpdateParamsScheduleUnion() {}
+
+type SubscriptionUpdateParamsScheduleWeeklyType string
+
+const (
+	SubscriptionUpdateParamsScheduleWeeklyTypeWeekly SubscriptionUpdateParamsScheduleWeeklyType = "weekly"
+)
+
+func (r SubscriptionUpdateParamsScheduleWeeklyType) IsKnown() bool {
+	switch r {
+	case SubscriptionUpdateParamsScheduleWeeklyTypeWeekly:
+		return true
+	}
+	return false
+}
+
+type SubscriptionUpdateParamsScheduleType string
+
+const (
+	SubscriptionUpdateParamsScheduleTypeFixed  SubscriptionUpdateParamsScheduleType = "fixed"
+	SubscriptionUpdateParamsScheduleTypeWeekly SubscriptionUpdateParamsScheduleType = "weekly"
+)
+
+func (r SubscriptionUpdateParamsScheduleType) IsKnown() bool {
+	switch r {
+	case SubscriptionUpdateParamsScheduleTypeFixed, SubscriptionUpdateParamsScheduleTypeWeekly:
+		return true
+	}
+	return false
 }
