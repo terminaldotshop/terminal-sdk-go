@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.10.0 (2025-04-18)
+
+Full Changelog: [v1.9.0...v1.10.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.9.0...v1.10.0)
+
+### Features
+
+* **api:** update subscription route ([7d0c254](https://github.com/terminaldotshop/terminal-sdk-go/commit/7d0c2543a0572b399ccd2877c90105cb680454a1))
+* **client:** add support for reading base URL from environment variable ([431d9c8](https://github.com/terminaldotshop/terminal-sdk-go/commit/431d9c850b57d89557359986c200dcd5f7b9c16c))
+
+
+### Chores
+
+* **docs:** document pre-request options ([675cfb4](https://github.com/terminaldotshop/terminal-sdk-go/commit/675cfb46a4dfb847b58ab396cb082b52c9c4688e))
+
+
+### Documentation
+
+* update documentation links to be more uniform ([31d4a93](https://github.com/terminaldotshop/terminal-sdk-go/commit/31d4a93bf11aa66162b40bc9b9d476fba4bf09b7))
+
 ## 1.9.0 (2025-04-14)
 
 Full Changelog: [v1.8.0...v1.9.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.8.0...v1.9.0)
