@@ -97,6 +97,8 @@ type Subscription struct {
 	CardID string `json:"cardID,required"`
 	// Date the subscription was created.
 	Created string `json:"created,required"`
+	// Price of the subscription in cents (USD).
+	Price int64 `json:"price,required"`
 	// ID of the product variant being subscribed to.
 	ProductVariantID string `json:"productVariantID,required"`
 	// Quantity of the subscription.
@@ -114,6 +116,7 @@ type subscriptionJSON struct {
 	AddressID        apijson.Field
 	CardID           apijson.Field
 	Created          apijson.Field
+	Price            apijson.Field
 	ProductVariantID apijson.Field
 	Quantity         apijson.Field
 	Next             apijson.Field
@@ -292,6 +295,8 @@ type SubscriptionParam struct {
 	CardID param.Field[string] `json:"cardID,required"`
 	// Date the subscription was created.
 	Created param.Field[string] `json:"created,required"`
+	// Price of the subscription in cents (USD).
+	Price param.Field[int64] `json:"price,required"`
 	// ID of the product variant being subscribed to.
 	ProductVariantID param.Field[string] `json:"productVariantID,required"`
 	// Quantity of the subscription.
