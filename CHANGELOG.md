@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.11.0 (2025-04-23)
+
+Full Changelog: [v1.10.0...v1.11.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.10.0...v1.11.0)
+
+### Features
+
+* **api:** include price on subscriptions ([0ae77c5](https://github.com/terminaldotshop/terminal-sdk-go/commit/0ae77c58807f9fc59a0583ffacfc987d030b5cc2))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([b973633](https://github.com/terminaldotshop/terminal-sdk-go/commit/b9736336388490ac7cc264b1613bfd6ebec2ba25))
+
 ## 1.10.0 (2025-04-18)
 
 Full Changelog: [v1.9.0...v1.10.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.9.0...v1.10.0)
