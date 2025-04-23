@@ -31,6 +31,7 @@ func TestSubscriptionNewWithOptionalParams(t *testing.T) {
 			AddressID:        terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			CardID:           terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Created:          terminal.F("2024-06-29T19:36:19.000Z"),
+			Price:            terminal.F(int64(2200)),
 			ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 			Quantity:         terminal.F(int64(1)),
 			Next:             terminal.F("2025-02-01T19:36:19.000Z"),
