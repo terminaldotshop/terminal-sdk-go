@@ -110,23 +110,25 @@ func (r ProductSubscription) IsKnown() bool {
 
 // Tags for the product.
 type ProductTags struct {
-	App      string          `json:"app"`
-	Color    string          `json:"color"`
-	Featured bool            `json:"featured"`
-	MarketEu bool            `json:"market_eu"`
-	MarketNa bool            `json:"market_na"`
-	JSON     productTagsJSON `json:"-"`
+	App          string          `json:"app"`
+	Color        string          `json:"color"`
+	Featured     bool            `json:"featured"`
+	MarketEu     bool            `json:"market_eu"`
+	MarketGlobal bool            `json:"market_global"`
+	MarketNa     bool            `json:"market_na"`
+	JSON         productTagsJSON `json:"-"`
 }
 
 // productTagsJSON contains the JSON metadata for the struct [ProductTags]
 type productTagsJSON struct {
-	App         apijson.Field
-	Color       apijson.Field
-	Featured    apijson.Field
-	MarketEu    apijson.Field
-	MarketNa    apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	App          apijson.Field
+	Color        apijson.Field
+	Featured     apijson.Field
+	MarketEu     apijson.Field
+	MarketGlobal apijson.Field
+	MarketNa     apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
 }
 
 func (r *ProductTags) UnmarshalJSON(data []byte) (err error) {
@@ -144,8 +146,10 @@ type ProductVariant struct {
 	// Name of the product variant.
 	Name string `json:"name,required"`
 	// Price of the product variant in cents (USD).
-	Price int64              `json:"price,required"`
-	JSON  productVariantJSON `json:"-"`
+	Price int64 `json:"price,required"`
+	// Tags for the product variant.
+	Tags ProductVariantTags `json:"tags"`
+	JSON productVariantJSON `json:"-"`
 }
 
 // productVariantJSON contains the JSON metadata for the struct [ProductVariant]
@@ -153,6 +157,7 @@ type productVariantJSON struct {
 	ID          apijson.Field
 	Name        apijson.Field
 	Price       apijson.Field
+	Tags        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -162,6 +167,34 @@ func (r *ProductVariant) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r productVariantJSON) RawJSON() string {
+	return r.raw
+}
+
+// Tags for the product variant.
+type ProductVariantTags struct {
+	App          string                 `json:"app"`
+	MarketEu     bool                   `json:"market_eu"`
+	MarketGlobal bool                   `json:"market_global"`
+	MarketNa     bool                   `json:"market_na"`
+	JSON         productVariantTagsJSON `json:"-"`
+}
+
+// productVariantTagsJSON contains the JSON metadata for the struct
+// [ProductVariantTags]
+type productVariantTagsJSON struct {
+	App          apijson.Field
+	MarketEu     apijson.Field
+	MarketGlobal apijson.Field
+	MarketNa     apijson.Field
+	raw          string
+	ExtraFields  map[string]apijson.Field
+}
+
+func (r *ProductVariantTags) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r productVariantTagsJSON) RawJSON() string {
 	return r.raw
 }
 
