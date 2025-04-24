@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.12.0 (2025-04-24)
+
+Full Changelog: [v1.11.0...v1.12.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.11.0...v1.12.0)
+
+### Features
+
+* **api:** global region, typed tracking status, variant tags ([a86f157](https://github.com/terminaldotshop/terminal-sdk-go/commit/a86f1574e07b61153855155280764048e0807edf))
+
+
+### Chores
+
+* **ci:** only use depot for staging repos ([6486fa8](https://github.com/terminaldotshop/terminal-sdk-go/commit/6486fa80efe15f6fbb15f82f05c98f99b56f06be))
+* **internal:** codegen related update ([9ce0cb9](https://github.com/terminaldotshop/terminal-sdk-go/commit/9ce0cb966ee1acac5bbce9051ec9d485ac13baf1))
+
 ## 1.11.0 (2025-04-23)
 
 Full Changelog: [v1.10.0...v1.11.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.10.0...v1.11.0)
