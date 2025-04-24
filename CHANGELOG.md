@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.13.0 (2025-04-24)
+
+Full Changelog: [v1.12.0...v1.13.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.12.0...v1.13.0)
+
+### Features
+
+* **api:** product variant descriptions ([3082bf9](https://github.com/terminaldotshop/terminal-sdk-go/commit/3082bf9a5f8bd4241d03b92f9a39f292783f79d7))
+
 ## 1.12.0 (2025-04-24)
 
 Full Changelog: [v1.11.0...v1.12.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.11.0...v1.12.0)
