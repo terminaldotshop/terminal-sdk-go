@@ -147,6 +147,8 @@ type ProductVariant struct {
 	Name string `json:"name,required"`
 	// Price of the product variant in cents (USD).
 	Price int64 `json:"price,required"`
+	// Description of the product variant.
+	Description string `json:"description"`
 	// Tags for the product variant.
 	Tags ProductVariantTags `json:"tags"`
 	JSON productVariantJSON `json:"-"`
@@ -157,6 +159,7 @@ type productVariantJSON struct {
 	ID          apijson.Field
 	Name        apijson.Field
 	Price       apijson.Field
+	Description apijson.Field
 	Tags        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
