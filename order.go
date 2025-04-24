@@ -209,7 +209,7 @@ type OrderTracking struct {
 	// Shipping service of the order.
 	Service string `json:"service"`
 	// Current tracking status of the shipment.
-	Status string `json:"status"`
+	Status OrderTrackingStatus `json:"status"`
 	// Additional details about the tracking status.
 	StatusDetails string `json:"statusDetails"`
 	// When the tracking status was last updated.
@@ -237,6 +237,26 @@ func (r *OrderTracking) UnmarshalJSON(data []byte) (err error) {
 
 func (r orderTrackingJSON) RawJSON() string {
 	return r.raw
+}
+
+// Current tracking status of the shipment.
+type OrderTrackingStatus string
+
+const (
+	OrderTrackingStatusPreTransit OrderTrackingStatus = "PRE_TRANSIT"
+	OrderTrackingStatusTransit    OrderTrackingStatus = "TRANSIT"
+	OrderTrackingStatusDelivered  OrderTrackingStatus = "DELIVERED"
+	OrderTrackingStatusReturned   OrderTrackingStatus = "RETURNED"
+	OrderTrackingStatusFailure    OrderTrackingStatus = "FAILURE"
+	OrderTrackingStatusUnknown    OrderTrackingStatus = "UNKNOWN"
+)
+
+func (r OrderTrackingStatus) IsKnown() bool {
+	switch r {
+	case OrderTrackingStatusPreTransit, OrderTrackingStatusTransit, OrderTrackingStatusDelivered, OrderTrackingStatusReturned, OrderTrackingStatusFailure, OrderTrackingStatusUnknown:
+		return true
+	}
+	return false
 }
 
 type OrderNewResponse struct {

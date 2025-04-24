@@ -43,13 +43,14 @@ func (r *ViewService) Init(ctx context.Context, opts ...option.RequestOption) (r
 type Region string
 
 const (
-	RegionEu Region = "eu"
-	RegionNa Region = "na"
+	RegionEu     Region = "eu"
+	RegionNa     Region = "na"
+	RegionGlobal Region = "global"
 )
 
 func (r Region) IsKnown() bool {
 	switch r {
-	case RegionEu, RegionNa:
+	case RegionEu, RegionNa, RegionGlobal:
 		return true
 	}
 	return false
