@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.13.1 (2025-04-30)
+
+Full Changelog: [v1.13.0...v1.13.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.0...v1.13.1)
+
+### Bug Fixes
+
+* handle empty bodies in WithJSONSet ([7a3b436](https://github.com/terminaldotshop/terminal-sdk-go/commit/7a3b4362b51dc35a4ef17279358a767b9bdd78ad))
+
 ## 1.13.0 (2025-04-24)
 
 Full Changelog: [v1.12.0...v1.13.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.12.0...v1.13.0)
