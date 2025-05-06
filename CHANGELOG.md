@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.13.2 (2025-05-06)
+
+Full Changelog: [v1.13.1...v1.13.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.1...v1.13.2)
+
+### Bug Fixes
+
+* **client:** clean up reader resources ([0c3954a](https://github.com/terminaldotshop/terminal-sdk-go/commit/0c3954ab6aff7ca8f5d21eaab0a37d6e365f2f09))
+* **client:** correctly update body in WithJSONSet ([607d846](https://github.com/terminaldotshop/terminal-sdk-go/commit/607d84619044556a0ea95052e7fd490c052fec1f))
+
 ## 1.13.1 (2025-04-30)
 
 Full Changelog: [v1.13.0...v1.13.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.0...v1.13.1)
