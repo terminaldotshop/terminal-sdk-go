@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.14.0 (2025-06-28)
+
+Full Changelog: [v1.13.2...v1.14.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.2...v1.14.0)
+
+### Features
+
+* **client:** add debug log helper ([2004cde](https://github.com/terminaldotshop/terminal-sdk-go/commit/2004cdeff3e3479a8464b77a8a840e16e15c01af))
+* **client:** add support for endpoint-specific base URLs in python ([e808a70](https://github.com/terminaldotshop/terminal-sdk-go/commit/e808a701db64c3962fc930f343d7ab0c6922b0c3))
+
+
+### Bug Fixes
+
+* don't try to deserialize as json when ResponseBodyInto is []byte ([3897a79](https://github.com/terminaldotshop/terminal-sdk-go/commit/3897a7951b7bf979afee6777f8903116c748421f))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([922ffef](https://github.com/terminaldotshop/terminal-sdk-go/commit/922ffefdc708a10936066630449cf0127c06bc4f))
+* **ci:** only run for pushes and fork pull requests ([a96914a](https://github.com/terminaldotshop/terminal-sdk-go/commit/a96914aaf682d1ca90a34b8bd9169fe86befd88e))
+* **docs:** grammar improvements ([d9a8198](https://github.com/terminaldotshop/terminal-sdk-go/commit/d9a81983acc9d291a51987096ef8f6a6624c211b))
+* improve devcontainer setup ([3aa18b3](https://github.com/terminaldotshop/terminal-sdk-go/commit/3aa18b3f16bbc97b51cb40eb764addf52734b70d))
+* make go mod tidy continue on error ([1484b08](https://github.com/terminaldotshop/terminal-sdk-go/commit/1484b08030fbf4c65a59d36b2e21baad66b0b5dc))
+
 ## 1.13.2 (2025-05-06)
 
 Full Changelog: [v1.13.1...v1.13.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.1...v1.13.2)
