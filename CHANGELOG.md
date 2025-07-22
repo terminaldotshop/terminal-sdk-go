@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.14.1 (2025-07-22)
+
+Full Changelog: [v1.14.0...v1.14.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.14.0...v1.14.1)
+
+### Bug Fixes
+
+* **client:** process custom base url ahead of time ([d8874af](https://github.com/terminaldotshop/terminal-sdk-go/commit/d8874af3e2ff1fc3ce41d821b5b6d3ae459cf58e))
+
+
+### Chores
+
+* **internal:** fix lint script for tests ([554e996](https://github.com/terminaldotshop/terminal-sdk-go/commit/554e996d587af00c69299e784cca64318a44767a))
+* lint tests ([a407b03](https://github.com/terminaldotshop/terminal-sdk-go/commit/a407b0321faff021e24b97ef6d46b75e316646dc))
+* lint tests in subpackages ([8b47259](https://github.com/terminaldotshop/terminal-sdk-go/commit/8b472597c1576c68e801ca5765ae57dfd650ce85))
+
 ## 1.14.0 (2025-06-28)
 
 Full Changelog: [v1.13.2...v1.14.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.13.2...v1.14.0)
