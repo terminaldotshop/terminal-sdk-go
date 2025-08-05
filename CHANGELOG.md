@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.15.0 (2025-08-05)
+
+Full Changelog: [v1.14.1...v1.15.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.14.1...v1.15.0)
+
+### Features
+
+* **api:** manual updates ([7a21ea8](https://github.com/terminaldotshop/terminal-sdk-go/commit/7a21ea8d33fdc90316cd72f4694dbe888c8fbc98))
+
+
+### Chores
+
+* update SDK settings ([f8c43d5](https://github.com/terminaldotshop/terminal-sdk-go/commit/f8c43d556f0875fd3d4a274eced12eab8f2eb83c))
+
 ## 1.14.1 (2025-07-22)
 
 Full Changelog: [v1.14.0...v1.14.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.14.0...v1.14.1)
