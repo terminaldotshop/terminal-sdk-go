@@ -1,4 +1,4 @@
-package terminal
+package githubcomterminaldotshopterminalsdkgo
 
 import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"

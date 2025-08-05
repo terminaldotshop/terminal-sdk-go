@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -21,15 +21,15 @@ func TestCardNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Card.New(context.TODO(), terminal.CardNewParams{
-		Token: terminal.F("tok_1N3T00LkdIwHu7ixt44h1F8k"),
+	_, err := client.Card.New(context.TODO(), githubcomterminaldotshopterminalsdkgo.CardNewParams{
+		Token: githubcomterminaldotshopterminalsdkgo.F("tok_1N3T00LkdIwHu7ixt44h1F8k"),
 	})
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -45,13 +45,13 @@ func TestCardList(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.List(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -67,13 +67,13 @@ func TestCardDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.Delete(context.TODO(), "crd_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -89,13 +89,13 @@ func TestCardCollect(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.Collect(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -111,13 +111,13 @@ func TestCardGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Card.Get(context.TODO(), "crd_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -21,13 +21,13 @@ func TestCartClear(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.Clear(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -43,13 +43,13 @@ func TestCartConvert(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.Convert(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -65,13 +65,13 @@ func TestCartGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Cart.Get(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -87,15 +87,15 @@ func TestCartSetAddress(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cart.SetAddress(context.TODO(), terminal.CartSetAddressParams{
-		AddressID: terminal.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+	_, err := client.Cart.SetAddress(context.TODO(), githubcomterminaldotshopterminalsdkgo.CartSetAddressParams{
+		AddressID: githubcomterminaldotshopterminalsdkgo.F("shp_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 	})
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -111,15 +111,15 @@ func TestCartSetCard(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cart.SetCard(context.TODO(), terminal.CartSetCardParams{
-		CardID: terminal.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+	_, err := client.Cart.SetCard(context.TODO(), githubcomterminaldotshopterminalsdkgo.CartSetCardParams{
+		CardID: githubcomterminaldotshopterminalsdkgo.F("crd_XXXXXXXXXXXXXXXXXXXXXXXXX"),
 	})
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -135,16 +135,16 @@ func TestCartSetItem(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Cart.SetItem(context.TODO(), terminal.CartSetItemParams{
-		ProductVariantID: terminal.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
-		Quantity:         terminal.F(int64(2)),
+	_, err := client.Cart.SetItem(context.TODO(), githubcomterminaldotshopterminalsdkgo.CartSetItemParams{
+		ProductVariantID: githubcomterminaldotshopterminalsdkgo.F("var_XXXXXXXXXXXXXXXXXXXXXXXXX"),
+		Quantity:         githubcomterminaldotshopterminalsdkgo.F(int64(2)),
 	})
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
