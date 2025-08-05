@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -21,13 +21,13 @@ func TestTokenNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Token.New(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -43,13 +43,13 @@ func TestTokenList(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Token.List(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -65,13 +65,13 @@ func TestTokenDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Token.Delete(context.TODO(), "pat_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -87,13 +87,13 @@ func TestTokenGet(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.Token.Get(context.TODO(), "pat_XXXXXXXXXXXXXXXXXXXXXXXXX")
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

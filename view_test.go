@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -21,13 +21,13 @@ func TestViewInit(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
 	_, err := client.View.Init(context.TODO())
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

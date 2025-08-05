@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -25,7 +25,7 @@ func (t *closureTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 
 func TestUserAgentHeader(t *testing.T) {
 	var userAgent string
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -46,7 +46,7 @@ func TestUserAgentHeader(t *testing.T) {
 
 func TestRetryAfter(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -80,7 +80,7 @@ func TestRetryAfter(t *testing.T) {
 
 func TestDeleteRetryCountHeader(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -110,7 +110,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 
 func TestOverwriteRetryCountHeader(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -140,7 +140,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 
 func TestRetryAfterMs(t *testing.T) {
 	attempts := 0
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -166,7 +166,7 @@ func TestRetryAfterMs(t *testing.T) {
 }
 
 func TestContextCancel(t *testing.T) {
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -186,7 +186,7 @@ func TestContextCancel(t *testing.T) {
 }
 
 func TestContextCancelDelay(t *testing.T) {
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -214,7 +214,7 @@ func TestContextDeadline(t *testing.T) {
 	defer cancel()
 
 	go func() {
-		client := terminal.NewClient(
+		client := githubcomterminaldotshopterminalsdkgo.NewClient(
 			option.WithBearerToken("My Bearer Token"),
 			option.WithHTTPClient(&http.Client{
 				Transport: &closureTransport{

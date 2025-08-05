@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal_test
+package githubcomterminaldotshopterminalsdkgo_test
 
 import (
 	"context"
@@ -21,15 +21,15 @@ func TestEmailNew(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithBearerToken("My Bearer Token"),
 	)
-	_, err := client.Email.New(context.TODO(), terminal.EmailNewParams{
-		Email: terminal.F("john@example.com"),
+	_, err := client.Email.New(context.TODO(), githubcomterminaldotshopterminalsdkgo.EmailNewParams{
+		Email: githubcomterminaldotshopterminalsdkgo.F("john@example.com"),
 	})
 	if err != nil {
-		var apierr *terminal.Error
+		var apierr *githubcomterminaldotshopterminalsdkgo.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
