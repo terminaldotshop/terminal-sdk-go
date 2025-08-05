@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ```go
 import (
-	"github.com/terminaldotshop/terminal-sdk-go" // imported as terminal
+	"github.com/terminaldotshop/terminal-sdk-go" // imported as githubcomterminaldotshopterminalsdkgo
 )
 ```
 
@@ -49,7 +49,7 @@ import (
 )
 
 func main() {
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("TERMINAL_BEARER_TOKEN")
 		option.WithEnvironmentDev(),               // defaults to option.WithEnvironmentProduction()
 	)
@@ -76,18 +76,18 @@ To send a null, use `Null[T]()`, and to send a nonconforming value, use `Raw[T](
 
 ```go
 params := FooParams{
-	Name: terminal.F("hello"),
+	Name: githubcomterminaldotshopterminalsdkgo.F("hello"),
 
 	// Explicitly send `"description": null`
-	Description: terminal.Null[string](),
+	Description: githubcomterminaldotshopterminalsdkgo.Null[string](),
 
-	Point: terminal.F(terminal.Point{
-		X: terminal.Int(0),
-		Y: terminal.Int(1),
+	Point: githubcomterminaldotshopterminalsdkgo.F(githubcomterminaldotshopterminalsdkgo.Point{
+		X: githubcomterminaldotshopterminalsdkgo.Int(0),
+		Y: githubcomterminaldotshopterminalsdkgo.Int(1),
 
 		// In cases where the API specifies a given type,
 		// but you want to send something else, use `Raw`:
-		Z: terminal.Raw[int64](0.01), // sends a float
+		Z: githubcomterminaldotshopterminalsdkgo.Raw[int64](0.01), // sends a float
 	}),
 }
 ```
@@ -141,7 +141,7 @@ This library uses the functional options pattern. Functions defined in the
 requests. For example:
 
 ```go
-client := terminal.NewClient(
+client := githubcomterminaldotshopterminalsdkgo.NewClient(
 	// Adds a header to every request made by the client
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
@@ -168,7 +168,7 @@ with additional helper methods like `.GetNextPage()`, e.g.:
 ### Errors
 
 When the API returns a non-success status code, we return an error with type
-`*terminal.Error`. This contains the `StatusCode`, `*http.Request`, and
+`*githubcomterminaldotshopterminalsdkgo.Error`. This contains the `StatusCode`, `*http.Request`, and
 `*http.Response` values of the request, as well as the JSON of the error body
 (much like other response objects in the SDK).
 
@@ -177,7 +177,7 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 ```go
 _, err := client.Product.List(context.TODO())
 if err != nil {
-	var apierr *terminal.Error
+	var apierr *githubcomterminaldotshopterminalsdkgo.Error
 	if errors.As(err, &apierr) {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
@@ -217,7 +217,7 @@ The file name and content-type can be customized by implementing `Name() string`
 string` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a
 file returned by `os.Open` will be sent with the file name on disk.
 
-We also provide a helper `terminal.FileParam(reader io.Reader, filename string, contentType string)`
+We also provide a helper `githubcomterminaldotshopterminalsdkgo.FileParam(reader io.Reader, filename string, contentType string)`
 which can be used to wrap any `io.Reader` with the appropriate file name and content type.
 
 ### Retries
@@ -230,7 +230,7 @@ You can use the `WithMaxRetries` option to configure or disable this:
 
 ```go
 // Configure the default for all requests:
-client := terminal.NewClient(
+client := githubcomterminaldotshopterminalsdkgo.NewClient(
 	option.WithMaxRetries(0), // default is 2
 )
 
@@ -289,9 +289,9 @@ or the `option.WithJSONSet()` methods.
 
 ```go
 params := FooNewParams{
-    ID:   terminal.F("id_xxxx"),
-    Data: terminal.F(FooNewParamsData{
-        FirstName: terminal.F("John"),
+    ID:   githubcomterminaldotshopterminalsdkgo.F("id_xxxx"),
+    Data: githubcomterminaldotshopterminalsdkgo.F(FooNewParamsData{
+        FirstName: githubcomterminaldotshopterminalsdkgo.F("John"),
     }),
 }
 client.Foo.New(context.Background(), params, option.WithJSONSet("data.last_name", "Doe"))
@@ -326,7 +326,7 @@ func Logger(req *http.Request, next option.MiddlewareNext) (res *http.Response, 
     return res, err
 }
 
-client := terminal.NewClient(
+client := githubcomterminaldotshopterminalsdkgo.NewClient(
 	option.WithMiddleware(Logger),
 )
 ```

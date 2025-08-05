@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package terminal
+package githubcomterminaldotshopterminalsdkgo
 
 import (
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apierror"
