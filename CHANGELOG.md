@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.16.1 (2025-08-29)
+
+Full Changelog: [v1.16.0...v1.16.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.0...v1.16.1)
+
+### Bug Fixes
+
+* close body before retrying ([4388729](https://github.com/terminaldotshop/terminal-sdk-go/commit/4388729f82111eb60f403bf20075fe8e4eaf59dc))
+
 ## 1.16.0 (2025-08-09)
 
 Full Changelog: [v1.15.0...v1.16.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.15.0...v1.16.0)
