@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -35,7 +36,7 @@ func NewAddressService(opts ...option.RequestOption) (r *AddressService) {
 
 // Create and add a shipping address to the current user.
 func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ...option.RequestOption) (res *AddressNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -43,7 +44,7 @@ func (r *AddressService) New(ctx context.Context, body AddressNewParams, opts ..
 
 // Get the shipping addresses associated with the current user.
 func (r *AddressService) List(ctx context.Context, opts ...option.RequestOption) (res *AddressListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -51,7 +52,7 @@ func (r *AddressService) List(ctx context.Context, opts ...option.RequestOption)
 
 // Delete a shipping address from the current user.
 func (r *AddressService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *AddressDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -63,7 +64,7 @@ func (r *AddressService) Delete(ctx context.Context, id string, opts ...option.R
 
 // Get the shipping address with the given ID.
 func (r *AddressService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *AddressGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

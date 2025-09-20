@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -35,7 +36,7 @@ func NewCardService(opts ...option.RequestOption) (r *CardService) {
 
 // Attach a credit card (tokenized via Stripe) to the current user.
 func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...option.RequestOption) (res *CardNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -43,7 +44,7 @@ func (r *CardService) New(ctx context.Context, body CardNewParams, opts ...optio
 
 // List the credit cards associated with the current user.
 func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (res *CardListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -51,7 +52,7 @@ func (r *CardService) List(ctx context.Context, opts ...option.RequestOption) (r
 
 // Delete a credit card associated with the current user.
 func (r *CardService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *CardDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -64,7 +65,7 @@ func (r *CardService) Delete(ctx context.Context, id string, opts ...option.Requ
 // Create a temporary URL for collecting credit card information for the current
 // user.
 func (r *CardService) Collect(ctx context.Context, opts ...option.RequestOption) (res *CardCollectResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "card/collect"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -72,7 +73,7 @@ func (r *CardService) Collect(ctx context.Context, opts ...option.RequestOption)
 
 // Get a credit card by ID associated with the current user.
 func (r *CardService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *CardGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

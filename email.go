@@ -5,6 +5,7 @@ package githubcomterminaldotshopterminalsdkgo
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -33,7 +34,7 @@ func NewEmailService(opts ...option.RequestOption) (r *EmailService) {
 
 // Subscribe to email updates from Terminal.
 func (r *EmailService) New(ctx context.Context, body EmailNewParams, opts ...option.RequestOption) (res *EmailNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "email"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

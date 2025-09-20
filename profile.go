@@ -5,6 +5,7 @@ package githubcomterminaldotshopterminalsdkgo
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -33,7 +34,7 @@ func NewProfileService(opts ...option.RequestOption) (r *ProfileService) {
 
 // Update the current user's profile.
 func (r *ProfileService) Update(ctx context.Context, body ProfileUpdateParams, opts ...option.RequestOption) (res *ProfileUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "profile"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
@@ -41,7 +42,7 @@ func (r *ProfileService) Update(ctx context.Context, body ProfileUpdateParams, o
 
 // Get the current user's profile.
 func (r *ProfileService) Me(ctx context.Context, opts ...option.RequestOption) (res *ProfileMeResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "profile"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
