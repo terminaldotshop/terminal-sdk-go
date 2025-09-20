@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -35,7 +36,7 @@ func NewOrderService(opts ...option.RequestOption) (r *OrderService) {
 
 // Create an order without a cart. The order will be placed immediately.
 func (r *OrderService) New(ctx context.Context, body OrderNewParams, opts ...option.RequestOption) (res *OrderNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "order"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -43,7 +44,7 @@ func (r *OrderService) New(ctx context.Context, body OrderNewParams, opts ...opt
 
 // List the orders associated with the current user.
 func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (res *OrderListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "order"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -51,7 +52,7 @@ func (r *OrderService) List(ctx context.Context, opts ...option.RequestOption) (
 
 // Get the order with the given ID.
 func (r *OrderService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *OrderGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewProductService(opts ...option.RequestOption) (r *ProductService) {
 
 // List all products for sale in the Terminal shop.
 func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption) (res *ProductListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "product"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *ProductService) List(ctx context.Context, opts ...option.RequestOption)
 
 // Get a product by ID from the Terminal shop.
 func (r *ProductService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *ProductGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
