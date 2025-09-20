@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewTokenService(opts ...option.RequestOption) (r *TokenService) {
 
 // Create a personal access token.
 func (r *TokenService) New(ctx context.Context, opts ...option.RequestOption) (res *TokenNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "token"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *TokenService) New(ctx context.Context, opts ...option.RequestOption) (r
 
 // List the current user's personal access tokens.
 func (r *TokenService) List(ctx context.Context, opts ...option.RequestOption) (res *TokenListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "token"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -50,7 +51,7 @@ func (r *TokenService) List(ctx context.Context, opts ...option.RequestOption) (
 
 // Delete the personal access token with the given ID.
 func (r *TokenService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TokenDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -62,7 +63,7 @@ func (r *TokenService) Delete(ctx context.Context, id string, opts ...option.Req
 
 // Get the personal access token with the given ID.
 func (r *TokenService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *TokenGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

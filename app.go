@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -35,7 +36,7 @@ func NewAppService(opts ...option.RequestOption) (r *AppService) {
 
 // Create an app.
 func (r *AppService) New(ctx context.Context, body AppNewParams, opts ...option.RequestOption) (res *AppNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "app"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -43,7 +44,7 @@ func (r *AppService) New(ctx context.Context, body AppNewParams, opts ...option.
 
 // List the current user's registered apps.
 func (r *AppService) List(ctx context.Context, opts ...option.RequestOption) (res *AppListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "app"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -51,7 +52,7 @@ func (r *AppService) List(ctx context.Context, opts ...option.RequestOption) (re
 
 // Delete the app with the given ID.
 func (r *AppService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *AppDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -63,7 +64,7 @@ func (r *AppService) Delete(ctx context.Context, id string, opts ...option.Reque
 
 // Get the app with the given ID.
 func (r *AppService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *AppGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return

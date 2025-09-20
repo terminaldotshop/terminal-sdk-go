@@ -5,6 +5,7 @@ package githubcomterminaldotshopterminalsdkgo
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/requestconfig"
@@ -33,7 +34,7 @@ func NewViewService(opts ...option.RequestOption) (r *ViewService) {
 // Get initial app data, including user, products, cart, addresses, cards,
 // subscriptions, and orders.
 func (r *ViewService) Init(ctx context.Context, opts ...option.RequestOption) (res *ViewInitResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "view/init"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

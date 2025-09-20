@@ -5,6 +5,7 @@ package githubcomterminaldotshopterminalsdkgo
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -33,7 +34,7 @@ func NewCartService(opts ...option.RequestOption) (r *CartService) {
 
 // Clear the current user's cart.
 func (r *CartService) Clear(ctx context.Context, opts ...option.RequestOption) (res *CartClearResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
@@ -41,7 +42,7 @@ func (r *CartService) Clear(ctx context.Context, opts ...option.RequestOption) (
 
 // Convert the current user's cart to an order.
 func (r *CartService) Convert(ctx context.Context, opts ...option.RequestOption) (res *CartConvertResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart/convert"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -49,7 +50,7 @@ func (r *CartService) Convert(ctx context.Context, opts ...option.RequestOption)
 
 // Get the current user's cart.
 func (r *CartService) Get(ctx context.Context, opts ...option.RequestOption) (res *CartGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -57,7 +58,7 @@ func (r *CartService) Get(ctx context.Context, opts ...option.RequestOption) (re
 
 // Set the shipping address for the current user's cart.
 func (r *CartService) SetAddress(ctx context.Context, body CartSetAddressParams, opts ...option.RequestOption) (res *CartSetAddressResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart/address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *CartService) SetAddress(ctx context.Context, body CartSetAddressParams,
 
 // Set the credit card for the current user's cart.
 func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts ...option.RequestOption) (res *CartSetCardResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart/card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
@@ -73,7 +74,7 @@ func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts 
 
 // Add an item to the current user's cart.
 func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts ...option.RequestOption) (res *CartSetItemResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "cart/item"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return

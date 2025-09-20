@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"slices"
 
 	"github.com/terminaldotshop/terminal-sdk-go/internal/apijson"
 	"github.com/terminaldotshop/terminal-sdk-go/internal/param"
@@ -37,7 +38,7 @@ func NewSubscriptionService(opts ...option.RequestOption) (r *SubscriptionServic
 
 // Create a subscription for the current user.
 func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParams, opts ...option.RequestOption) (res *SubscriptionNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *SubscriptionService) New(ctx context.Context, body SubscriptionNewParam
 
 // Update card, address, or interval for an existing subscription.
 func (r *SubscriptionService) Update(ctx context.Context, id string, body SubscriptionUpdateParams, opts ...option.RequestOption) (res *SubscriptionUpdateResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -57,7 +58,7 @@ func (r *SubscriptionService) Update(ctx context.Context, id string, body Subscr
 
 // List the subscriptions associated with the current user.
 func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *SubscriptionService) List(ctx context.Context, opts ...option.RequestOp
 
 // Cancel a subscription for the current user.
 func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *SubscriptionDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -77,7 +78,7 @@ func (r *SubscriptionService) Delete(ctx context.Context, id string, opts ...opt
 
 // Get the subscription with the given ID.
 func (r *SubscriptionService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *SubscriptionGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
