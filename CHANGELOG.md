@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.16.2 (2025-09-20)
+
+Full Changelog: [v1.16.1...v1.16.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.1...v1.16.2)
+
+### Bug Fixes
+
+* use slices.Concat instead of sometimes modifying r.Options ([8af3d92](https://github.com/terminaldotshop/terminal-sdk-go/commit/8af3d924954a9a32cbd2f41c7de6e64f85235417))
+
+
+### Chores
+
+* bump minimum go version to 1.22 ([0e47ece](https://github.com/terminaldotshop/terminal-sdk-go/commit/0e47ece88e577d0efbbeda7227e053b43162fc7b))
+* update more docs for 1.22 ([1cd7c33](https://github.com/terminaldotshop/terminal-sdk-go/commit/1cd7c331bafbe951b433fb56ba2055641214e2c3))
+
 ## 1.16.1 (2025-08-29)
 
 Full Changelog: [v1.16.0...v1.16.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.0...v1.16.1)
