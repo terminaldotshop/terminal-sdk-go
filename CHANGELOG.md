@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.16.3 (2025-09-26)
+
+Full Changelog: [v1.16.2...v1.16.3](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.2...v1.16.3)
+
+### Bug Fixes
+
+* bugfix for setting JSON keys with special characters ([b0cb703](https://github.com/terminaldotshop/terminal-sdk-go/commit/b0cb7034e3e291d7605014d8f420c38e13ea0fd1))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([6efb6b3](https://github.com/terminaldotshop/terminal-sdk-go/commit/6efb6b394381b0decb64714bb0d4482fdf1354ef))
+
 ## 1.16.2 (2025-09-20)
 
 Full Changelog: [v1.16.1...v1.16.2](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.1...v1.16.2)
