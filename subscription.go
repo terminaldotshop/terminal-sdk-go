@@ -491,7 +491,7 @@ func (r subscriptionGetResponseJSON) RawJSON() string {
 
 type SubscriptionNewParams struct {
 	// Subscription to a Terminal shop product.
-	Subscription SubscriptionParam `json:"subscription"`
+	Subscription SubscriptionParam `json:"subscription,required"`
 }
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {
