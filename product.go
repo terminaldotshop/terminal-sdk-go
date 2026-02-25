@@ -56,13 +56,13 @@ func (r *ProductService) Get(ctx context.Context, id string, opts ...option.Requ
 // Product sold in the Terminal shop.
 type Product struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Description of the product.
-	Description string `json:"description,required"`
+	Description string `json:"description" api:"required"`
 	// Name of the product.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// List of variants of the product.
-	Variants []ProductVariant `json:"variants,required"`
+	Variants []ProductVariant `json:"variants" api:"required"`
 	// Order of the product used when displaying a sorted list of products.
 	Order int64 `json:"order"`
 	// Whether the product must be or can be subscribed to.
@@ -146,11 +146,11 @@ func (r productTagsJSON) RawJSON() string {
 // Variant of a product in the Terminal shop.
 type ProductVariant struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Name of the product variant.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Price of the product variant in cents (USD).
-	Price int64 `json:"price,required"`
+	Price int64 `json:"price" api:"required"`
 	// Tags for the product variant.
 	Tags ProductVariantTags `json:"tags"`
 	JSON productVariantJSON `json:"-"`
@@ -204,7 +204,7 @@ func (r productVariantTagsJSON) RawJSON() string {
 
 type ProductListResponse struct {
 	// A list of products.
-	Data []Product               `json:"data,required"`
+	Data []Product               `json:"data" api:"required"`
 	JSON productListResponseJSON `json:"-"`
 }
 
@@ -226,7 +226,7 @@ func (r productListResponseJSON) RawJSON() string {
 
 type ProductGetResponse struct {
 	// Product sold in the Terminal shop.
-	Data Product                `json:"data,required"`
+	Data Product                `json:"data" api:"required"`
 	JSON productGetResponseJSON `json:"-"`
 }
 

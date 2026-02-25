@@ -51,7 +51,7 @@ func (r *ProfileService) Me(ctx context.Context, opts ...option.RequestOption) (
 // A Terminal shop user's profile. (We have users, btw.)
 type Profile struct {
 	// A Terminal shop user. (We have users, btw.)
-	User ProfileUser `json:"user,required"`
+	User ProfileUser `json:"user" api:"required"`
 	JSON profileJSON `json:"-"`
 }
 
@@ -73,15 +73,15 @@ func (r profileJSON) RawJSON() string {
 // A Terminal shop user. (We have users, btw.)
 type ProfileUser struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Email address of the user.
-	Email string `json:"email,required,nullable"`
+	Email string `json:"email" api:"required,nullable"`
 	// The user's fingerprint, derived from their public SSH key.
-	Fingerprint string `json:"fingerprint,required,nullable"`
+	Fingerprint string `json:"fingerprint" api:"required,nullable"`
 	// Name of the user.
-	Name string `json:"name,required,nullable"`
+	Name string `json:"name" api:"required,nullable"`
 	// Stripe customer ID of the user.
-	StripeCustomerID string          `json:"stripeCustomerID,required"`
+	StripeCustomerID string          `json:"stripeCustomerID" api:"required"`
 	JSON             profileUserJSON `json:"-"`
 }
 
@@ -106,7 +106,7 @@ func (r profileUserJSON) RawJSON() string {
 
 type ProfileUpdateResponse struct {
 	// A Terminal shop user's profile. (We have users, btw.)
-	Data Profile                   `json:"data,required"`
+	Data Profile                   `json:"data" api:"required"`
 	JSON profileUpdateResponseJSON `json:"-"`
 }
 
@@ -128,7 +128,7 @@ func (r profileUpdateResponseJSON) RawJSON() string {
 
 type ProfileMeResponse struct {
 	// A Terminal shop user's profile. (We have users, btw.)
-	Data Profile               `json:"data,required"`
+	Data Profile               `json:"data" api:"required"`
 	JSON profileMeResponseJSON `json:"-"`
 }
 
@@ -149,8 +149,8 @@ func (r profileMeResponseJSON) RawJSON() string {
 }
 
 type ProfileUpdateParams struct {
-	Email param.Field[string] `json:"email,required" format:"email"`
-	Name  param.Field[string] `json:"name,required"`
+	Email param.Field[string] `json:"email" api:"required" format:"email"`
+	Name  param.Field[string] `json:"name" api:"required"`
 }
 
 func (r ProfileUpdateParams) MarshalJSON() (data []byte, err error) {

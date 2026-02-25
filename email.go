@@ -41,7 +41,7 @@ func (r *EmailService) New(ctx context.Context, body EmailNewParams, opts ...opt
 }
 
 type EmailNewResponse struct {
-	Data EmailNewResponseData `json:"data,required"`
+	Data EmailNewResponseData `json:"data" api:"required"`
 	JSON emailNewResponseJSON `json:"-"`
 }
 
@@ -77,7 +77,7 @@ func (r EmailNewResponseData) IsKnown() bool {
 
 type EmailNewParams struct {
 	// Email address to subscribe to Terminal updates with.
-	Email param.Field[string] `json:"email,required" format:"email"`
+	Email param.Field[string] `json:"email" api:"required" format:"email"`
 }
 
 func (r EmailNewParams) MarshalJSON() (data []byte, err error) {

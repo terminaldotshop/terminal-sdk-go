@@ -91,19 +91,19 @@ func (r *SubscriptionService) Get(ctx context.Context, id string, opts ...option
 // Subscription to a Terminal shop product.
 type Subscription struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the shipping address used for the subscription.
-	AddressID string `json:"addressID,required"`
+	AddressID string `json:"addressID" api:"required"`
 	// ID of the card used for the subscription.
-	CardID string `json:"cardID,required"`
+	CardID string `json:"cardID" api:"required"`
 	// Date the subscription was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// Price of the subscription in cents (USD).
-	Price int64 `json:"price,required"`
+	Price int64 `json:"price" api:"required"`
 	// ID of the product variant being subscribed to.
-	ProductVariantID string `json:"productVariantID,required"`
+	ProductVariantID string `json:"productVariantID" api:"required"`
 	// Quantity of the subscription.
-	Quantity int64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity" api:"required"`
 	// Next shipment and billing date for the subscription.
 	Next string `json:"next"`
 	// Schedule of the subscription.
@@ -136,7 +136,7 @@ func (r subscriptionJSON) RawJSON() string {
 
 // Schedule of the subscription.
 type SubscriptionSchedule struct {
-	Type     SubscriptionScheduleType `json:"type,required"`
+	Type     SubscriptionScheduleType `json:"type" api:"required"`
 	Interval int64                    `json:"interval"`
 	JSON     subscriptionScheduleJSON `json:"-"`
 	union    SubscriptionScheduleUnion
@@ -196,7 +196,7 @@ func init() {
 }
 
 type SubscriptionScheduleFixed struct {
-	Type SubscriptionScheduleFixedType `json:"type,required"`
+	Type SubscriptionScheduleFixedType `json:"type" api:"required"`
 	JSON subscriptionScheduleFixedJSON `json:"-"`
 }
 
@@ -233,8 +233,8 @@ func (r SubscriptionScheduleFixedType) IsKnown() bool {
 }
 
 type SubscriptionScheduleWeekly struct {
-	Interval int64                          `json:"interval,required"`
-	Type     SubscriptionScheduleWeeklyType `json:"type,required"`
+	Interval int64                          `json:"interval" api:"required"`
+	Type     SubscriptionScheduleWeeklyType `json:"type" api:"required"`
 	JSON     subscriptionScheduleWeeklyJSON `json:"-"`
 }
 
@@ -289,19 +289,19 @@ func (r SubscriptionScheduleType) IsKnown() bool {
 // Subscription to a Terminal shop product.
 type SubscriptionParam struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID param.Field[string] `json:"id,required"`
+	ID param.Field[string] `json:"id" api:"required"`
 	// ID of the shipping address used for the subscription.
-	AddressID param.Field[string] `json:"addressID,required"`
+	AddressID param.Field[string] `json:"addressID" api:"required"`
 	// ID of the card used for the subscription.
-	CardID param.Field[string] `json:"cardID,required"`
+	CardID param.Field[string] `json:"cardID" api:"required"`
 	// Date the subscription was created.
-	Created param.Field[string] `json:"created,required"`
+	Created param.Field[string] `json:"created" api:"required"`
 	// Price of the subscription in cents (USD).
-	Price param.Field[int64] `json:"price,required"`
+	Price param.Field[int64] `json:"price" api:"required"`
 	// ID of the product variant being subscribed to.
-	ProductVariantID param.Field[string] `json:"productVariantID,required"`
+	ProductVariantID param.Field[string] `json:"productVariantID" api:"required"`
 	// Quantity of the subscription.
-	Quantity param.Field[int64] `json:"quantity,required"`
+	Quantity param.Field[int64] `json:"quantity" api:"required"`
 	// Next shipment and billing date for the subscription.
 	Next param.Field[string] `json:"next"`
 	// Schedule of the subscription.
@@ -314,7 +314,7 @@ func (r SubscriptionParam) MarshalJSON() (data []byte, err error) {
 
 // Schedule of the subscription.
 type SubscriptionScheduleParam struct {
-	Type     param.Field[SubscriptionScheduleType] `json:"type,required"`
+	Type     param.Field[SubscriptionScheduleType] `json:"type" api:"required"`
 	Interval param.Field[int64]                    `json:"interval"`
 }
 
@@ -333,7 +333,7 @@ type SubscriptionScheduleUnionParam interface {
 }
 
 type SubscriptionScheduleFixedParam struct {
-	Type param.Field[SubscriptionScheduleFixedType] `json:"type,required"`
+	Type param.Field[SubscriptionScheduleFixedType] `json:"type" api:"required"`
 }
 
 func (r SubscriptionScheduleFixedParam) MarshalJSON() (data []byte, err error) {
@@ -343,8 +343,8 @@ func (r SubscriptionScheduleFixedParam) MarshalJSON() (data []byte, err error) {
 func (r SubscriptionScheduleFixedParam) implementsSubscriptionScheduleUnionParam() {}
 
 type SubscriptionScheduleWeeklyParam struct {
-	Interval param.Field[int64]                          `json:"interval,required"`
-	Type     param.Field[SubscriptionScheduleWeeklyType] `json:"type,required"`
+	Interval param.Field[int64]                          `json:"interval" api:"required"`
+	Type     param.Field[SubscriptionScheduleWeeklyType] `json:"type" api:"required"`
 }
 
 func (r SubscriptionScheduleWeeklyParam) MarshalJSON() (data []byte, err error) {
@@ -354,7 +354,7 @@ func (r SubscriptionScheduleWeeklyParam) MarshalJSON() (data []byte, err error) 
 func (r SubscriptionScheduleWeeklyParam) implementsSubscriptionScheduleUnionParam() {}
 
 type SubscriptionNewResponse struct {
-	Data SubscriptionNewResponseData `json:"data,required"`
+	Data SubscriptionNewResponseData `json:"data" api:"required"`
 	JSON subscriptionNewResponseJSON `json:"-"`
 }
 
@@ -390,7 +390,7 @@ func (r SubscriptionNewResponseData) IsKnown() bool {
 
 type SubscriptionUpdateResponse struct {
 	// Subscription to a Terminal shop product.
-	Data Subscription                   `json:"data,required"`
+	Data Subscription                   `json:"data" api:"required"`
 	JSON subscriptionUpdateResponseJSON `json:"-"`
 }
 
@@ -412,7 +412,7 @@ func (r subscriptionUpdateResponseJSON) RawJSON() string {
 
 type SubscriptionListResponse struct {
 	// List of subscriptions.
-	Data []Subscription               `json:"data,required"`
+	Data []Subscription               `json:"data" api:"required"`
 	JSON subscriptionListResponseJSON `json:"-"`
 }
 
@@ -433,7 +433,7 @@ func (r subscriptionListResponseJSON) RawJSON() string {
 }
 
 type SubscriptionDeleteResponse struct {
-	Data SubscriptionDeleteResponseData `json:"data,required"`
+	Data SubscriptionDeleteResponseData `json:"data" api:"required"`
 	JSON subscriptionDeleteResponseJSON `json:"-"`
 }
 
@@ -469,7 +469,7 @@ func (r SubscriptionDeleteResponseData) IsKnown() bool {
 
 type SubscriptionGetResponse struct {
 	// Subscription to a Terminal shop product.
-	Data Subscription                `json:"data,required"`
+	Data Subscription                `json:"data" api:"required"`
 	JSON subscriptionGetResponseJSON `json:"-"`
 }
 
@@ -491,7 +491,7 @@ func (r subscriptionGetResponseJSON) RawJSON() string {
 
 type SubscriptionNewParams struct {
 	// Subscription to a Terminal shop product.
-	Subscription SubscriptionParam `json:"subscription,required"`
+	Subscription SubscriptionParam `json:"subscription" api:"required"`
 }
 
 func (r SubscriptionNewParams) MarshalJSON() (data []byte, err error) {
@@ -513,7 +513,7 @@ func (r SubscriptionUpdateParams) MarshalJSON() (data []byte, err error) {
 
 // New schedule for the subscription.
 type SubscriptionUpdateParamsSchedule struct {
-	Type     param.Field[SubscriptionUpdateParamsScheduleType] `json:"type,required"`
+	Type     param.Field[SubscriptionUpdateParamsScheduleType] `json:"type" api:"required"`
 	Interval param.Field[int64]                                `json:"interval"`
 }
 
@@ -532,7 +532,7 @@ type SubscriptionUpdateParamsScheduleUnion interface {
 }
 
 type SubscriptionUpdateParamsScheduleFixed struct {
-	Type param.Field[SubscriptionUpdateParamsScheduleFixedType] `json:"type,required"`
+	Type param.Field[SubscriptionUpdateParamsScheduleFixedType] `json:"type" api:"required"`
 }
 
 func (r SubscriptionUpdateParamsScheduleFixed) MarshalJSON() (data []byte, err error) {
@@ -556,8 +556,8 @@ func (r SubscriptionUpdateParamsScheduleFixedType) IsKnown() bool {
 }
 
 type SubscriptionUpdateParamsScheduleWeekly struct {
-	Interval param.Field[int64]                                      `json:"interval,required"`
-	Type     param.Field[SubscriptionUpdateParamsScheduleWeeklyType] `json:"type,required"`
+	Interval param.Field[int64]                                      `json:"interval" api:"required"`
+	Type     param.Field[SubscriptionUpdateParamsScheduleWeeklyType] `json:"type" api:"required"`
 }
 
 func (r SubscriptionUpdateParamsScheduleWeekly) MarshalJSON() (data []byte, err error) {

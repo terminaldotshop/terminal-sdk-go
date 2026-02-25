@@ -86,15 +86,15 @@ func (r *CardService) Get(ctx context.Context, id string, opts ...option.Request
 // Credit card used for payments in the Terminal shop.
 type Card struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Brand of the card.
-	Brand string `json:"brand,required"`
+	Brand string `json:"brand" api:"required"`
 	// Date the card was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// Expiration of the card.
-	Expiration CardExpiration `json:"expiration,required"`
+	Expiration CardExpiration `json:"expiration" api:"required"`
 	// Last four digits of the card.
-	Last4 string   `json:"last4,required"`
+	Last4 string   `json:"last4" api:"required"`
 	JSON  cardJSON `json:"-"`
 }
 
@@ -120,9 +120,9 @@ func (r cardJSON) RawJSON() string {
 // Expiration of the card.
 type CardExpiration struct {
 	// Expiration month of the card.
-	Month int64 `json:"month,required"`
+	Month int64 `json:"month" api:"required"`
 	// Expiration year of the card.
-	Year int64              `json:"year,required"`
+	Year int64              `json:"year" api:"required"`
 	JSON cardExpirationJSON `json:"-"`
 }
 
@@ -144,7 +144,7 @@ func (r cardExpirationJSON) RawJSON() string {
 
 type CardNewResponse struct {
 	// ID of the card.
-	Data string              `json:"data,required"`
+	Data string              `json:"data" api:"required"`
 	JSON cardNewResponseJSON `json:"-"`
 }
 
@@ -165,7 +165,7 @@ func (r cardNewResponseJSON) RawJSON() string {
 
 type CardListResponse struct {
 	// List of cards associated with the user.
-	Data []Card               `json:"data,required"`
+	Data []Card               `json:"data" api:"required"`
 	JSON cardListResponseJSON `json:"-"`
 }
 
@@ -186,7 +186,7 @@ func (r cardListResponseJSON) RawJSON() string {
 }
 
 type CardDeleteResponse struct {
-	Data CardDeleteResponseData `json:"data,required"`
+	Data CardDeleteResponseData `json:"data" api:"required"`
 	JSON cardDeleteResponseJSON `json:"-"`
 }
 
@@ -222,7 +222,7 @@ func (r CardDeleteResponseData) IsKnown() bool {
 
 type CardCollectResponse struct {
 	// URL for collecting card information.
-	Data CardCollectResponseData `json:"data,required"`
+	Data CardCollectResponseData `json:"data" api:"required"`
 	JSON cardCollectResponseJSON `json:"-"`
 }
 
@@ -246,7 +246,7 @@ func (r cardCollectResponseJSON) RawJSON() string {
 type CardCollectResponseData struct {
 	// Temporary URL that allows a user to enter credit card details over https at
 	// terminal.shop.
-	URL  string                      `json:"url,required" format:"uri"`
+	URL  string                      `json:"url" api:"required" format:"uri"`
 	JSON cardCollectResponseDataJSON `json:"-"`
 }
 
@@ -268,7 +268,7 @@ func (r cardCollectResponseDataJSON) RawJSON() string {
 
 type CardGetResponse struct {
 	// Credit card used for payments in the Terminal shop.
-	Data Card                `json:"data,required"`
+	Data Card                `json:"data" api:"required"`
 	JSON cardGetResponseJSON `json:"-"`
 }
 
@@ -290,7 +290,7 @@ func (r cardGetResponseJSON) RawJSON() string {
 type CardNewParams struct {
 	// Stripe card token. Learn how to
 	// [create one here](https://docs.stripe.com/api/tokens/create_card).
-	Token param.Field[string] `json:"token,required"`
+	Token param.Field[string] `json:"token" api:"required"`
 }
 
 func (r CardNewParams) MarshalJSON() (data []byte, err error) {
