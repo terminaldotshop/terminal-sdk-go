@@ -77,11 +77,11 @@ func (r *TokenService) Get(ctx context.Context, id string, opts ...option.Reques
 // expect large sums of coffee to be ordered on your credit card.
 type Token struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Personal access token (obfuscated).
-	Token string `json:"token,required"`
+	Token string `json:"token" api:"required"`
 	// The created time for the token.
-	Created string    `json:"created,required"`
+	Created string    `json:"created" api:"required"`
 	JSON    tokenJSON `json:"-"`
 }
 
@@ -103,7 +103,7 @@ func (r tokenJSON) RawJSON() string {
 }
 
 type TokenNewResponse struct {
-	Data TokenNewResponseData `json:"data,required"`
+	Data TokenNewResponseData `json:"data" api:"required"`
 	JSON tokenNewResponseJSON `json:"-"`
 }
 
@@ -125,10 +125,10 @@ func (r tokenNewResponseJSON) RawJSON() string {
 
 type TokenNewResponseData struct {
 	// Personal token ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Personal access token. Include this in the Authorization header
 	// (`Bearer <token>`) when accessing the Terminal API.
-	Token string                   `json:"token,required"`
+	Token string                   `json:"token" api:"required"`
 	JSON  tokenNewResponseDataJSON `json:"-"`
 }
 
@@ -151,7 +151,7 @@ func (r tokenNewResponseDataJSON) RawJSON() string {
 
 type TokenListResponse struct {
 	// List of personal access tokens.
-	Data []Token               `json:"data,required"`
+	Data []Token               `json:"data" api:"required"`
 	JSON tokenListResponseJSON `json:"-"`
 }
 
@@ -172,7 +172,7 @@ func (r tokenListResponseJSON) RawJSON() string {
 }
 
 type TokenDeleteResponse struct {
-	Data TokenDeleteResponseData `json:"data,required"`
+	Data TokenDeleteResponseData `json:"data" api:"required"`
 	JSON tokenDeleteResponseJSON `json:"-"`
 }
 
@@ -209,7 +209,7 @@ func (r TokenDeleteResponseData) IsKnown() bool {
 type TokenGetResponse struct {
 	// A personal access token used to access the Terminal API. If you leak this,
 	// expect large sums of coffee to be ordered on your credit card.
-	Data Token                `json:"data,required"`
+	Data Token                `json:"data" api:"required"`
 	JSON tokenGetResponseJSON `json:"-"`
 }
 

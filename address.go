@@ -77,19 +77,19 @@ func (r *AddressService) Get(ctx context.Context, id string, opts ...option.Requ
 // Physical address associated with a Terminal shop user.
 type Address struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// City of the address.
-	City string `json:"city,required"`
+	City string `json:"city" api:"required"`
 	// ISO 3166-1 alpha-2 country code of the address.
-	Country string `json:"country,required"`
+	Country string `json:"country" api:"required"`
 	// Date the address was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// The recipient's name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Street of the address.
-	Street1 string `json:"street1,required"`
+	Street1 string `json:"street1" api:"required"`
 	// Zip code of the address.
-	Zip string `json:"zip,required"`
+	Zip string `json:"zip" api:"required"`
 	// Phone number of the recipient.
 	Phone string `json:"phone"`
 	// Province or state of the address.
@@ -125,7 +125,7 @@ func (r addressJSON) RawJSON() string {
 
 type AddressNewResponse struct {
 	// Shipping address ID.
-	Data string                 `json:"data,required"`
+	Data string                 `json:"data" api:"required"`
 	JSON addressNewResponseJSON `json:"-"`
 }
 
@@ -147,7 +147,7 @@ func (r addressNewResponseJSON) RawJSON() string {
 
 type AddressListResponse struct {
 	// Shipping addresses.
-	Data []Address               `json:"data,required"`
+	Data []Address               `json:"data" api:"required"`
 	JSON addressListResponseJSON `json:"-"`
 }
 
@@ -168,7 +168,7 @@ func (r addressListResponseJSON) RawJSON() string {
 }
 
 type AddressDeleteResponse struct {
-	Data AddressDeleteResponseData `json:"data,required"`
+	Data AddressDeleteResponseData `json:"data" api:"required"`
 	JSON addressDeleteResponseJSON `json:"-"`
 }
 
@@ -204,7 +204,7 @@ func (r AddressDeleteResponseData) IsKnown() bool {
 
 type AddressGetResponse struct {
 	// Physical address associated with a Terminal shop user.
-	Data Address                `json:"data,required"`
+	Data Address                `json:"data" api:"required"`
 	JSON addressGetResponseJSON `json:"-"`
 }
 
@@ -226,15 +226,15 @@ func (r addressGetResponseJSON) RawJSON() string {
 
 type AddressNewParams struct {
 	// City of the address.
-	City param.Field[string] `json:"city,required"`
+	City param.Field[string] `json:"city" api:"required"`
 	// ISO 3166-1 alpha-2 country code of the address.
-	Country param.Field[string] `json:"country,required"`
+	Country param.Field[string] `json:"country" api:"required"`
 	// The recipient's name.
-	Name param.Field[string] `json:"name,required"`
+	Name param.Field[string] `json:"name" api:"required"`
 	// Street of the address.
-	Street1 param.Field[string] `json:"street1,required"`
+	Street1 param.Field[string] `json:"street1" api:"required"`
 	// Zip code of the address.
-	Zip param.Field[string] `json:"zip,required"`
+	Zip param.Field[string] `json:"zip" api:"required"`
 	// Phone number of the recipient.
 	Phone param.Field[string] `json:"phone"`
 	// Province or state of the address.

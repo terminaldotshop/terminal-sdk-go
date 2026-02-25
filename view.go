@@ -59,7 +59,7 @@ func (r Region) IsKnown() bool {
 
 type ViewInitResponse struct {
 	// Initial app data.
-	Data ViewInitResponseData `json:"data,required"`
+	Data ViewInitResponseData `json:"data" api:"required"`
 	JSON viewInitResponseJSON `json:"-"`
 }
 
@@ -81,19 +81,19 @@ func (r viewInitResponseJSON) RawJSON() string {
 
 // Initial app data.
 type ViewInitResponseData struct {
-	Addresses []Address `json:"addresses,required"`
-	Apps      []App     `json:"apps,required"`
-	Cards     []Card    `json:"cards,required"`
+	Addresses []Address `json:"addresses" api:"required"`
+	Apps      []App     `json:"apps" api:"required"`
+	Cards     []Card    `json:"cards" api:"required"`
 	// The current Terminal shop user's cart.
-	Cart     Cart      `json:"cart,required"`
-	Orders   []Order   `json:"orders,required"`
-	Products []Product `json:"products,required"`
+	Cart     Cart      `json:"cart" api:"required"`
+	Orders   []Order   `json:"orders" api:"required"`
+	Products []Product `json:"products" api:"required"`
 	// A Terminal shop user's profile. (We have users, btw.)
-	Profile Profile `json:"profile,required"`
+	Profile Profile `json:"profile" api:"required"`
 	// A Terminal shop user's region.
-	Region        Region                   `json:"region,required"`
-	Subscriptions []Subscription           `json:"subscriptions,required"`
-	Tokens        []Token                  `json:"tokens,required"`
+	Region        Region                   `json:"region" api:"required"`
+	Subscriptions []Subscription           `json:"subscriptions" api:"required"`
+	Tokens        []Token                  `json:"tokens" api:"required"`
 	JSON          viewInitResponseDataJSON `json:"-"`
 }
 

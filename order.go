@@ -65,17 +65,17 @@ func (r *OrderService) Get(ctx context.Context, id string, opts ...option.Reques
 // An order from the Terminal shop.
 type Order struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// The subtotal and shipping amounts of the order.
-	Amount OrderAmount `json:"amount,required"`
+	Amount OrderAmount `json:"amount" api:"required"`
 	// Date the order was created.
-	Created string `json:"created,required"`
+	Created string `json:"created" api:"required"`
 	// Items in the order.
-	Items []OrderItem `json:"items,required"`
+	Items []OrderItem `json:"items" api:"required"`
 	// Shipping address of the order.
-	Shipping OrderShipping `json:"shipping,required"`
+	Shipping OrderShipping `json:"shipping" api:"required"`
 	// Tracking information of the order.
-	Tracking OrderTracking `json:"tracking,required"`
+	Tracking OrderTracking `json:"tracking" api:"required"`
 	// Zero-based index of the order for this user only.
 	Index int64     `json:"index"`
 	JSON  orderJSON `json:"-"`
@@ -105,9 +105,9 @@ func (r orderJSON) RawJSON() string {
 // The subtotal and shipping amounts of the order.
 type OrderAmount struct {
 	// Shipping amount of the order, in cents (USD).
-	Shipping int64 `json:"shipping,required"`
+	Shipping int64 `json:"shipping" api:"required"`
 	// Subtotal amount of the order, in cents (USD).
-	Subtotal int64           `json:"subtotal,required"`
+	Subtotal int64           `json:"subtotal" api:"required"`
 	JSON     orderAmountJSON `json:"-"`
 }
 
@@ -129,11 +129,11 @@ func (r orderAmountJSON) RawJSON() string {
 
 type OrderItem struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Amount of the item in the order, in cents (USD).
-	Amount int64 `json:"amount,required"`
+	Amount int64 `json:"amount" api:"required"`
 	// Quantity of the item in the order.
-	Quantity int64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity" api:"required"`
 	// Description of the item in the order.
 	Description string `json:"description"`
 	// ID of the product variant of the item in the order.
@@ -163,15 +163,15 @@ func (r orderItemJSON) RawJSON() string {
 // Shipping address of the order.
 type OrderShipping struct {
 	// City of the address.
-	City string `json:"city,required"`
+	City string `json:"city" api:"required"`
 	// ISO 3166-1 alpha-2 country code of the address.
-	Country string `json:"country,required"`
+	Country string `json:"country" api:"required"`
 	// The recipient's name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Street of the address.
-	Street1 string `json:"street1,required"`
+	Street1 string `json:"street1" api:"required"`
 	// Zip code of the address.
-	Zip string `json:"zip,required"`
+	Zip string `json:"zip" api:"required"`
 	// Phone number of the recipient.
 	Phone string `json:"phone"`
 	// Province or state of the address.
@@ -262,7 +262,7 @@ func (r OrderTrackingStatus) IsKnown() bool {
 
 type OrderNewResponse struct {
 	// Order ID.
-	Data string               `json:"data,required"`
+	Data string               `json:"data" api:"required"`
 	JSON orderNewResponseJSON `json:"-"`
 }
 
@@ -284,7 +284,7 @@ func (r orderNewResponseJSON) RawJSON() string {
 
 type OrderListResponse struct {
 	// List of orders.
-	Data []Order               `json:"data,required"`
+	Data []Order               `json:"data" api:"required"`
 	JSON orderListResponseJSON `json:"-"`
 }
 
@@ -306,7 +306,7 @@ func (r orderListResponseJSON) RawJSON() string {
 
 type OrderGetResponse struct {
 	// An order from the Terminal shop.
-	Data Order                `json:"data,required"`
+	Data Order                `json:"data" api:"required"`
 	JSON orderGetResponseJSON `json:"-"`
 }
 
@@ -328,11 +328,11 @@ func (r orderGetResponseJSON) RawJSON() string {
 
 type OrderNewParams struct {
 	// Shipping address ID.
-	AddressID param.Field[string] `json:"addressID,required"`
+	AddressID param.Field[string] `json:"addressID" api:"required"`
 	// Card ID.
-	CardID param.Field[string] `json:"cardID,required"`
+	CardID param.Field[string] `json:"cardID" api:"required"`
 	// Product variants to include in the order, along with their quantities.
-	Variants param.Field[map[string]int64] `json:"variants,required"`
+	Variants param.Field[map[string]int64] `json:"variants" api:"required"`
 }
 
 func (r OrderNewParams) MarshalJSON() (data []byte, err error) {

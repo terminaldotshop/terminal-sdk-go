@@ -77,13 +77,13 @@ func (r *AppService) Get(ctx context.Context, id string, opts ...option.RequestO
 // A Terminal App used for configuring an OAuth 2.0 client.
 type App struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Name of the app.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Redirect URI of the app.
-	RedirectUri string `json:"redirectURI,required"`
+	RedirectUri string `json:"redirectURI" api:"required"`
 	// OAuth 2.0 client secret of the app (obfuscated).
-	Secret string  `json:"secret,required"`
+	Secret string  `json:"secret" api:"required"`
 	JSON   appJSON `json:"-"`
 }
 
@@ -106,7 +106,7 @@ func (r appJSON) RawJSON() string {
 }
 
 type AppNewResponse struct {
-	Data AppNewResponseData `json:"data,required"`
+	Data AppNewResponseData `json:"data" api:"required"`
 	JSON appNewResponseJSON `json:"-"`
 }
 
@@ -127,9 +127,9 @@ func (r appNewResponseJSON) RawJSON() string {
 
 type AppNewResponseData struct {
 	// OAuth 2.0 client ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// OAuth 2.0 client secret.
-	Secret string                 `json:"secret,required"`
+	Secret string                 `json:"secret" api:"required"`
 	JSON   appNewResponseDataJSON `json:"-"`
 }
 
@@ -152,7 +152,7 @@ func (r appNewResponseDataJSON) RawJSON() string {
 
 type AppListResponse struct {
 	// List of apps.
-	Data []App               `json:"data,required"`
+	Data []App               `json:"data" api:"required"`
 	JSON appListResponseJSON `json:"-"`
 }
 
@@ -172,7 +172,7 @@ func (r appListResponseJSON) RawJSON() string {
 }
 
 type AppDeleteResponse struct {
-	Data AppDeleteResponseData `json:"data,required"`
+	Data AppDeleteResponseData `json:"data" api:"required"`
 	JSON appDeleteResponseJSON `json:"-"`
 }
 
@@ -208,7 +208,7 @@ func (r AppDeleteResponseData) IsKnown() bool {
 
 type AppGetResponse struct {
 	// A Terminal App used for configuring an OAuth 2.0 client.
-	Data App                `json:"data,required"`
+	Data App                `json:"data" api:"required"`
 	JSON appGetResponseJSON `json:"-"`
 }
 
@@ -228,8 +228,8 @@ func (r appGetResponseJSON) RawJSON() string {
 }
 
 type AppNewParams struct {
-	Name        param.Field[string] `json:"name,required"`
-	RedirectUri param.Field[string] `json:"redirectURI,required"`
+	Name        param.Field[string] `json:"name" api:"required"`
+	RedirectUri param.Field[string] `json:"redirectURI" api:"required"`
 }
 
 func (r AppNewParams) MarshalJSON() (data []byte, err error) {
