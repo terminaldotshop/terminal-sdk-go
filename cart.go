@@ -83,11 +83,11 @@ func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts 
 // The current Terminal shop user's cart.
 type Cart struct {
 	// The subtotal and shipping amounts for the current user's cart.
-	Amount CartAmount `json:"amount,required"`
+	Amount CartAmount `json:"amount" api:"required"`
 	// An array of items in the current user's cart.
-	Items []CartItem `json:"items,required"`
+	Items []CartItem `json:"items" api:"required"`
 	// The subtotal of all items in the current user's cart, in cents (USD).
-	Subtotal int64 `json:"subtotal,required"`
+	Subtotal int64 `json:"subtotal" api:"required"`
 	// ID of the shipping address selected on the current user's cart.
 	AddressID string `json:"addressID"`
 	// ID of the card selected on the current user's cart.
@@ -120,7 +120,7 @@ func (r cartJSON) RawJSON() string {
 // The subtotal and shipping amounts for the current user's cart.
 type CartAmount struct {
 	// Subtotal of the current user's cart, in cents (USD).
-	Subtotal int64 `json:"subtotal,required"`
+	Subtotal int64 `json:"subtotal" api:"required"`
 	// Shipping amount of the current user's cart, in cents (USD).
 	Shipping int64 `json:"shipping"`
 	// Total amount after any discounts, in cents (USD).
@@ -148,13 +148,13 @@ func (r cartAmountJSON) RawJSON() string {
 // An item in the current Terminal shop user's cart.
 type CartItem struct {
 	// Unique object identifier. The format and length of IDs may change over time.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the product variant for this item in the current user's cart.
-	ProductVariantID string `json:"productVariantID,required"`
+	ProductVariantID string `json:"productVariantID" api:"required"`
 	// Quantity of the item in the current user's cart.
-	Quantity int64 `json:"quantity,required"`
+	Quantity int64 `json:"quantity" api:"required"`
 	// Subtotal of the item in the current user's cart, in cents (USD).
-	Subtotal int64        `json:"subtotal,required"`
+	Subtotal int64        `json:"subtotal" api:"required"`
 	JSON     cartItemJSON `json:"-"`
 }
 
@@ -202,7 +202,7 @@ func (r cartShippingJSON) RawJSON() string {
 }
 
 type CartClearResponse struct {
-	Data CartClearResponseData `json:"data,required"`
+	Data CartClearResponseData `json:"data" api:"required"`
 	JSON cartClearResponseJSON `json:"-"`
 }
 
@@ -238,7 +238,7 @@ func (r CartClearResponseData) IsKnown() bool {
 
 type CartConvertResponse struct {
 	// An order from the Terminal shop.
-	Data Order                   `json:"data,required"`
+	Data Order                   `json:"data" api:"required"`
 	JSON cartConvertResponseJSON `json:"-"`
 }
 
@@ -260,7 +260,7 @@ func (r cartConvertResponseJSON) RawJSON() string {
 
 type CartGetResponse struct {
 	// The current Terminal shop user's cart.
-	Data Cart                `json:"data,required"`
+	Data Cart                `json:"data" api:"required"`
 	JSON cartGetResponseJSON `json:"-"`
 }
 
@@ -280,7 +280,7 @@ func (r cartGetResponseJSON) RawJSON() string {
 }
 
 type CartSetAddressResponse struct {
-	Data CartSetAddressResponseData `json:"data,required"`
+	Data CartSetAddressResponseData `json:"data" api:"required"`
 	JSON cartSetAddressResponseJSON `json:"-"`
 }
 
@@ -315,7 +315,7 @@ func (r CartSetAddressResponseData) IsKnown() bool {
 }
 
 type CartSetCardResponse struct {
-	Data CartSetCardResponseData `json:"data,required"`
+	Data CartSetCardResponseData `json:"data" api:"required"`
 	JSON cartSetCardResponseJSON `json:"-"`
 }
 
@@ -351,7 +351,7 @@ func (r CartSetCardResponseData) IsKnown() bool {
 
 type CartSetItemResponse struct {
 	// The current Terminal shop user's cart.
-	Data Cart                    `json:"data,required"`
+	Data Cart                    `json:"data" api:"required"`
 	JSON cartSetItemResponseJSON `json:"-"`
 }
 
@@ -373,7 +373,7 @@ func (r cartSetItemResponseJSON) RawJSON() string {
 
 type CartSetAddressParams struct {
 	// ID of the shipping address to set for the current user's cart.
-	AddressID param.Field[string] `json:"addressID,required"`
+	AddressID param.Field[string] `json:"addressID" api:"required"`
 }
 
 func (r CartSetAddressParams) MarshalJSON() (data []byte, err error) {
@@ -382,7 +382,7 @@ func (r CartSetAddressParams) MarshalJSON() (data []byte, err error) {
 
 type CartSetCardParams struct {
 	// ID of the credit card to set for the current user's cart.
-	CardID param.Field[string] `json:"cardID,required"`
+	CardID param.Field[string] `json:"cardID" api:"required"`
 }
 
 func (r CartSetCardParams) MarshalJSON() (data []byte, err error) {
@@ -391,9 +391,9 @@ func (r CartSetCardParams) MarshalJSON() (data []byte, err error) {
 
 type CartSetItemParams struct {
 	// ID of the product variant to add to the cart.
-	ProductVariantID param.Field[string] `json:"productVariantID,required"`
+	ProductVariantID param.Field[string] `json:"productVariantID" api:"required"`
 	// Quantity of the item to add to the cart.
-	Quantity param.Field[int64] `json:"quantity,required"`
+	Quantity param.Field[int64] `json:"quantity" api:"required"`
 }
 
 func (r CartSetItemParams) MarshalJSON() (data []byte, err error) {
