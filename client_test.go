@@ -38,7 +38,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Product.List(context.Background())
+	_, _ = client.Product.List(context.Background())
 	if userAgent != fmt.Sprintf("Terminal/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
 	}

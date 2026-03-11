@@ -37,7 +37,7 @@ func (r *ViewService) Init(ctx context.Context, opts ...option.RequestOption) (r
 	opts = slices.Concat(r.Options, opts)
 	path := "view/init"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A Terminal shop user's region.

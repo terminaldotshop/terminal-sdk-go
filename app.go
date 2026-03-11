@@ -39,7 +39,7 @@ func (r *AppService) New(ctx context.Context, body AppNewParams, opts ...option.
 	opts = slices.Concat(r.Options, opts)
 	path := "app"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List the current user's registered apps.
@@ -47,7 +47,7 @@ func (r *AppService) List(ctx context.Context, opts ...option.RequestOption) (re
 	opts = slices.Concat(r.Options, opts)
 	path := "app"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete the app with the given ID.
@@ -55,11 +55,11 @@ func (r *AppService) Delete(ctx context.Context, id string, opts ...option.Reque
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("app/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get the app with the given ID.
@@ -67,11 +67,11 @@ func (r *AppService) Get(ctx context.Context, id string, opts ...option.RequestO
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("app/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A Terminal App used for configuring an OAuth 2.0 client.

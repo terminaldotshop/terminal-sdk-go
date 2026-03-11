@@ -94,10 +94,10 @@ func (e *encoder) newTypeEncoder(t reflect.Type) encoderFunc {
 		encoder := e.typeEncoder(t.Elem())
 		return func(key string, value reflect.Value) (pairs []Pair) {
 			if !value.IsValid() || value.IsNil() {
-				return
+				return pairs
 			}
 			pairs = encoder(key, value.Elem())
-			return
+			return pairs
 		}
 	case reflect.Struct:
 		return e.newStructTypeEncoder(t)
@@ -175,7 +175,7 @@ func (e *encoder) newStructTypeEncoder(t reflect.Type) encoderFunc {
 			field := value.FieldByIndex(ef.idx)
 			pairs = append(pairs, ef.fn(subkey, field)...)
 		}
-		return
+		return pairs
 	}
 }
 
@@ -193,7 +193,7 @@ func (e *encoder) newMapEncoder(t reflect.Type) encoderFunc {
 			keyPath := e.renderKeyPath(key, subkey)
 			pairs = append(pairs, elementEncoder(keyPath, iter.Value())...)
 		}
-		return
+		return pairs
 	}
 }
 
