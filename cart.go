@@ -37,7 +37,7 @@ func (r *CartService) Clear(ctx context.Context, opts ...option.RequestOption) (
 	opts = slices.Concat(r.Options, opts)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Convert the current user's cart to an order.
@@ -45,7 +45,7 @@ func (r *CartService) Convert(ctx context.Context, opts ...option.RequestOption)
 	opts = slices.Concat(r.Options, opts)
 	path := "cart/convert"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get the current user's cart.
@@ -53,7 +53,7 @@ func (r *CartService) Get(ctx context.Context, opts ...option.RequestOption) (re
 	opts = slices.Concat(r.Options, opts)
 	path := "cart"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Set the shipping address for the current user's cart.
@@ -61,7 +61,7 @@ func (r *CartService) SetAddress(ctx context.Context, body CartSetAddressParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "cart/address"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Set the credit card for the current user's cart.
@@ -69,7 +69,7 @@ func (r *CartService) SetCard(ctx context.Context, body CartSetCardParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "cart/card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Add an item to the current user's cart.
@@ -77,7 +77,7 @@ func (r *CartService) SetItem(ctx context.Context, body CartSetItemParams, opts 
 	opts = slices.Concat(r.Options, opts)
 	path := "cart/item"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // The current Terminal shop user's cart.

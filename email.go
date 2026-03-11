@@ -37,7 +37,7 @@ func (r *EmailService) New(ctx context.Context, body EmailNewParams, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	path := "email"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 type EmailNewResponse struct {

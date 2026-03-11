@@ -37,7 +37,7 @@ func (r *ProfileService) Update(ctx context.Context, body ProfileUpdateParams, o
 	opts = slices.Concat(r.Options, opts)
 	path := "profile"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get the current user's profile.
@@ -45,7 +45,7 @@ func (r *ProfileService) Me(ctx context.Context, opts ...option.RequestOption) (
 	opts = slices.Concat(r.Options, opts)
 	path := "profile"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // A Terminal shop user's profile. (We have users, btw.)
