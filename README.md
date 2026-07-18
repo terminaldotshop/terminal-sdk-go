@@ -33,7 +33,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/terminaldotshop/terminal-sdk-go@v1.16.3'
+go get -u 'github.com/terminaldotshop/terminal-sdk-go@v1.17.0'
 ```
 
 <!-- x-release-please-end -->
