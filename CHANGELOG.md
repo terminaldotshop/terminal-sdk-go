@@ -1,5 +1,42 @@
 # Changelog
 
+## 1.17.0 (2026-07-18)
+
+Full Changelog: [v1.16.3...v1.17.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.3...v1.17.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([197fcb9](https://github.com/terminaldotshop/terminal-sdk-go/commit/197fcb9eca31361cc8fc309a5fc25c1151603eba))
+
+
+### Chores
+
+* **internal:** codegen related update ([7bc398d](https://github.com/terminaldotshop/terminal-sdk-go/commit/7bc398d714fd44f5697283a118b7aa6064cf7adb))
+* **internal:** codegen related update ([9897aa7](https://github.com/terminaldotshop/terminal-sdk-go/commit/9897aa7cd36cc7d9e9ba35c844c5edaa4ac19373))
+* **internal:** codegen related update ([b51060e](https://github.com/terminaldotshop/terminal-sdk-go/commit/b51060e6fb89dcd1fdc737584baa57921f5539c9))
+* **internal:** codegen related update ([56074c7](https://github.com/terminaldotshop/terminal-sdk-go/commit/56074c73fa8633f182824982b92fbe4e18edc44a))
+* **internal:** codegen related update ([f8a0655](https://github.com/terminaldotshop/terminal-sdk-go/commit/f8a0655fa298b7691154cf890592f4a0c71b5a18))
+* **internal:** codegen related update ([8872595](https://github.com/terminaldotshop/terminal-sdk-go/commit/8872595a7f3a56695bbb9f22cc7f8b56e41a4c69))
+* **internal:** codegen related update ([6841074](https://github.com/terminaldotshop/terminal-sdk-go/commit/6841074d2227d6cb63bec092368e315fbb8ac601))
+* **internal:** codegen related update ([0a93bd3](https://github.com/terminaldotshop/terminal-sdk-go/commit/0a93bd382af40e985a78ee2a7f1f6e0e2645e22b))
+* **internal:** codegen related update ([a977d7b](https://github.com/terminaldotshop/terminal-sdk-go/commit/a977d7be3a26476b5ba10181bc8837bff7292bdc))
+* **internal:** codegen related update ([98bd70b](https://github.com/terminaldotshop/terminal-sdk-go/commit/98bd70b35e0e7412d4a668bf21fc270715eed301))
+* **internal:** codegen related update ([865439d](https://github.com/terminaldotshop/terminal-sdk-go/commit/865439d1ccf1b95173f1b069b37fd9af7e716413))
+* **internal:** codegen related update ([dfc54a0](https://github.com/terminaldotshop/terminal-sdk-go/commit/dfc54a0329e9888a6658e1e261fc97f9e2d5b01e))
+* **internal:** codegen related update ([37f4e29](https://github.com/terminaldotshop/terminal-sdk-go/commit/37f4e29fd58294c86b00c210a226866a783cad29))
+* **internal:** codegen related update ([e18c231](https://github.com/terminaldotshop/terminal-sdk-go/commit/e18c2316902050ebf3bce3343d42e95654e2e55a))
+* **internal:** codegen related update ([4f9de83](https://github.com/terminaldotshop/terminal-sdk-go/commit/4f9de83755eef6febceb32f0100c272ffc3ee985))
+* **internal:** codegen related update ([f169220](https://github.com/terminaldotshop/terminal-sdk-go/commit/f169220764df98faedf29a4c688a4c4fd3272992))
+* **internal:** codegen related update ([9d129eb](https://github.com/terminaldotshop/terminal-sdk-go/commit/9d129ebb5677d41c8618ad2d1228c9d2e86e88ac))
+* **internal:** codegen related update ([79c6d44](https://github.com/terminaldotshop/terminal-sdk-go/commit/79c6d44a6337704f1243d7f229d470555f6774ad))
+* **internal:** codegen related update ([5512d19](https://github.com/terminaldotshop/terminal-sdk-go/commit/5512d19fe05b17b1fe4f0987546bb544abf33592))
+* **internal:** codegen related update ([318a76f](https://github.com/terminaldotshop/terminal-sdk-go/commit/318a76f06edcd788c994d41b9882825dccd6a571))
+* **internal:** codegen related update ([8af57de](https://github.com/terminaldotshop/terminal-sdk-go/commit/8af57de579a8e87d51c8e75fd95f40cd34cad35e))
+* **internal:** codegen related update ([6bb55f2](https://github.com/terminaldotshop/terminal-sdk-go/commit/6bb55f213ea9d29c649cc70f2a39d98f163d5a12))
+* **internal:** codegen related update ([d58fb95](https://github.com/terminaldotshop/terminal-sdk-go/commit/d58fb95d4dffac2fdea0a510d644695eb49348e7))
+* **internal:** codegen related update ([010b784](https://github.com/terminaldotshop/terminal-sdk-go/commit/010b7844eb67c52e0d0c41d95189f7434209bc07))
+* **internal:** codegen related update ([e89e799](https://github.com/terminaldotshop/terminal-sdk-go/commit/e89e79948bfe9f3ff01e6bbc06f44ada6944c55b))
+
 ## 1.16.3 (2025-09-26)
 
 Full Changelog: [v1.16.2...v1.16.3](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.2...v1.16.3)
