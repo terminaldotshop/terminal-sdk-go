@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.17.1 (2026-08-20)
+
+Full Changelog: [v1.17.0...v1.17.1](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.17.0...v1.17.1)
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([54ebba9](https://github.com/terminaldotshop/terminal-sdk-go/commit/54ebba9199f89701174961dabef36be5e8f7512a))
+
 ## 1.17.0 (2026-07-18)
 
 Full Changelog: [v1.16.3...v1.17.0](https://github.com/terminaldotshop/terminal-sdk-go/compare/v1.16.3...v1.17.0)
